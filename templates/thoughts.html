@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Thoughts — Astha Purohit</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Mono:wght@300;400&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+
+    <nav class="navbar">
+        <div class="logo">AP</div>
+        <div class="nav-links">
+            <a href="/">Home</a>
+            <span class="nav-active">Thoughts</span>
+        </div>
+    </nav>
+
+    <section class="thoughts-hero">
+        <div class="thoughts-hero-left">
+            <p class="thoughts-eyebrow">Writing</p>
+            <h1 class="thoughts-title">Thoughts</h1>
+            <p class="thoughts-intro">
+                I read literature and write about what it reveals —
+                patterns in behavior, the logic hidden in everyday life,
+                and occasionally, how systems shape the people inside them.
+            </p>
+            <p class="thoughts-intro">
+                One technical piece on behavioral economics is in the works.
+            </p>
+        </div>
+        <div class="thoughts-hero-right">
+            <p class="substack-label">Join me on Substack</p>
+            <a href="https://substack.com/@asthadiaries" target="_blank" class="substack-card">
+                <div class="substack-card-inner">
+                    <span class="substack-name">Astha Diaries</span>
+                    <span class="substack-sub">substack.com/@asthadiaries</span>
+                </div>
+                <span class="substack-arrow">↗</span>
+            </a>
+        </div>
+    </section>
+
+    <section class="thoughts-list">
+
+        <!-- UPCOMING technical post teaser -->
+        <div class="thought-item thought-upcoming">
+            <div class="thought-meta">
+                <span class="thought-tag tag-upcoming">Coming soon</span>
+                <span class="thought-date">2026</span>
+            </div>
+            <h4 class="thought-title-text">Why people don't do what they intend to — a behavioral lens</h4>
+            <p class="thought-desc">
+                A technical deep-dive into the intention-action gap: what behavioral economics,
+                loss aversion, and present bias tell us about why good products still fail users.
+            </p>
+        </div>
+
+        <a href="https://asthapurohit.substack.com/p/from-hopelessness-to-gratitude-or" target="_blank" class="thought-item">
+            <div class="thought-meta">
+                <span class="thought-tag tag-essay">Essay</span>
+                <span class="thought-date">Jan 2026</span>
+            </div>
+            <h4 class="thought-title-text">from hoplessness to gratitude or something close?</h4>
+            <p class="thought-desc">A reflection on losing yourself and finding your way back—realizing that healing isn't about extinguishing the fire, but learning how to carry it.</p>
+            <span class="thought-read">Read →</span>
+        </a>
+
+        <a href="https://asthapurohit.substack.com/p/i-stopped-praying-nothing-stopped" target="_blank" class="thought-item">
+            <div class="thought-meta">
+                <span class="thought-tag tag-essay">Essay</span>
+                <span class="thought-date">Dec 2025</span>
+            </div>
+            <h4 class="thought-title-text">I stopped praying. Nothing stopped watching</h4>
+            <p class="thought-desc">I stopped praying for a month. I didn't find answers—but I couldn't deny what stayed.</p>
+            <span class="thought-read">Read →</span>
+        </a>
+
+    </section>
+
+</body>
+</html>
