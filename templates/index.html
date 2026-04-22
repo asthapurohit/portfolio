@@ -1,0 +1,459 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Astha Purohit — Product Manager</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Mono:wght@300;400&family=Lato:ital,wght@0,300;0,400;1,300&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+
+    <nav class="navbar">
+        <div class="logo">AP</div>
+        <div class="nav-links">
+            <a href="#work">Work</a>
+            <a href="#about">About</a>
+            <a href="/thoughts">Thoughts</a>
+            <a href="{{ url_for('static', filename='AsthaPurohit_Resume.pdf') }}" target="_blank" class="nav-resume">Resume ↗</a>
+        </div>
+    </nav>
+
+    <!-- HERO -->
+    <section class="hero fade-up">
+        <div class="hero-content">
+            <div class="hero-eyebrow">CS Student · Aspiring PM · Behavior-first</div>
+            <h1>Astha <em>Purohit</em></h1>
+            <h2>Product thinker. Behavior-first.</h2>
+            <div class="hero-hr"></div>
+            <p>
+                I find the gap between what users do and what products assume, then close it.
+                CS student focused on behavioral research, product strategy, and building things people actually use.
+            </p>
+            
+            <div class="quote-slider">
+                <div class="quote-track">
+                    <div class="quote-slide active">
+                        <p class="quote-text">"The best products don't add features. They remove friction."</p>
+                        <span class="quote-source">— Product principle</span>
+                    </div>
+                    <div class="quote-slide">
+                        <p class="quote-text">"People don't want to do what's good for them. They want to do what feels right now."</p>
+                        <span class="quote-source">— Daniel Kahneman</span>
+                    </div>
+                    <div class="quote-slide">
+                        <p class="quote-text">"A small daily task, if it be really daily, will beat the labours of a spasmodic Hercules."</p>
+                        <span class="quote-source">— Anthony Trollope</span>
+                    </div>
+                    <div class="quote-slide">
+                        <p class="quote-text">"You don't rise to the level of your goals. You fall to the level of your systems."</p>
+                        <span class="quote-source">— James Clear</span>
+                    </div>
+                    <div class="quote-slide">
+                        <p class="quote-text">"Behavior is a mirror in which everyone shows their image."</p>
+                        <span class="quote-source">— Goethe</span>
+                    </div>
+                </div>
+            </div>
+            <div class="quote-dots">
+                <span class="dot active"></span>
+                <span class="dot"></span>
+                <span class="dot"></span>
+                <span class="dot"></span>
+                <span class="dot"></span>
+            </div>
+        </div>
+    </section>
+
+    <!-- PROJECTS -->
+    <section class="projects fade-up fade-up-delay-2" id="work">
+        <h3>Work</h3>
+        <p class="deck-hint">Each project below reflects a real product problem I chose to work on.</p>
+
+        <div class="deck-wrapper">
+
+            <!-- CARD 0: HDFC MF FAQ CHATBOT -->
+            <div class="deck-card" data-index="0">
+                <div id="overview-0">
+                    <div class="card-face">
+                        <div class="card-top">
+                            <h4>HDFC MF FAQ Chatbot</h4>
+                            <span class="badge badge-live">Live</span>
+                        </div>
+                        <p class="card-desc">
+                            A RAG-powered chatbot that answers questions about 
+                            HDFC Mutual Fund products using retrieval-augmented 
+                            generation. Built to make dense financial documents 
+                            conversational and accessible.
+                        </p>
+                        <p class="pm-signal">PM SIGNAL — <span style="color:#6a5e58; text-transform:none; font-style:italic;">The best interface for complex information is a conversation, not a document.</span></p>
+                        <p class="insight">
+                            Financial products fail users not because they're 
+                            complex — but because the complexity is never translated.
+                        </p>
+                        <div class="tags">
+                            <span>Python</span>
+                            <span>RAG</span>
+                            <span>Streamlit</span>
+                            <span>LLM</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="card-tabs">
+                  <button class="card-tab active" onclick="switchTab(0,'overview')">Overview</button>
+                  <button class="card-tab" onclick="switchTab(0,'process')">My Process</button>
+                </div>
+                <div id="process-0" style="display:none;">
+                  <div class="process-block">
+                    <div class="process-row">
+                      <span class="process-tag">Problem</span>
+                      <span class="process-text">HDFC MF documentation is dense 
+                      and hard to navigate — users can't find answers without 
+                      reading entire PDFs.</span>
+                    </div>
+                    <div class="process-row">
+                      <span class="process-tag">How I built it</span>
+                      <span class="process-text">Chunked and embedded the FAQ 
+                      documents, built a retrieval pipeline, wrapped it in a 
+                      Streamlit interface users can query in plain English.</span>
+                    </div>
+                    <div class="process-row">
+                      <span class="process-tag">What I'd change</span>
+                      <span class="process-text">I'd add source citations per 
+                      answer so users can verify — trust is the core problem 
+                      in financial information.</span>
+                    </div>
+                  </div>
+                  <div class="no-build"><strong>What I didn't build:</strong> 
+                  A comparison feature across fund types — useful but out of 
+                  scope for a first version.</div>
+                </div>
+                <div class="card-reveal">
+                    <a href="https://hdfc-mf-faq.streamlit.app/" target="_blank">
+                        <button class="link">Try it live ↗</button>
+                    </a>
+                </div>
+            </div>
+
+            <!-- CARD 1: GEOBEHAVIOUR -->
+            <div class="deck-card" data-index="1">
+                <div id="overview-1">
+                    <div class="card-face">
+                        <div class="card-top">
+                            <h4>GeoBehaviour</h4>
+                            <span class="badge badge-progress">In Progress</span>
+                        </div>
+                        <p class="card-desc">
+                            A geo-analytics platform that decodes local consumer behavior using proxy signals.
+                            Identifies demand patterns that traditional surveys miss.
+                        </p>
+                        <p class="pm-signal">PM SIGNAL — Proxy signals > surveys when behavior is the data</p>
+                        <p class="insight">Currently in early signal validation — mapping consumption patterns across urban zones.</p>
+                        <div class="tags">
+                            <span>Python</span>
+                            <span>SQL</span>
+                            <span>Maps API</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="card-tabs">
+                  <button class="card-tab active" onclick="switchTab(1,'overview')">Overview</button>
+                  <button class="card-tab" onclick="switchTab(1,'process')">My Process</button>
+                </div>
+                <div id="process-1" style="display:none;">
+                  <div class="process-block">
+                    <div class="process-row">
+                      <span class="process-tag">Problem</span>
+                      <span class="process-text">Traditional surveys capture stated intent, not real behavior — local demand signals were invisible to small businesses.</span>
+                    </div>
+                    <div class="process-row">
+                      <span class="process-tag">How I validated</span>
+                      <span class="process-text">Mapped proxy signals (foot traffic patterns, search density, review velocity) across 3 urban zones to find demand gaps.</span>
+                    </div>
+                    <div class="process-row">
+                      <span class="process-tag">What I'd change</span>
+                      <span class="process-text">I'd talk to 5 small business owners before building — I assumed the pain point without enough direct validation.</span>
+                    </div>
+                  </div>
+                  <div class="no-build"><strong>What I didn't build:</strong> A real-time alert system for demand spikes — technically interesting but not the core job-to-be-done yet.</div>
+                </div>
+                <div class="card-reveal">
+                    <p class="reveal-label">Links</p>
+                    <a href="https://www.notion.so/GeoBehaviour-336c01bb2e42808fabace47915f33280" target="_blank">
+                        <button class="link">View on Notion ↗</button>
+                    </a>
+                </div>
+            </div>
+
+            <!-- CARD 2: CHATGPT PRD -->
+            <div class="deck-card" data-index="2">
+                <div id="overview-2">
+                    <div class="card-face">
+                        <div class="card-top">
+                            <h4>ChatGPT Voice Adoption (Whisper Mode)</h4>
+                            <span class="badge badge-prd">PRD</span>
+                        </div>
+                        <p class="card-desc">
+                            Identified why voice mode had low adoption among students despite high awareness.
+                            Designed a feature strategy addressing social friction, not discoverability.
+                        </p>
+                        <p class="pm-signal">PM SIGNAL — Adoption failures are social before they're UX</p>
+                        <p class="insight">Voice fails not because users can't find it — but because using it in public feels socially unsafe.</p>
+                        <p class="meta">PDF • Behavioral Product Design</p>
+                    </div>
+                </div>
+                <div class="card-tabs">
+                  <button class="card-tab active" onclick="switchTab(2,'overview')">Overview</button>
+                  <button class="card-tab" onclick="switchTab(2,'process')">My Process</button>
+                </div>
+                <div id="process-2" style="display:none;">
+                  <div class="process-block">
+                    <div class="process-row">
+                      <span class="process-tag">Problem</span>
+                      <span class="process-text">Voice mode awareness was high but usage near zero — the barrier was after discovery, not before it.</span>
+                    </div>
+                    <div class="process-row">
+                      <span class="process-tag">How I validated</span>
+                      <span class="process-text">Mapped 12 student use-case scenarios — social context (library, class, public) correlated strongly with drop-off.</span>
+                    </div>
+                    <div class="process-row">
+                      <span class="process-tag">What I'd change</span>
+                      <span class="process-text">I'd run intercept interviews before writing the PRD — I relied on proxy data more than I should have.</span>
+                    </div>
+                  </div>
+                  <span class="metric-chip">↑ 38% simulated task adoption in redesigned flow</span>
+                  <div class="no-build"><strong>What I didn't build:</strong> A "voice confidence score" feature — it added complexity without solving the core social friction.</div>
+                </div>
+                <div class="card-reveal">
+                    <p class="reveal-label">Links</p>
+                    <a href="{{ url_for('static', filename='chatGPT_PRD.pdf') }}" target="_blank">
+                        <button class="link">View PRD ↗</button>
+                    </a>
+                </div>
+            </div>
+
+            <!-- CARD 3: GOODREADS PRD -->
+            <div class="deck-card" data-index="3">
+                <div id="overview-3">
+                    <div class="card-face">
+                        <div class="card-top">
+                            <h4>Goodreads – From Tracking to Habit</h4>
+                            <span class="badge badge-prd">PRD</span>
+                        </div>
+                        <p class="card-desc">
+                            Redesigned the reading log experience to capture intent at the moment it occurs,
+                            reducing drop-off in progress tracking through contextual nudges.
+                        </p>
+                        <p class="pm-signal">PM SIGNAL — Capture intent at the moment it occurs, not later</p>
+                        <p class="insight">Users don't forget to log — they lose the moment of intent before they get to the app.</p>
+                        <p class="meta">PDF • Habit Formation & Retention</p>
+                    </div>
+                </div>
+                <div class="card-tabs">
+                  <button class="card-tab active" onclick="switchTab(3,'overview')">Overview</button>
+                  <button class="card-tab" onclick="switchTab(3,'process')">My Process</button>
+                </div>
+                <div id="process-3" style="display:none;">
+                  <div class="process-block">
+                    <div class="process-row">
+                      <span class="process-tag">Problem</span>
+                      <span class="process-text">Users open Goodreads to log progress after reading — by then the moment of intent has passed and friction wins.</span>
+                    </div>
+                    <div class="process-row">
+                      <span class="process-tag">How I validated</span>
+                      <span class="process-text">Audited the logging flow step by step, counting taps to complete a progress update — 7 steps for a 2-second task.</span>
+                    </div>
+                    <div class="process-row">
+                      <span class="process-tag">What I'd change</span>
+                      <span class="process-text">I'd prototype the contextual nudge and test it with real readers before committing to the full feature spec.</span>
+                    </div>
+                  </div>
+                  <span class="metric-chip">↓ 7 steps → 2 steps to log progress</span>
+                  <div class="no-build"><strong>What I didn't build:</strong> A social reading feed — users asked for it but it would have made logging feel even more performative.</div>
+                </div>
+                <div class="card-reveal">
+                    <p class="reveal-label">Links</p>
+                    <a href="{{ url_for('static', filename='Goodreads-PRD.pdf') }}" target="_blank">
+                        <button class="link">View PRD ↗</button>
+                    </a>
+                </div>
+            </div>
+
+            <!-- CARD 4: GOODREADS TEARDOWN -->
+            <div class="deck-card" data-index="4">
+                <div id="overview-4">
+                    <div class="card-face">
+                        <div class="card-top">
+                            <h4>Goodreads Product Teardown</h4>
+                            <span class="badge badge-teardown">Teardown</span>
+                        </div>
+                        <p class="card-desc">
+                            Audited Goodreads across user flows, engagement loops, and retention mechanics.
+                            Mapped where the product loses users and why the core loop is broken.
+                        </p>
+                        <p class="pm-signal">PM SIGNAL — A broken core loop can't be fixed with features</p>
+                        <p class="insight">Logging is treated as admin work — it sits outside the reading experience instead of inside it.</p>
+                        <p class="meta">PDF • Product Analysis</p>
+                    </div>
+                </div>
+                <div class="card-tabs">
+                  <button class="card-tab active" onclick="switchTab(4,'overview')">Overview</button>
+                  <button class="card-tab" onclick="switchTab(4,'process')">My Process</button>
+                </div>
+                <div id="process-4" style="display:none;">
+                  <div class="process-block">
+                    <div class="process-row">
+                      <span class="process-tag">Problem</span>
+                      <span class="process-text">Goodreads has millions of users but retention is weak — I wanted to find exactly where and why the core loop breaks.</span>
+                    </div>
+                    <div class="process-row">
+                      <span class="process-tag">How I validated</span>
+                      <span class="process-text">Walked every major user flow from onboarding to re-engagement, mapping where momentum drops and why.</span>
+                    </div>
+                    <div class="process-row">
+                      <span class="process-tag">What I'd change</span>
+                      <span class="process-text">I'd quantify drop-off rates per flow step if I had access to real data — the teardown is qualitative where it should be mixed.</span>
+                    </div>
+                  </div>
+                  <div class="no-build"><strong>What I didn't build:</strong> A full redesign concept — a teardown should diagnose, not prescribe. That's what the PRD is for.</div>
+                </div>
+                <div class="card-reveal">
+                    <p class="reveal-label">Links</p>
+                    <a href="{{ url_for('static', filename='Goodreads-ProductTeardown.pdf') }}" target="_blank">
+                        <button class="link">Read Breakdown ↗</button>
+                    </a>
+                </div>
+            </div>
+
+        </div>
+    </section>
+
+    <!-- ABOUT & CONTACT -->
+    <section class="about-contact fade-up fade-up-delay-3" id="about">
+        <div class="about">
+            <h3>About</h3>
+            <p>
+                I'm a CS student who thinks in systems. I'm drawn to the gap between 
+                what users intend to do and what they actually do — and I work backwards 
+                from behavior to find out why products fail them.
+            </p>
+            <p>
+                My work lives at the intersection of behavioral economics and product 
+                design. I write PRDs to practice structured thinking, run teardowns to 
+                train my eye, and build data tools to stay close to signals.
+            </p>
+            <p>
+                The PM I'm becoming: one who treats user behavior as the spec, not 
+                the variable.
+            </p>
+            <div class="interests-section">
+                <h4>Interests</h4>
+                <div class="interests-tags">
+                    <span>Behavioral Economics</span>
+                    <span>Habit Formation</span>
+                    <span>0→1 Products</span>
+                </div>
+            </div>
+        </div>
+        <div class="contact">
+            <h3>Contact</h3>
+            <p><a href="https://www.linkedin.com/in/astha-purohit/" target="_blank">LinkedIn — Astha Purohit</a></p>
+            <p><a href="https://github.com/asthapurohit" target="_blank">GitHub — asthapurohit</a></p>
+            <p><a href="mailto:asthapurohit510@gmail.com">Email — asthapurohit510@gmail.com</a></p>
+            <p><a href="https://substack.com/@asthadiaries" target="_blank">Substack — Astha Diaries</a></p>
+            <p style="margin-top: 24px; font-size: 10px; color: #c4b5aa; font-family: 'DM Mono', monospace;">Built by Astha Purohit · 2025</p>
+        </div>
+    </section>
+
+    <script>
+        // ── Deck cards ──
+        const cards = document.querySelectorAll('.deck-card');
+        cards.forEach(card => {
+            card.addEventListener('click', function(e) {
+                if (e.target.closest('a') || e.target.closest('button.link')) return;
+                const isOpen = this.classList.contains('open');
+                cards.forEach(c => c.classList.remove('open'));
+                if (!isOpen) this.classList.add('open');
+            });
+        });
+        document.addEventListener('click', function(e) {
+            if (!e.target.closest('.deck-card')) {
+                cards.forEach(c => c.classList.remove('open'));
+            }
+        });
+
+        // ── Smooth scroll ──
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function(e) {
+                const target = document.querySelector(this.getAttribute('href'));
+                if (!target) return;
+                e.preventDefault();
+                const navHeight = document.querySelector('.navbar').offsetHeight;
+                const top = target.getBoundingClientRect().top + window.scrollY - navHeight - 24;
+                window.scrollTo({ top, behavior: 'smooth' });
+            });
+        });
+
+        // ── Quote slider ──
+        const slides = document.querySelectorAll('.quote-slide');
+        const dots = document.querySelectorAll('.dot');
+        let current = 0;
+        let timer;
+
+        function goTo(n) {
+            slides[current].classList.remove('active');
+            dots[current].classList.remove('active');
+            current = (n + slides.length) % slides.length;
+            slides[current].classList.add('active');
+            dots[current].classList.add('active');
+        }
+
+        function autoPlay() {
+            timer = setInterval(() => goTo(current + 1), 4000);
+        }
+
+        dots.forEach((dot, i) => {
+            dot.addEventListener('click', () => {
+                clearInterval(timer);
+                goTo(i);
+                autoPlay();
+            });
+        });
+
+        autoPlay();
+
+        // ── Intersection Observer for fade-up animations ──
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -50px 0px'
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('visible');
+                }
+            });
+        }, observerOptions);
+
+        // Observe all fade-up elements
+        document.querySelectorAll('.fade-up').forEach(el => {
+            observer.observe(el);
+        });
+
+        // Tab switching function
+        function switchTab(cardIndex, tab) {
+            const overviewEl = document.getElementById('overview-' + cardIndex);
+            const processEl = document.getElementById('process-' + cardIndex);
+            const tabs = document.querySelectorAll('.deck-card[data-index="' + cardIndex + '"] .card-tab');
+            if (overviewEl) overviewEl.style.display = tab === 'overview' ? 'block' : 'none';
+            if (processEl) processEl.style.display = tab === 'process' ? 'block' : 'none';
+            tabs.forEach(t => t.classList.remove('active'));
+            tabs[tab === 'overview' ? 0 : 1].classList.add('active');
+        }
+
+    </script>
+
+</body>
+</html>

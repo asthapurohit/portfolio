@@ -8,77 +8,90 @@
     <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Mono:wght@300;400&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
 </head>
-<body>
+<nav class="navbar">
+    <div class="logo">AP</div>
+    <div class="nav-links">
+        <a href="/">Home</a>
+        <span class="nav-active">Thoughts</span>
+    </div>
+</nav>
 
-    <nav class="navbar">
-        <div class="logo">AP</div>
-        <div class="nav-links">
-            <a href="/">Home</a>
-            <span class="nav-active">Thoughts</span>
-        </div>
-    </nav>
+<div class="thoughts-page-wrap">
 
     <section class="thoughts-hero">
         <div class="thoughts-hero-left">
-            <p class="thoughts-eyebrow">Writing</p>
+            <span class="thoughts-eyebrow">Writing</span>
             <h1 class="thoughts-title">Thoughts</h1>
             <p class="thoughts-intro">
-                I read literature and write about what it reveals —
-                patterns in behavior, the logic hidden in everyday life,
-                and occasionally, how systems shape the people inside them.
+                I write about behavior — in culture, in systems, in ourselves. 
+                Right now working through a series on classism and how it shapes 
+                what we buy, who we trust, and what we pretend not to notice.
             </p>
-            <p class="thoughts-intro">
-                One technical piece on behavioral economics is in the works.
-            </p>
-        </div>
-        <div class="thoughts-hero-right">
-            <p class="substack-label">Join me on Substack</p>
-            <a href="https://substack.com/@asthadiaries" target="_blank" class="substack-card">
-                <div class="substack-card-inner">
-                    <span class="substack-name">Astha Diaries</span>
-                    <span class="substack-sub">substack.com/@asthadiaries</span>
-                </div>
-                <span class="substack-arrow">↗</span>
+            <a href="https://substack.com/@asthadiaries" 
+               target="_blank" class="thoughts-substack-link">
+                Astha Diaries on Substack ↗
             </a>
         </div>
+        <div class="thoughts-hero-divider"></div>
+        <div class="thoughts-hero-right">
+            <p class="thoughts-coming-quote">
+                "Next up: how brands weaponize class anxiety to sell identity."
+            </p>
+            <span class="thoughts-coming-label">Coming 2026</span>
+        </div>
     </section>
 
-    <section class="thoughts-list">
+    <div class="thoughts-grid">
 
-        <!-- UPCOMING technical post teaser -->
-        <div class="thought-item thought-upcoming">
-            <div class="thought-meta">
-                <span class="thought-tag tag-upcoming">Coming soon</span>
-                <span class="thought-date">2026</span>
-            </div>
-            <h4 class="thought-title-text">Why people don't do what they intend to — a behavioral lens</h4>
-            <p class="thought-desc">
-                A technical deep-dive into the intention-action gap: what behavioral economics,
-                loss aversion, and present bias tell us about why good products still fail users.
-            </p>
+        <a href="https://asthapurohit.substack.com/p/everyone-is-a-classist-the-bottom"
+           target="_blank" class="tg-post tg-featured">
+            <span class="tg-tag tg-tag-series-light">Classism Series</span>
+            <div class="tg-title-light">Everyone is a classist: bottom-up view</div>
+            <div class="tg-desc-light">How class judgment flows in every direction — not just top-down. The third piece examining how people at every level sort, signal, and exclude.</div>
+            <span class="tg-date-light">Apr 2026</span>
+        </a>
+
+        <a href="https://asthapurohit.substack.com/p/classism-in-culture-the-price-of"
+           target="_blank" class="tg-post">
+            <span class="tg-tag tg-tag-series">Classism Series</span>
+            <div class="tg-title">Classism in culture: price of belonging</div>
+            <div class="tg-desc">Culture as a membership system — how taste, language and consumption become tools of gatekeeping.</div>
+            <span class="tg-date">Apr 2026</span>
+        </a>
+
+        <a href="https://asthapurohit.substack.com/p/everyone-is-a-classist"
+           target="_blank" class="tg-post">
+            <span class="tg-tag tg-tag-series">Classism Series</span>
+            <div class="tg-title">Everyone is a classist</div>
+            <div class="tg-desc">Class bias isn't something only the privileged exercise — it's baked into how all of us perceive and position ourselves.</div>
+            <span class="tg-date">Mar 2026</span>
+        </a>
+
+        <a href="https://asthapurohit.substack.com/p/from-hopelessness-to-gratitude-or"
+           target="_blank" class="tg-post">
+            <span class="tg-tag tg-tag-essay">Essay</span>
+            <div class="tg-title">From hopelessness to gratitude, or something close</div>
+            <div class="tg-desc">On losing yourself and finding your way back — healing isn't extinguishing fire, it's learning to carry it.</div>
+            <span class="tg-date">Jan 2026</span>
+        </a>
+
+        <div class="tg-post tg-upcoming">
+            <span class="tg-tag tg-tag-upcoming">Coming soon</span>
+            <div class="tg-upcoming-title">Why people don't do what they intend to — a behavioral lens</div>
+            <div class="tg-desc">A technical deep-dive into the intention-action gap and what it means for product design.</div>
+            <span class="tg-date">2026</span>
         </div>
 
-        <a href="https://asthapurohit.substack.com/p/from-hopelessness-to-gratitude-or" target="_blank" class="thought-item">
-            <div class="thought-meta">
-                <span class="thought-tag tag-essay">Essay</span>
-                <span class="thought-date">Jan 2026</span>
-            </div>
-            <h4 class="thought-title-text">from hoplessness to gratitude or something close?</h4>
-            <p class="thought-desc">A reflection on losing yourself and finding your way back—realizing that healing isn't about extinguishing the fire, but learning how to carry it.</p>
-            <span class="thought-read">Read →</span>
+        <a href="https://asthapurohit.substack.com/p/i-stopped-praying-nothing-stopped"
+           target="_blank" class="tg-post">
+            <span class="tg-tag tg-tag-essay">Essay</span>
+            <div class="tg-title">I stopped praying. Nothing stopped watching</div>
+            <div class="tg-desc">A month without prayer. Not answers — but something stayed.</div>
+            <span class="tg-date">Dec 2025</span>
         </a>
 
-        <a href="https://asthapurohit.substack.com/p/i-stopped-praying-nothing-stopped" target="_blank" class="thought-item">
-            <div class="thought-meta">
-                <span class="thought-tag tag-essay">Essay</span>
-                <span class="thought-date">Dec 2025</span>
-            </div>
-            <h4 class="thought-title-text">I stopped praying. Nothing stopped watching</h4>
-            <p class="thought-desc">I stopped praying for a month. I didn't find answers—but I couldn't deny what stayed.</p>
-            <span class="thought-read">Read →</span>
-        </a>
+    </div>
 
-    </section>
-
+</div>
 </body>
 </html>
