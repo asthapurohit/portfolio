@@ -4,7 +4,7 @@ import re
 
 app = Flask(__name__)
 
-SUBSTACK_RSS = "https://asthadiaries.substack.com/feed"
+SUBSTACK_RSS = "https://asthapurohit.substack.com/feed"
 
 def fetch_substack_posts():
     try:
