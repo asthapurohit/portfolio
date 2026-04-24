@@ -44,52 +44,46 @@
 
     <div class="thoughts-grid">
 
-        <a href="https://asthapurohit.substack.com/p/everyone-is-a-classist-the-bottom"
-           target="_blank" class="tg-post tg-featured">
-            <span class="tg-tag tg-tag-series-light">Classism Series</span>
-            <div class="tg-title-light">Everyone is a classist: bottom-up view</div>
-            <div class="tg-desc-light">How class judgment flows in every direction — not just top-down. The third piece examining how people at every level sort, signal, and exclude.</div>
-            <span class="tg-date-light">Apr 2026</span>
-        </a>
-
-        <a href="https://asthapurohit.substack.com/p/classism-in-culture-the-price-of"
-           target="_blank" class="tg-post">
-            <span class="tg-tag tg-tag-series">Classism Series</span>
-            <div class="tg-title">Classism in culture: price of belonging</div>
-            <div class="tg-desc">Culture as a membership system — how taste, language and consumption become tools of gatekeeping.</div>
-            <span class="tg-date">Apr 2026</span>
-        </a>
-
-        <a href="https://asthapurohit.substack.com/p/everyone-is-a-classist"
-           target="_blank" class="tg-post">
-            <span class="tg-tag tg-tag-series">Classism Series</span>
-            <div class="tg-title">Everyone is a classist</div>
-            <div class="tg-desc">Class bias isn't something only the privileged exercise — it's baked into how all of us perceive and position ourselves.</div>
-            <span class="tg-date">Mar 2026</span>
-        </a>
-
-        <a href="https://asthapurohit.substack.com/p/from-hopelessness-to-gratitude-or"
-           target="_blank" class="tg-post">
-            <span class="tg-tag tg-tag-essay">Essay</span>
-            <div class="tg-title">From hopelessness to gratitude, or something close</div>
-            <div class="tg-desc">On losing yourself and finding your way back — healing isn't extinguishing fire, it's learning to carry it.</div>
-            <span class="tg-date">Jan 2026</span>
-        </a>
-
         <div class="tg-post tg-upcoming">
             <span class="tg-tag tg-tag-upcoming">Coming soon</span>
-            <div class="tg-upcoming-title">Why people don't do what they intend to — a behavioral lens</div>
-            <div class="tg-desc">A technical deep-dive into the intention-action gap and what it means for product design.</div>
+            <div class="tg-upcoming-title">How brands weaponize 
+            class anxiety to sell identity</div>
+            <div class="tg-desc">The next piece in the classism 
+            series.</div>
             <span class="tg-date">2026</span>
         </div>
 
-        <a href="https://asthapurohit.substack.com/p/i-stopped-praying-nothing-stopped"
-           target="_blank" class="tg-post">
-            <span class="tg-tag tg-tag-essay">Essay</span>
-            <div class="tg-title">I stopped praying. Nothing stopped watching</div>
-            <div class="tg-desc">A month without prayer. Not answers — but something stayed.</div>
-            <span class="tg-date">Dec 2025</span>
+        {% for post in posts %}
+        {% if loop.first %}
+        <a href="{{ post.url }}" target="_blank" 
+           class="tg-post tg-featured">
+            {% if post.series == 'classism' %}
+            <span class="tg-tag tg-tag-series-light">
+            Classism Series</span>
+            {% else %}
+            <span class="tg-tag tg-tag-essay" 
+            style="color:#f0c8c8;background:#4a2025;
+            border:0.5px solid #6a3035;">Essay</span>
+            {% endif %}
+            <div class="tg-title-light">{{ post.title }}</div>
+            <div class="tg-desc-light">{{ post.summary }}</div>
+            <span class="tg-date-light">{{ post.date }}</span>
         </a>
+        {% else %}
+        <a href="{{ post.url }}" target="_blank" 
+           class="tg-post">
+            {% if post.series == 'classism' %}
+            <span class="tg-tag tg-tag-series">
+            Classism Series</span>
+            {% else %}
+            <span class="tg-tag tg-tag-essay">Essay</span>
+            {% endif %}
+            <div class="tg-title">{{ post.title }}</div>
+            <div class="tg-desc">{{ post.summary }}</div>
+            <span class="tg-date">{{ post.date }}</span>
+        </a>
+        {% endif %}
+        {% endfor %}
 
     </div>
 
