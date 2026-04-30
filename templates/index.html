@@ -187,9 +187,68 @@
                 </div>
             </div>
 
-            <!-- CARD 2: CHATGPT PRD -->
+            <!-- CARD 2: GROWW WEEKLY REVIEW PULSE -->
             <div class="deck-card" data-index="2">
-                <div id="overview-2">
+                <div class="card-face">
+                    <div class="card-top">
+                        <h4>Groww Weekly Review Pulse</h4>
+                        <span class="badge badge-live">Live</span>
+                    </div>
+                    <p class="card-desc">
+                        AI-powered dashboard that transforms 1,499 real 
+                        App Store + Play Store reviews into a one-page 
+                        weekly brief any PM can act on in under 30 seconds. 
+                        Auto-refreshes every Monday — zero manual work.
+                    </p>
+                    <p class="pm-signal">PM SIGNAL — <span style="color:#6a5e58;text-transform:none;font-style:italic;">Product teams drown in reviews. The job isn't to read them all — it's to surface what's actually broken.</span></p>
+                    <p class="insight">
+                        Real reviews are messy — Hindi text, emoji-only, 
+                        1-word ratings. Keyword matching alone fails. 
+                        The hardest part wasn't the AI, it was the 
+                        data pipeline.
+                    </p>
+                    <div class="tags">
+                        <span>React</span>
+                        <span>Groq</span>
+                        <span>Gemini</span>
+                        <span>Vercel</span>
+                    </div>
+                </div>
+                <div class="card-tabs">
+                    <button class="card-tab active" 
+                        onclick="switchTab(2,'overview')">Overview</button>
+                    <button class="card-tab" 
+                        onclick="switchTab(2,'process')">My Process</button>
+                </div>
+                <div id="process-2" style="display:none;">
+                    <div class="process-block">
+                        <div class="process-row">
+                            <span class="process-tag">Problem</span>
+                            <span class="process-text">PM teams get hundreds of app reviews weekly with no time to read them — signal drowns in noise, action never happens.</span>
+                        </div>
+                        <div class="process-row">
+                            <span class="process-tag">How I built it</span>
+                            <span class="process-text">Scraped 1,499 real reviews, classified into 5 themes via AI, generated top actions + user quotes, drafted a ready-to-send team email. Cron job refreshes every Monday automatically.</span>
+                        </div>
+                        <div class="process-row">
+                            <span class="process-tag">What I learned</span>
+                            <span class="process-text">Shipping on Vercel with real data taught me more about product thinking than any tutorial — solve the workflow, not just the feature.</span>
+                        </div>
+                    </div>
+                    <span class="metric-chip">1,499 reviews · 5 themes · 0 manual steps</span>
+                    <div class="no-build"><strong>What I didn't build:</strong> Multi-app support — useful but would have delayed shipping. Validated the single-app workflow first.</div>
+                </div>
+                <div class="card-reveal">
+                    <a href="https://groww-weekly-pulse.vercel.app/" 
+                       target="_blank">
+                        <button class="link">Try it live ↗</button>
+                    </a>
+                </div>
+            </div>
+
+            <!-- CARD 3: CHATGPT PRD -->
+            <div class="deck-card" data-index="3">
+                <div id="overview-3">
                     <div class="card-face">
                         <div class="card-top">
                             <h4>ChatGPT Voice Adoption (Whisper Mode)</h4>
@@ -205,10 +264,10 @@
                     </div>
                 </div>
                 <div class="card-tabs">
-                  <button class="card-tab active" onclick="switchTab(2,'overview')">Overview</button>
-                  <button class="card-tab" onclick="switchTab(2,'process')">My Process</button>
+                  <button class="card-tab active" onclick="switchTab(3,'overview')">Overview</button>
+                  <button class="card-tab" onclick="switchTab(3,'process')">My Process</button>
                 </div>
-                <div id="process-2" style="display:none;">
+                <div id="process-3" style="display:none;">
                   <div class="process-block">
                     <div class="process-row">
                       <span class="process-tag">Problem</span>
@@ -234,9 +293,9 @@
                 </div>
             </div>
 
-            <!-- CARD 3: GOODREADS PRD -->
-            <div class="deck-card" data-index="3">
-                <div id="overview-3">
+            <!-- CARD 4: GOODREADS PRD -->
+            <div class="deck-card" data-index="4">
+                <div id="overview-4">
                     <div class="card-face">
                         <div class="card-top">
                             <h4>Goodreads – From Tracking to Habit</h4>
@@ -252,10 +311,10 @@
                     </div>
                 </div>
                 <div class="card-tabs">
-                  <button class="card-tab active" onclick="switchTab(3,'overview')">Overview</button>
-                  <button class="card-tab" onclick="switchTab(3,'process')">My Process</button>
+                  <button class="card-tab active" onclick="switchTab(4,'overview')">Overview</button>
+                  <button class="card-tab" onclick="switchTab(4,'process')">My Process</button>
                 </div>
-                <div id="process-3" style="display:none;">
+                <div id="process-4" style="display:none;">
                   <div class="process-block">
                     <div class="process-row">
                       <span class="process-tag">Problem</span>
@@ -281,9 +340,9 @@
                 </div>
             </div>
 
-            <!-- CARD 4: GOODREADS TEARDOWN -->
-            <div class="deck-card" data-index="4">
-                <div id="overview-4">
+            <!-- CARD 5: GOODREADS TEARDOWN -->
+            <div class="deck-card" data-index="5">
+                <div id="overview-5">
                     <div class="card-face">
                         <div class="card-top">
                             <h4>Goodreads Product Teardown</h4>
@@ -299,10 +358,10 @@
                     </div>
                 </div>
                 <div class="card-tabs">
-                  <button class="card-tab active" onclick="switchTab(4,'overview')">Overview</button>
-                  <button class="card-tab" onclick="switchTab(4,'process')">My Process</button>
+                  <button class="card-tab active" onclick="switchTab(5,'overview')">Overview</button>
+                  <button class="card-tab" onclick="switchTab(5,'process')">My Process</button>
                 </div>
-                <div id="process-4" style="display:none;">
+                <div id="process-5" style="display:none;">
                   <div class="process-block">
                     <div class="process-row">
                       <span class="process-tag">Problem</span>
