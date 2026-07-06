@@ -74,46 +74,28 @@
 
         <div class="deck-wrapper">
 
-            <!-- CARD 0: SPOTIFY REVIEW ANALYSIS & TASTE BRIDGE -->
-            <div class="deck-card deck-card--flagship" data-index="0">
+            <!-- CARD 0: SPOTIFY REVIEW ANALYSIS -->
+            <div class="deck-card" data-index="0">
                 <div id="overview-0">
                     <div class="card-face">
                         <div class="card-top">
-                            <h4>Spotify Review Analysis &amp; Taste Bridge</h4>
+                            <h4>Spotify Review Analysis</h4>
                             <div class="card-badges">
                                 <span class="badge badge-live">Live</span>
                                 <span class="badge badge-flagship">Nextleap Graduation Project</span>
                             </div>
                         </div>
                         <p class="card-desc">
-                            A two-part graduation project for a PM growth-strategy brief
-                            (Spotify/Gaana): an AI review discovery engine feeding into
-                            an AI-native MVP.
+                            AI-powered analysis of App Store, Play Store, Reddit, and forum
+                            reviews to surface why users struggle to discover new music and get
+                            stuck in repeat-listening loops.
                         </p>
-                        <p class="card-desc">
-                            <strong>Spotify Review Analysis</strong> — AI-powered analysis of
-                            App Store, Play Store, Reddit, and forum reviews (Groq/Llama 3.3 70B)
-                            to surface why users struggle to discover new music, common frustrations,
-                            causes of repeat-listening, and unmet needs across user segments.
-                        </p>
-                        <p class="card-desc">
-                            <strong>Taste Bridge</strong> — An MVP built on those findings, framed
-                            as a native Spotify "Explore Mode" feature. Users pick an activity and
-                            a novelty dial (1–5, "one step adjacent" to "totally different"), and
-                            the AI generates a 5-track listening path that gradually bridges familiar
-                            taste to new discovery, explaining the reasoning at each step.
-                        </p>
-                        <p class="pm-signal">PM SIGNAL — <span style="color:#6a5e58; text-transform:none; font-style:italic;">The best discovery features don't reset taste — they bridge from where users already are.</span></p>
-                        <p class="insight">
-                            Users aren't stuck because they lack options — they're stuck because
-                            algorithms optimize for comfort, not curiosity.
-                        </p>
+                        <p class="pm-signal">PM SIGNAL — <span style="color:#6a5e58; text-transform:none; font-style:italic;">Users aren't stuck because they lack options — they're stuck because algorithms optimize for comfort, not curiosity.</span></p>
                         <div class="tags">
                             <span>React</span>
                             <span>Vite</span>
-                            <span>Vercel Serverless Functions</span>
-                            <span>Groq (Llama 3.3 70B)</span>
-                            <span>Spotify Web API</span>
+                            <span>Vercel</span>
+                            <span>Groq</span>
                         </div>
                     </div>
                 </div>
@@ -125,26 +107,22 @@
                   <div class="process-block">
                     <div class="process-row">
                       <span class="process-tag">Research</span>
-                      <span class="process-text">Started with the review analysis engine to identify root causes of listening ruts (e.g. "algorithm stuck in a loop," "no way to reset taste profile").</span>
+                      <span class="process-text">Started with a review analysis engine to identify root causes of listening ruts — e.g. "algorithm stuck in a loop," "no way to reset taste profile."</span>
                     </div>
                     <div class="process-row">
                       <span class="process-tag">Problem</span>
-                      <span class="process-text">Used those findings to define the problem and target segment.</span>
+                      <span class="process-text">Used those findings to define the problem and target segment for the graduation brief.</span>
                     </div>
                     <div class="process-row">
-                      <span class="process-tag">Design</span>
-                      <span class="process-text">Designed Taste Bridge directly off the research: the novelty dial answers the "stuck in a loop" finding, the activity picker answers context-based listening needs.</span>
-                    </div>
-                    <div class="process-row">
-                      <span class="process-tag">Build</span>
-                      <span class="process-text">Built and deployed both as a working MVP, then iterated on visual polish (layout, icon consistency, a shareable recap card showing the taste journey).</span>
+                      <span class="process-tag">How I built it</span>
+                      <span class="process-text">Pulled reviews from App Store, Play Store, Reddit, and forums; classified themes and frustrations with Groq/Llama 3.3 70B to surface unmet discovery needs.</span>
                     </div>
                   </div>
                 </div>
                 <div class="card-reveal">
                     <p class="reveal-label">Links</p>
                     <a href="https://spotify-gamma-lovat.vercel.app" target="_blank">
-                        <button class="link">View Live Demo ↗</button>
+                        <button class="link">Live Review Analyser ↗</button>
                     </a>
                     <a href="/spotify-taste-bridge-deck.pdf" target="_blank">
                         <button class="link">View Deck ↗</button>
@@ -152,9 +130,62 @@
                 </div>
             </div>
 
-            <!-- CARD 1: HDFC MF FAQ CHATBOT -->
+            <!-- CARD 1: TASTE BRIDGE -->
             <div class="deck-card" data-index="1">
                 <div id="overview-1">
+                    <div class="card-face">
+                        <div class="card-top">
+                            <h4>Taste Bridge</h4>
+                            <div class="card-badges">
+                                <span class="badge badge-live">Live</span>
+                                <span class="badge badge-flagship">Nextleap Graduation Project</span>
+                            </div>
+                        </div>
+                        <p class="card-desc">
+                            An MVP built on those findings — a native-feeling Spotify "Explore Mode."
+                            Users pick an activity and a novelty dial, and AI generates a 5-track path
+                            bridging familiar taste to new discovery.
+                        </p>
+                        <p class="pm-signal">PM SIGNAL — <span style="color:#6a5e58; text-transform:none; font-style:italic;">The best discovery features don't reset taste — they bridge from where users already are.</span></p>
+                        <div class="tags">
+                            <span>React</span>
+                            <span>Vite</span>
+                            <span>Vercel</span>
+                            <span>Groq</span>
+                            <span>Spotify API</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="card-tabs">
+                  <button class="card-tab active" onclick="switchTab(1,'overview')">Overview</button>
+                  <button class="card-tab" onclick="switchTab(1,'process')">My Process</button>
+                </div>
+                <div id="process-1" style="display:none;">
+                  <div class="process-block">
+                    <div class="process-row">
+                      <span class="process-tag">Design</span>
+                      <span class="process-text">Designed Taste Bridge directly off the research: the novelty dial answers the "stuck in a loop" finding, the activity picker answers context-based listening needs.</span>
+                    </div>
+                    <div class="process-row">
+                      <span class="process-tag">Build</span>
+                      <span class="process-text">Built and deployed as a working MVP on Vercel, then iterated on visual polish — layout, icon consistency, and a shareable recap card showing the taste journey.</span>
+                    </div>
+                    <div class="process-row">
+                      <span class="process-tag">What I learned</span>
+                      <span class="process-text">The strongest product ideas came from the review data — features mapped directly to quoted user frustrations, not assumptions.</span>
+                    </div>
+                  </div>
+                </div>
+                <div class="card-reveal">
+                    <a href="https://taste-unstick.vercel.app/" target="_blank">
+                        <button class="link">View Taste Bridge ↗</button>
+                    </a>
+                </div>
+            </div>
+
+            <!-- CARD 2: HDFC MF FAQ CHATBOT -->
+            <div class="deck-card" data-index="2">
+                <div id="overview-2">
                     <div class="card-face">
                         <div class="card-top">
                             <h4>HDFC MF FAQ Chatbot</h4>
@@ -180,10 +211,10 @@
                     </div>
                 </div>
                 <div class="card-tabs">
-                  <button class="card-tab active" onclick="switchTab(1,'overview')">Overview</button>
-                  <button class="card-tab" onclick="switchTab(1,'process')">My Process</button>
+                  <button class="card-tab active" onclick="switchTab(2,'overview')">Overview</button>
+                  <button class="card-tab" onclick="switchTab(2,'process')">My Process</button>
                 </div>
-                <div id="process-1" style="display:none;">
+                <div id="process-2" style="display:none;">
                   <div class="process-block">
                     <div class="process-row">
                       <span class="process-tag">Problem</span>
@@ -215,9 +246,9 @@
                 </div>
             </div>
 
-            <!-- CARD 2: GEOBEHAVIOUR -->
-            <div class="deck-card" data-index="2">
-                <div id="overview-2">
+            <!-- CARD 3: GEOBEHAVIOUR -->
+            <div class="deck-card" data-index="3">
+                <div id="overview-3">
                     <div class="card-face">
                         <div class="card-top">
                             <h4>GeoBehaviour</h4>
@@ -237,10 +268,10 @@
                     </div>
                 </div>
                 <div class="card-tabs">
-                  <button class="card-tab active" onclick="switchTab(2,'overview')">Overview</button>
-                  <button class="card-tab" onclick="switchTab(2,'process')">My Process</button>
+                  <button class="card-tab active" onclick="switchTab(3,'overview')">Overview</button>
+                  <button class="card-tab" onclick="switchTab(3,'process')">My Process</button>
                 </div>
-                <div id="process-2" style="display:none;">
+                <div id="process-3" style="display:none;">
                   <div class="process-block">
                     <div class="process-row">
                       <span class="process-tag">Problem</span>
@@ -265,8 +296,8 @@
                 </div>
             </div>
 
-            <!-- CARD 3: GROWW WEEKLY REVIEW PULSE -->
-            <div class="deck-card" data-index="3">
+            <!-- CARD 4: GROWW WEEKLY REVIEW PULSE -->
+            <div class="deck-card" data-index="4">
                 <div class="card-face">
                     <div class="card-top">
                         <h4>Groww Weekly Review Pulse</h4>
@@ -294,11 +325,11 @@
                 </div>
                 <div class="card-tabs">
                     <button class="card-tab active" 
-                        onclick="switchTab(3,'overview')">Overview</button>
+                        onclick="switchTab(4,'overview')">Overview</button>
                     <button class="card-tab" 
-                        onclick="switchTab(3,'process')">My Process</button>
+                        onclick="switchTab(4,'process')">My Process</button>
                 </div>
-                <div id="process-3" style="display:none;">
+                <div id="process-4" style="display:none;">
                     <div class="process-block">
                         <div class="process-row">
                             <span class="process-tag">Problem</span>
@@ -324,9 +355,9 @@
                 </div>
             </div>
 
-            <!-- CARD 4: CHATGPT PRD -->
-            <div class="deck-card" data-index="4">
-                <div id="overview-4">
+            <!-- CARD 5: CHATGPT PRD -->
+            <div class="deck-card" data-index="5">
+                <div id="overview-5">
                     <div class="card-face">
                         <div class="card-top">
                             <h4>ChatGPT Voice Adoption (Whisper Mode)</h4>
@@ -342,10 +373,10 @@
                     </div>
                 </div>
                 <div class="card-tabs">
-                  <button class="card-tab active" onclick="switchTab(4,'overview')">Overview</button>
-                  <button class="card-tab" onclick="switchTab(4,'process')">My Process</button>
+                  <button class="card-tab active" onclick="switchTab(5,'overview')">Overview</button>
+                  <button class="card-tab" onclick="switchTab(5,'process')">My Process</button>
                 </div>
-                <div id="process-4" style="display:none;">
+                <div id="process-5" style="display:none;">
                   <div class="process-block">
                     <div class="process-row">
                       <span class="process-tag">Problem</span>
@@ -371,9 +402,9 @@
                 </div>
             </div>
 
-            <!-- CARD 5: GOODREADS PRD -->
-            <div class="deck-card" data-index="5">
-                <div id="overview-5">
+            <!-- CARD 6: GOODREADS PRD -->
+            <div class="deck-card" data-index="6">
+                <div id="overview-6">
                     <div class="card-face">
                         <div class="card-top">
                             <h4>Goodreads – From Tracking to Habit</h4>
@@ -389,10 +420,10 @@
                     </div>
                 </div>
                 <div class="card-tabs">
-                  <button class="card-tab active" onclick="switchTab(5,'overview')">Overview</button>
-                  <button class="card-tab" onclick="switchTab(5,'process')">My Process</button>
+                  <button class="card-tab active" onclick="switchTab(6,'overview')">Overview</button>
+                  <button class="card-tab" onclick="switchTab(6,'process')">My Process</button>
                 </div>
-                <div id="process-5" style="display:none;">
+                <div id="process-6" style="display:none;">
                   <div class="process-block">
                     <div class="process-row">
                       <span class="process-tag">Problem</span>
@@ -418,9 +449,9 @@
                 </div>
             </div>
 
-            <!-- CARD 6: GOODREADS TEARDOWN -->
-            <div class="deck-card" data-index="6">
-                <div id="overview-6">
+            <!-- CARD 7: GOODREADS TEARDOWN -->
+            <div class="deck-card" data-index="7">
+                <div id="overview-7">
                     <div class="card-face">
                         <div class="card-top">
                             <h4>Goodreads Product Teardown</h4>
@@ -436,10 +467,10 @@
                     </div>
                 </div>
                 <div class="card-tabs">
-                  <button class="card-tab active" onclick="switchTab(6,'overview')">Overview</button>
-                  <button class="card-tab" onclick="switchTab(6,'process')">My Process</button>
+                  <button class="card-tab active" onclick="switchTab(7,'overview')">Overview</button>
+                  <button class="card-tab" onclick="switchTab(7,'process')">My Process</button>
                 </div>
-                <div id="process-6" style="display:none;">
+                <div id="process-7" style="display:none;">
                   <div class="process-block">
                     <div class="process-row">
                       <span class="process-tag">Problem</span>
