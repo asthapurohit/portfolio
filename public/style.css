@@ -4,13 +4,15 @@
     color-scheme: dark;
 
     --color-bg: #0F1117;
+    --color-surface-header: #0d0d0f;
     --color-bg-elevated: #1A1F2E;
     --color-bg-card-end: #161B26;
     --color-bg-hover: #1F2533;
     --color-bg-hover-alt: #252D3D;
 
     --color-text: #E5E7EB;
-    --color-text-heading: #F9FAFB;
+    --color-text-body: rgba(255, 255, 255, 0.78);
+    --color-text-heading: #FFFFFF;
     --color-text-strong: #FFFFFF;
     --color-text-muted: #9CA3AF;
     --color-text-subtle: #6B7280;
@@ -64,8 +66,11 @@
     --color-texture-primary: rgba(234, 88, 12, 0.06);
     --color-texture-primary-mid: rgba(234, 88, 12, 0.04);
     --color-texture-primary-light: rgba(234, 88, 12, 0.03);
-    --color-texture-line: rgba(255, 255, 255, 0.02);
-    --color-texture-line-light: rgba(255, 255, 255, 0.01);
+    --color-texture-line: rgba(255, 255, 255, 0.012);
+    --color-texture-line-light: rgba(255, 255, 255, 0.008);
+
+    --container-max: 1200px;
+    --container-padding: 24px;
 
     --color-thoughts-dark: #161B26;
     --color-thoughts-dark-hover: #1F2533;
@@ -99,17 +104,17 @@
 }
 
 body {
+    margin: 0;
+    overflow-x: hidden;
     background-color: var(--color-bg);
-    background-image: 
+    background-image:
         radial-gradient(circle at 20% 50%, var(--color-texture-primary) 0%, transparent 50%),
         radial-gradient(circle at 80% 80%, var(--color-texture-primary-light) 0%, transparent 50%),
         radial-gradient(circle at 40% 20%, var(--color-texture-primary-mid) 0%, transparent 50%);
     background-attachment: fixed;
-    color: var(--color-text);
+    color: var(--color-text-body);
     font-family: 'Lato', sans-serif;
-    max-width: 1100px;
-    margin: auto;
-    padding: 0 60px 80px;
+    padding-bottom: 80px;
     position: relative;
 }
 
@@ -120,36 +125,48 @@ body::before {
     left: 0;
     width: 100%;
     height: 100%;
-    background-image: 
+    background-image:
         repeating-linear-gradient(45deg, transparent, transparent 35px, var(--color-texture-line) 35px, var(--color-texture-line) 70px),
         repeating-linear-gradient(-45deg, transparent, transparent 35px, var(--color-texture-line-light) 35px, var(--color-texture-line-light) 70px);
     pointer-events: none;
-    z-index: 1;
+    z-index: -2;
 }
 
-/* Left accent bar */
 body::after {
     content: '';
     position: fixed;
     top: 0;
     left: 0;
-    width: 3px;
+    width: 100%;
     height: 100%;
-    background-color: var(--color-accent-primary);
-    z-index: 2;
+    background: rgba(13, 13, 15, 0.85);
+    pointer-events: none;
+    z-index: -1;
 }
 
-/* NAV */
-.navbar {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 28px 0;
-    border-bottom: 0.5px solid var(--color-border);
+.container {
+    width: 100%;
+    max-width: var(--container-max);
+    margin: 0 auto;
+    padding: 0 var(--container-padding);
+}
+
+/* HEADER */
+.site-header {
     position: sticky;
     top: 0;
-    background: var(--color-bg);
-    z-index: 10;
+    z-index: 50;
+    width: 100%;
+    height: 72px;
+    background: var(--color-surface-header);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.site-header .container {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    height: 100%;
 }
 
 .logo {
@@ -165,7 +182,7 @@ body::after {
     border: 2px solid transparent;
     border-radius: 50%;
     background:
-        linear-gradient(var(--color-bg), var(--color-bg)) padding-box,
+        linear-gradient(var(--color-surface-header), var(--color-surface-header)) padding-box,
         var(--gradient-brand) border-box;
     transition: transform 0.3s cubic-bezier(0.22, 1, 0.36, 1);
     position: relative;
@@ -183,6 +200,13 @@ body::after {
 .logo:hover {
     transform: scale(1.05);
     box-shadow: var(--shadow-logo-hover);
+}
+
+.nav-links {
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 4px 0;
 }
 
 .nav-links a {
@@ -234,7 +258,7 @@ body::after {
 }
 
 .hero p {
-    color: var(--color-text-muted);
+    color: var(--color-text-body);
     max-width: 560px;
     font-size: 15px;
     line-height: 1.85;
@@ -296,10 +320,13 @@ body::after {
 
 /* ─── ABOUT & CONTACT ─── */
 .about-contact {
+    padding: 62px 0;
+}
+
+.about-contact .container {
     display: grid;
     grid-template-columns: 1fr 1fr;
     gap: 80px;
-    padding: 62px 0;
 }
 
 .about h3, .contact h3 {
@@ -314,7 +341,7 @@ body::after {
 .about p {
     font-size: 14px;
     line-height: 1.9;
-    color: var(--color-text-muted);
+    color: var(--color-text-body);
     font-weight: 300;
     margin-bottom: 16px;
 }
@@ -412,7 +439,7 @@ body::after {
 .work-featured__summary {
     font-size: 14px;
     line-height: 1.8;
-    color: var(--color-text-muted);
+    color: var(--color-text-body);
     margin-bottom: 4px;
     font-weight: 300;
 }
@@ -435,7 +462,7 @@ body::after {
 .work-featured__col-desc {
     font-size: 13px;
     line-height: 1.7;
-    color: var(--color-text-muted);
+    color: var(--color-text-body);
     margin-bottom: 12px;
     font-weight: 300;
 }
@@ -511,7 +538,7 @@ body::after {
 .case-row__desc {
     font-size: 13px;
     line-height: 1.7;
-    color: var(--color-text-muted);
+    color: var(--color-text-body);
     margin-bottom: 8px;
     font-weight: 300;
 }
@@ -553,7 +580,7 @@ body::after {
 .card-desc {
     font-size: 13px;
     line-height: 1.8;
-    color: var(--color-text-muted);
+    color: var(--color-text-body);
     margin-bottom: 10px;
     font-weight: 300;
 }
@@ -696,7 +723,7 @@ body::after {
 .about-extra {
     font-size: 14px;
     line-height: 1.9;
-    color: var(--color-text-muted);
+    color: var(--color-text-body);
     font-weight: 300;
     margin-top: 14px;
 }
@@ -1158,7 +1185,7 @@ body::after {
 .thoughts-title {
     font-size: 58px;
     font-weight: 400;
-    color: var(--color-thoughts-dark);
+    color: var(--color-text-heading);
     line-height: 0.9;
     letter-spacing: -1.5px;
     margin-bottom: 20px;
@@ -1168,7 +1195,7 @@ body::after {
 .thoughts-intro {
     font-size: 13px;
     line-height: 1.85;
-    color: var(--color-thoughts-text);
+    color: var(--color-text-body);
     font-weight: 300;
     font-family: 'Lato', sans-serif;
 }
@@ -1287,7 +1314,7 @@ body::after {
 .tg-title {
     font-family: 'DM Serif Display', serif;
     font-size: 15px;
-    color: var(--color-thoughts-dark);
+    color: var(--color-text-heading);
     line-height: 1.35;
     margin-bottom: 8px;
     letter-spacing: -0.2px;
@@ -1360,20 +1387,26 @@ body::after {
 
 @media (max-width: 768px) {
     body {
-        padding: 0 24px 60px;
+        padding-bottom: 60px;
     }
 
-    .navbar {
+    .site-header {
+        height: auto;
+        min-height: 72px;
+    }
+
+    .site-header .container {
         flex-wrap: wrap;
-        gap: 8px;
-        padding: 16px 0;
+        align-items: center;
+        height: auto;
+        min-height: 72px;
+        padding-top: 14px;
+        padding-bottom: 14px;
+        gap: 10px;
     }
 
     .nav-links {
-        display: flex;
-        flex-wrap: wrap;
-        align-items: center;
-        gap: 4px;
+        gap: 4px 0;
     }
 
     .nav-links a {
@@ -1411,12 +1444,9 @@ body::after {
     }
 
     .quote-slider {
-        background: transparent;
-        border: none;
-        box-shadow: none;
-        padding: 0;
-        border-left: 2px solid var(--color-quote-border);
-        padding-left: 16px;
+        max-width: 100%;
+        padding-left: 24px;
+        border-left: 2px solid var(--color-accent-primary);
         margin-top: 20px;
     }
 
@@ -1424,7 +1454,7 @@ body::after {
         min-height: 80px;
     }
 
-    .about-contact {
+    .about-contact .container {
         grid-template-columns: 1fr;
         gap: 40px;
     }
@@ -1478,11 +1508,11 @@ body::after {
     background: transparent;
     border: none;
     box-shadow: none;
-    padding: 0;
-    padding-left: 20px;
-    border-left: 2px solid var(--color-quote-border);
     margin-top: 32px;
-    max-width: 420px;
+    margin-left: 0;
+    padding: 0 0 0 24px;
+    border-left: 2px solid var(--color-accent-primary);
+    max-width: 560px;
     display: flex;
     flex-direction: column;
 }
@@ -1510,9 +1540,27 @@ body::after {
     position: relative;
 }
 
+.quote-text {
+    font-size: 14px;
+    line-height: 1.75;
+    color: var(--color-text-body);
+    font-style: italic;
+    margin-bottom: 8px;
+}
+
+.quote-source {
+    font-family: 'DM Mono', monospace;
+    font-size: 10px;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    color: var(--color-text-subtle);
+}
+
 .quote-dots {
     display: flex;
     gap: 6px;
     margin-top: 14px;
+    margin-left: 0;
+    padding-left: 0;
 }
 
