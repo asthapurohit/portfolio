@@ -1,92 +1,94 @@
 @import url('https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Mono:wght@300;400&family=Lato:ital,wght@0,300;0,400;1,300&display=swap');
 
 :root {
-    --color-bg: #F7F5F2;
-    --color-bg-elevated: #FFFFFF;
-    --color-bg-card-end: #F2F0EC;
-    --color-bg-hover: #EDEAE5;
-    --color-bg-hover-alt: #E8E4DE;
+    color-scheme: dark;
 
-    --color-text: #1F2937;
-    --color-text-heading: #111827;
-    --color-text-strong: #0F172A;
-    --color-text-muted: #6B7280;
-    --color-text-subtle: #9CA3AF;
-    --color-text-faint: #94A3B8;
-    --color-text-process: #4B5563;
+    --color-bg: #0F1117;
+    --color-bg-elevated: #1A1F2E;
+    --color-bg-card-end: #161B26;
+    --color-bg-hover: #1F2533;
+    --color-bg-hover-alt: #252D3D;
+
+    --color-text: #E5E7EB;
+    --color-text-heading: #F9FAFB;
+    --color-text-strong: #FFFFFF;
+    --color-text-muted: #9CA3AF;
+    --color-text-subtle: #6B7280;
+    --color-text-faint: #4B5563;
+    --color-text-process: #D1D5DB;
 
     --color-accent-primary: #EA580C;
-    --color-accent-primary-hover: #C2410C;
-    --color-accent-primary-light: color-mix(in srgb, var(--color-accent-primary) 5%, var(--color-bg));
-    --color-accent-primary-border: #FDBA74;
+    --color-accent-primary-hover: #F97316;
+    --color-accent-primary-light: color-mix(in srgb, var(--color-accent-primary) 8%, var(--color-bg));
+    --color-accent-primary-border: #C2410C;
 
     --color-accent-secondary: #0EA5E9;
-    --color-accent-secondary-hover: #0284C7;
-    --color-accent-secondary-light: #F0F9FF;
-    --color-accent-secondary-border: #7DD3FC;
-    --color-accent-secondary-dark: #0369A1;
+    --color-accent-secondary-hover: #38BDF8;
+    --color-accent-secondary-light: color-mix(in srgb, var(--color-accent-secondary) 12%, var(--color-bg));
+    --color-accent-secondary-border: color-mix(in srgb, var(--color-accent-secondary) 28%, var(--color-bg));
+    --color-accent-secondary-dark: #7DD3FC;
 
     --color-accent-pink: #EC4899;
     --gradient-brand: linear-gradient(135deg, #F97316, #EC4899);
 
-    --color-border: #E5E1DB;
-    --color-border-subtle: #EDE9E4;
-    --color-border-muted: #DDD8D2;
-    --color-border-hover: #D1CCC4;
-    --color-border-insight: #E0DBD4;
-    --color-border-insight-hover: #C9C2B8;
+    --color-border: #2D3748;
+    --color-border-subtle: #252D3D;
+    --color-border-muted: #374151;
+    --color-border-hover: #4B5563;
+    --color-border-insight: #374151;
+    --color-border-insight-hover: #4B5563;
 
-    --color-live-bg: #e8f5e8;
-    --color-live-text: #2d7a2d;
-    --color-live-border: #b0d8b0;
+    --color-live-bg: #142819;
+    --color-live-text: #4ADE80;
+    --color-live-border: #22543D;
 
-    --color-badge-progress-bg: #FFF7ED;
-    --color-badge-progress-text: #C2410C;
-    --color-badge-progress-border: #FDBA74;
-    --color-badge-prd-bg: #F0F9FF;
-    --color-badge-prd-text: #0369A1;
-    --color-badge-prd-border: #7DD3FC;
-    --color-badge-teardown-bg: #FDF2F8;
-    --color-badge-teardown-text: #BE185D;
-    --color-badge-teardown-border: #F9A8D4;
+    --color-badge-progress-bg: color-mix(in srgb, var(--color-accent-primary) 14%, var(--color-bg));
+    --color-badge-progress-text: #FB923C;
+    --color-badge-progress-border: #C2410C;
+    --color-badge-prd-bg: color-mix(in srgb, var(--color-accent-secondary) 14%, var(--color-bg));
+    --color-badge-prd-text: #7DD3FC;
+    --color-badge-prd-border: #0369A1;
+    --color-badge-teardown-bg: color-mix(in srgb, #BE185D 14%, var(--color-bg));
+    --color-badge-teardown-text: #F9A8D4;
+    --color-badge-teardown-border: #BE185D;
 
     --color-card-border-progress: #EA580C;
     --color-card-border-prd: #0EA5E9;
     --color-card-border-teardown: #BE185D;
 
-    --shadow-card: 0 2px 8px rgba(31, 41, 55, 0.06), 0 1px 2px rgba(31, 41, 55, 0.04);
-    --shadow-card-hover: 0 20px 50px rgba(31, 41, 55, 0.10), 0 6px 16px rgba(31, 41, 55, 0.06);
-    --shadow-card-hover-mid: 0 16px 40px rgba(31, 41, 55, 0.08), 0 4px 12px rgba(31, 41, 55, 0.05);
-    --shadow-logo-hover: 0 0 20px rgba(234, 88, 12, 0.2);
+    --shadow-card: 0 2px 8px rgba(0, 0, 0, 0.24), 0 1px 2px rgba(0, 0, 0, 0.16);
+    --shadow-card-hover: 0 20px 50px rgba(0, 0, 0, 0.32), 0 6px 16px rgba(0, 0, 0, 0.20);
+    --shadow-card-hover-mid: 0 16px 40px rgba(0, 0, 0, 0.28), 0 4px 12px rgba(0, 0, 0, 0.18);
+    --shadow-logo-hover: 0 0 20px rgba(234, 88, 12, 0.25);
 
-    --color-texture-primary: rgba(234, 88, 12, 0.03);
-    --color-texture-primary-mid: rgba(234, 88, 12, 0.025);
-    --color-texture-primary-light: rgba(234, 88, 12, 0.02);
-    --color-texture-line: rgba(234, 88, 12, 0.01);
-    --color-texture-line-light: rgba(234, 88, 12, 0.008);
+    --color-texture-primary: rgba(234, 88, 12, 0.06);
+    --color-texture-primary-mid: rgba(234, 88, 12, 0.04);
+    --color-texture-primary-light: rgba(234, 88, 12, 0.03);
+    --color-texture-line: rgba(255, 255, 255, 0.02);
+    --color-texture-line-light: rgba(255, 255, 255, 0.01);
 
-    --color-thoughts-dark: #1F2937;
-    --color-thoughts-dark-hover: #374151;
+    --color-thoughts-dark: #161B26;
+    --color-thoughts-dark-hover: #1F2533;
     --color-thoughts-accent: #EA580C;
-    --color-thoughts-accent-hover: #C2410C;
+    --color-thoughts-accent-hover: #F97316;
     --color-thoughts-accent-soft: #FDBA74;
-    --color-thoughts-text: #6B7280;
-    --color-thoughts-text-muted: #9CA3AF;
-    --color-thoughts-post-bg: #F3F1EE;
-    --color-thoughts-post-hover: #EBE8E3;
-    --color-thoughts-upcoming-bg: #EFEBE6;
+    --color-thoughts-text: #9CA3AF;
+    --color-thoughts-text-muted: #6B7280;
+    --color-thoughts-post-bg: #1A1F2E;
+    --color-thoughts-post-hover: #1F2533;
+    --color-thoughts-upcoming-bg: #161B26;
     --color-thoughts-featured-text: #F9FAFB;
     --color-thoughts-featured-desc: #D1D5DB;
-    --color-thoughts-tag-series-bg: #FFF7ED;
-    --color-thoughts-tag-series-border: #FDBA74;
+    --color-thoughts-tag-series-bg: color-mix(in srgb, var(--color-accent-primary) 14%, var(--color-bg));
+    --color-thoughts-tag-series-border: #C2410C;
 
-    --color-metric-bg: #f0f5ee;
-    --color-metric-text: #3b6d11;
-    --color-metric-border: #c0dd97;
+    --color-metric-bg: #142819;
+    --color-metric-text: #4ADE80;
+    --color-metric-border: #22543D;
 
-    --color-quote-mark: #EDE9E4;
-    --color-quote-border: #D1CCC4;
-    --color-dot: #D1CCC4;
+    --color-quote-mark: #252D3D;
+    --color-quote-border: #374151;
+    --color-dot: #4B5563;
     --color-white: #fff;
 }
 
@@ -852,7 +854,7 @@ body::after {
 }
 
 .process-block {
-    background: var(--color-bg);
+    background: var(--color-bg-elevated);
     border-radius: 10px;
     padding: 16px 18px;
     margin-bottom: 10px;
