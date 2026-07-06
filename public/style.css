@@ -26,6 +26,9 @@
     --color-accent-secondary-border: #7DD3FC;
     --color-accent-secondary-dark: #0369A1;
 
+    --color-accent-pink: #EC4899;
+    --gradient-brand: linear-gradient(135deg, #F97316, #EC4899);
+
     --color-border: #E5E1DB;
     --color-border-subtle: #EDE9E4;
     --color-border-muted: #DDD8D2;
@@ -157,15 +160,25 @@ body::after {
     display: flex;
     align-items: center;
     justify-content: center;
-    border: 1px solid var(--color-accent-primary-border);
+    border: 2px solid transparent;
     border-radius: 50%;
-    transition: all 0.3s cubic-bezier(0.22, 1, 0.36, 1);
+    background:
+        linear-gradient(var(--color-bg), var(--color-bg)) padding-box,
+        var(--gradient-brand) border-box;
+    transition: transform 0.3s cubic-bezier(0.22, 1, 0.36, 1);
     position: relative;
     z-index: 10;
 }
 
+/* Alt logo treatment — swap onto .logo to compare:
+.logo {
+    border: none;
+    background: var(--gradient-brand);
+    color: var(--color-white);
+}
+*/
+
 .logo:hover {
-    border-color: var(--color-accent-primary);
     transform: scale(1.05);
     box-shadow: var(--shadow-logo-hover);
 }
@@ -346,6 +359,7 @@ body::after {
 }
 
 .work-featured {
+    position: relative;
     background: var(--color-accent-primary-light);
     border: 0.5px solid var(--color-border);
     border-radius: 14px;
@@ -353,13 +367,27 @@ body::after {
     margin-bottom: 40px;
 }
 
+.work-featured::before {
+    content: '';
+    position: absolute;
+    top: 14px;
+    bottom: 14px;
+    left: 0;
+    width: 3px;
+    border-radius: 0 2px 2px 0;
+    background: var(--gradient-brand);
+}
+
 .work-featured__kicker {
     font-size: 10px;
     letter-spacing: 0.12em;
     text-transform: uppercase;
-    color: var(--color-accent-primary);
     font-family: 'DM Mono', monospace;
     margin-bottom: 12px;
+    background: var(--gradient-brand);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
 }
 
 .work-featured__header {
@@ -420,9 +448,26 @@ body::after {
 }
 
 .case-row {
+    position: relative;
     border-bottom: 0.5px solid var(--color-border-subtle);
     padding: 24px 0;
     cursor: pointer;
+}
+
+.case-row::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    height: 2px;
+    background: var(--gradient-brand);
+    opacity: 0;
+    transition: opacity 0.2s ease;
+}
+
+.case-row:hover::after {
+    opacity: 1;
 }
 
 .case-row:first-child {
