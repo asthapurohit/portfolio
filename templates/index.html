@@ -70,299 +70,246 @@
     <!-- PROJECTS -->
     <section class="projects fade-up fade-up-delay-2" id="work">
         <h3>Work</h3>
-        <p class="deck-hint">Each project below reflects a real product problem I chose to work on.</p>
+        <p class="work-hint">Each project below reflects a real product problem I chose to work on.</p>
 
-        <div class="deck-wrapper">
-
-            <!-- CARD 0: SPOTIFY REVIEW ANALYSIS -->
-            <div class="deck-card" data-index="0">
-                <div id="overview-0">
-                    <div class="card-face">
-                        <div class="card-top">
-                            <h4>Spotify Review Analysis</h4>
-                            <div class="card-badges">
-                                <span class="badge badge-live">Live</span>
-                                <span class="badge badge-flagship">Nextleap Graduation Project</span>
-                            </div>
-                        </div>
-                        <p class="card-desc">
-                            AI-powered analysis of App Store, Play Store, Reddit, and forum
-                            reviews to surface why users struggle to discover new music and get
-                            stuck in repeat-listening loops.
-                        </p>
-                        <p class="pm-signal">PM SIGNAL — <span>Users aren't stuck because they lack options — they're stuck because algorithms optimize for comfort, not curiosity.</span></p>
-                        <div class="tags">
-                            <span>React</span>
-                            <span>Vite</span>
-                            <span>Vercel</span>
-                            <span>Groq</span>
-                        </div>
-                    </div>
-                </div>
-                <div class="card-tabs">
-                  <button class="card-tab active" onclick="switchTab(0,'overview')">Overview</button>
-                  <button class="card-tab" onclick="switchTab(0,'process')">My Process</button>
-                </div>
-                <div id="process-0" style="display:none;">
-                  <div class="process-block">
-                    <div class="process-row">
-                      <span class="process-tag">Research</span>
-                      <span class="process-text">Started with a review analysis engine to identify root causes of listening ruts — e.g. "algorithm stuck in a loop," "no way to reset taste profile."</span>
-                    </div>
-                    <div class="process-row">
-                      <span class="process-tag">Problem</span>
-                      <span class="process-text">Used those findings to define the problem and target segment for the graduation brief.</span>
-                    </div>
-                    <div class="process-row">
-                      <span class="process-tag">How I built it</span>
-                      <span class="process-text">Pulled reviews from App Store, Play Store, Reddit, and forums; classified themes and frustrations with Groq/Llama 3.3 70B to surface unmet discovery needs.</span>
-                    </div>
-                  </div>
-                </div>
-                <div class="card-reveal">
-                    <p class="reveal-label">Links</p>
+        <article class="work-featured fade-up">
+            <p class="work-featured__kicker">Nextleap Graduation Project</p>
+            <div class="work-featured__header">
+                <h4 class="work-featured__title">Spotify Review Analysis &amp; Taste Bridge</h4>
+                <span class="badge badge-live">Live</span>
+            </div>
+            <p class="work-featured__summary">
+                An AI review engine that surfaces why users get stuck in listening ruts —
+                feeding directly into Taste Bridge, an MVP that helps them break out of one.
+            </p>
+            <p class="pm-signal">PM SIGNAL — <span>The best discovery features don't reset taste — they bridge from where users already are.</span></p>
+            <div class="work-featured__cols">
+                <div class="work-featured__col">
+                    <h5 class="work-featured__col-title">Review Analysis</h5>
+                    <p class="work-featured__col-desc">AI analysis of App Store, Play Store, and Reddit reviews to find the root causes of repeat-listening.</p>
                     <a href="https://spotify-gamma-lovat.vercel.app" target="_blank">
                         <button class="link">Live Review Analyser ↗</button>
                     </a>
-                    <a href="/spotify-taste-bridge-deck.pdf" target="_blank">
-                        <button class="link">View Deck ↗</button>
-                    </a>
                 </div>
-            </div>
-
-            <!-- CARD 1: TASTE BRIDGE -->
-            <div class="deck-card" data-index="1">
-                <div id="overview-1">
-                    <div class="card-face">
-                        <div class="card-top">
-                            <h4>Taste Bridge</h4>
-                            <div class="card-badges">
-                                <span class="badge badge-live">Live</span>
-                                <span class="badge badge-flagship">Nextleap Graduation Project</span>
-                            </div>
-                        </div>
-                        <p class="card-desc">
-                            An MVP built on those findings — a native-feeling Spotify "Explore Mode."
-                            Users pick an activity and a novelty dial, and AI generates a 5-track path
-                            bridging familiar taste to new discovery.
-                        </p>
-                        <p class="pm-signal">PM SIGNAL — <span>The best discovery features don't reset taste — they bridge from where users already are.</span></p>
-                        <div class="tags">
-                            <span>React</span>
-                            <span>Vite</span>
-                            <span>Vercel</span>
-                            <span>Groq</span>
-                            <span>Spotify API</span>
-                        </div>
-                    </div>
-                </div>
-                <div class="card-tabs">
-                  <button class="card-tab active" onclick="switchTab(1,'overview')">Overview</button>
-                  <button class="card-tab" onclick="switchTab(1,'process')">My Process</button>
-                </div>
-                <div id="process-1" style="display:none;">
-                  <div class="process-block">
-                    <div class="process-row">
-                      <span class="process-tag">Design</span>
-                      <span class="process-text">Designed Taste Bridge directly off the research: the novelty dial answers the "stuck in a loop" finding, the activity picker answers context-based listening needs.</span>
-                    </div>
-                    <div class="process-row">
-                      <span class="process-tag">Build</span>
-                      <span class="process-text">Built and deployed as a working MVP on Vercel, then iterated on visual polish — layout, icon consistency, and a shareable recap card showing the taste journey.</span>
-                    </div>
-                    <div class="process-row">
-                      <span class="process-tag">What I learned</span>
-                      <span class="process-text">The strongest product ideas came from the review data — features mapped directly to quoted user frustrations, not assumptions.</span>
-                    </div>
-                  </div>
-                </div>
-                <div class="card-reveal">
+                <div class="work-featured__col">
+                    <h5 class="work-featured__col-title">Taste Bridge</h5>
+                    <p class="work-featured__col-desc">Pick an activity and a novelty dial; AI builds a 5-track path from familiar to new.</p>
                     <a href="https://taste-unstick.vercel.app/" target="_blank">
                         <button class="link">View Taste Bridge ↗</button>
                     </a>
                 </div>
             </div>
+            <div class="work-featured__deck">
+                <a href="/spotify-taste-bridge-deck.pdf" target="_blank">
+                    <button class="link">View Deck ↗</button>
+                </a>
+            </div>
+            <div class="tags">
+                <span>React</span>
+                <span>Vite</span>
+                <span>Vercel</span>
+                <span>Groq</span>
+                <span>Spotify API</span>
+            </div>
+        </article>
 
-            <!-- CARD 2: HDFC MF FAQ CHATBOT -->
-            <div class="deck-card" data-index="2">
-                <div id="overview-2">
-                    <div class="card-face">
-                        <div class="card-top">
-                            <h4>HDFC MF FAQ Chatbot</h4>
-                            <span class="badge badge-live">Live</span>
-                        </div>
-                        <p class="card-desc">
-                            A RAG-powered chatbot that answers questions about 
-                            HDFC Mutual Fund products using retrieval-augmented 
-                            generation. Built to make dense financial documents 
-                            conversational and accessible.
-                        </p>
-                        <p class="pm-signal">PM SIGNAL — <span>The best interface for complex information is a conversation, not a document.</span></p>
-                        <p class="insight">
-                            Financial products fail users not because they're 
-                            complex — but because the complexity is never translated.
-                        </p>
+        <div class="case-studies">
+
+            <article class="case-row" data-index="0">
+                <div class="case-row__summary">
+                    <div class="case-row__left">
+                        <h4 class="case-row__title">HDFC MF FAQ Chatbot</h4>
+                        <span class="badge badge-live">Live</span>
+                    </div>
+                    <div class="case-row__right">
+                        <p class="case-row__desc">A RAG-powered chatbot that makes dense HDFC Mutual Fund documents conversational and accessible.</p>
                         <div class="tags">
                             <span>Python</span>
                             <span>RAG</span>
                             <span>Streamlit</span>
                             <span>LLM</span>
                         </div>
-                    </div>
-                </div>
-                <div class="card-tabs">
-                  <button class="card-tab active" onclick="switchTab(2,'overview')">Overview</button>
-                  <button class="card-tab" onclick="switchTab(2,'process')">My Process</button>
-                </div>
-                <div id="process-2" style="display:none;">
-                  <div class="process-block">
-                    <div class="process-row">
-                      <span class="process-tag">Problem</span>
-                      <span class="process-text">HDFC MF documentation is dense 
-                      and hard to navigate — users can't find answers without 
-                      reading entire PDFs.</span>
-                    </div>
-                    <div class="process-row">
-                      <span class="process-tag">How I built it</span>
-                      <span class="process-text">Chunked and embedded the FAQ 
-                      documents, built a retrieval pipeline, wrapped it in a 
-                      Streamlit interface users can query in plain English.</span>
-                    </div>
-                    <div class="process-row">
-                      <span class="process-tag">What I'd change</span>
-                      <span class="process-text">I'd add source citations per 
-                      answer so users can verify — trust is the core problem 
-                      in financial information.</span>
-                    </div>
-                  </div>
-                  <div class="no-build"><strong>What I didn't build:</strong> 
-                  A comparison feature across fund types — useful but out of 
-                  scope for a first version.</div>
-                </div>
-                <div class="card-reveal">
-                    <a href="https://hdfc-mf-faq.streamlit.app/" target="_blank">
-                        <button class="link">Try it live ↗</button>
-                    </a>
-                </div>
-            </div>
-
-            <!-- CARD 3: GEOBEHAVIOUR -->
-            <div class="deck-card" data-index="3">
-                <div id="overview-3">
-                    <div class="card-face">
-                        <div class="card-top">
-                            <h4>GeoBehaviour</h4>
-                            <span class="badge badge-progress">In Progress</span>
+                        <div class="case-row__links">
+                            <a href="https://hdfc-mf-faq.streamlit.app/" target="_blank">
+                                <button class="link">Try it live ↗</button>
+                            </a>
                         </div>
+                    </div>
+                </div>
+                <div class="case-row__detail">
+                    <div class="card-tabs">
+                        <button class="card-tab active" onclick="switchTab(0,'overview')">Overview</button>
+                        <button class="card-tab" onclick="switchTab(0,'process')">My Process</button>
+                    </div>
+                    <div id="overview-0">
+                        <p class="card-desc">
+                            A RAG-powered chatbot that answers questions about
+                            HDFC Mutual Fund products using retrieval-augmented
+                            generation. Built to make dense financial documents
+                            conversational and accessible.
+                        </p>
+                        <p class="pm-signal">PM SIGNAL — <span>The best interface for complex information is a conversation, not a document.</span></p>
+                        <p class="insight">
+                            Financial products fail users not because they're
+                            complex — but because the complexity is never translated.
+                        </p>
+                    </div>
+                    <div id="process-0" style="display:none;">
+                        <div class="process-block">
+                            <div class="process-row">
+                                <span class="process-tag">Problem</span>
+                                <span class="process-text">HDFC MF documentation is dense and hard to navigate — users can't find answers without reading entire PDFs.</span>
+                            </div>
+                            <div class="process-row">
+                                <span class="process-tag">How I built it</span>
+                                <span class="process-text">Chunked and embedded the FAQ documents, built a retrieval pipeline, wrapped it in a Streamlit interface users can query in plain English.</span>
+                            </div>
+                            <div class="process-row">
+                                <span class="process-tag">What I'd change</span>
+                                <span class="process-text">I'd add source citations per answer so users can verify — trust is the core problem in financial information.</span>
+                            </div>
+                        </div>
+                        <div class="no-build"><strong>What I didn't build:</strong> A comparison feature across fund types — useful but out of scope for a first version.</div>
+                    </div>
+                </div>
+            </article>
+
+            <article class="case-row" data-index="1">
+                <div class="case-row__summary">
+                    <div class="case-row__left">
+                        <h4 class="case-row__title">GeoBehaviour</h4>
+                        <span class="badge badge-progress">In Progress</span>
+                    </div>
+                    <div class="case-row__right">
+                        <p class="case-row__desc">A geo-analytics platform that decodes local consumer behavior using proxy signals traditional surveys miss.</p>
+                        <div class="tags">
+                            <span>Python</span>
+                            <span>SQL</span>
+                            <span>Maps API</span>
+                        </div>
+                        <div class="case-row__links">
+                            <a href="https://www.notion.so/GeoBehaviour-336c01bb2e42808fabace47915f33280" target="_blank">
+                                <button class="link">View on Notion ↗</button>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+                <div class="case-row__detail">
+                    <div class="card-tabs">
+                        <button class="card-tab active" onclick="switchTab(1,'overview')">Overview</button>
+                        <button class="card-tab" onclick="switchTab(1,'process')">My Process</button>
+                    </div>
+                    <div id="overview-1">
                         <p class="card-desc">
                             A geo-analytics platform that decodes local consumer behavior using proxy signals.
                             Identifies demand patterns that traditional surveys miss.
                         </p>
                         <p class="pm-signal">PM SIGNAL — Proxy signals > surveys when behavior is the data</p>
                         <p class="insight">Currently in early signal validation — mapping consumption patterns across urban zones.</p>
-                        <div class="tags">
-                            <span>Python</span>
-                            <span>SQL</span>
-                            <span>Maps API</span>
+                    </div>
+                    <div id="process-1" style="display:none;">
+                        <div class="process-block">
+                            <div class="process-row">
+                                <span class="process-tag">Problem</span>
+                                <span class="process-text">Traditional surveys capture stated intent, not real behavior — local demand signals were invisible to small businesses.</span>
+                            </div>
+                            <div class="process-row">
+                                <span class="process-tag">How I validated</span>
+                                <span class="process-text">Mapped proxy signals (foot traffic patterns, search density, review velocity) across 3 urban zones to find demand gaps.</span>
+                            </div>
+                            <div class="process-row">
+                                <span class="process-tag">What I'd change</span>
+                                <span class="process-text">I'd talk to 5 small business owners before building — I assumed the pain point without enough direct validation.</span>
+                            </div>
                         </div>
+                        <div class="no-build"><strong>What I didn't build:</strong> A real-time alert system for demand spikes — technically interesting but not the core job-to-be-done yet.</div>
                     </div>
                 </div>
-                <div class="card-tabs">
-                  <button class="card-tab active" onclick="switchTab(3,'overview')">Overview</button>
-                  <button class="card-tab" onclick="switchTab(3,'process')">My Process</button>
-                </div>
-                <div id="process-3" style="display:none;">
-                  <div class="process-block">
-                    <div class="process-row">
-                      <span class="process-tag">Problem</span>
-                      <span class="process-text">Traditional surveys capture stated intent, not real behavior — local demand signals were invisible to small businesses.</span>
-                    </div>
-                    <div class="process-row">
-                      <span class="process-tag">How I validated</span>
-                      <span class="process-text">Mapped proxy signals (foot traffic patterns, search density, review velocity) across 3 urban zones to find demand gaps.</span>
-                    </div>
-                    <div class="process-row">
-                      <span class="process-tag">What I'd change</span>
-                      <span class="process-text">I'd talk to 5 small business owners before building — I assumed the pain point without enough direct validation.</span>
-                    </div>
-                  </div>
-                  <div class="no-build"><strong>What I didn't build:</strong> A real-time alert system for demand spikes — technically interesting but not the core job-to-be-done yet.</div>
-                </div>
-                <div class="card-reveal">
-                    <p class="reveal-label">Links</p>
-                    <a href="https://www.notion.so/GeoBehaviour-336c01bb2e42808fabace47915f33280" target="_blank">
-                        <button class="link">View on Notion ↗</button>
-                    </a>
-                </div>
-            </div>
+            </article>
 
-            <!-- CARD 4: GROWW WEEKLY REVIEW PULSE -->
-            <div class="deck-card" data-index="4">
-                <div class="card-face">
-                    <div class="card-top">
-                        <h4>Groww Weekly Review Pulse</h4>
+            <article class="case-row" data-index="2">
+                <div class="case-row__summary">
+                    <div class="case-row__left">
+                        <h4 class="case-row__title">Groww Weekly Review Pulse</h4>
                         <span class="badge badge-live">Live</span>
                     </div>
-                    <p class="card-desc">
-                        AI-powered dashboard that transforms 1,499 real 
-                        App Store + Play Store reviews into a one-page 
-                        weekly brief any PM can act on in under 30 seconds. 
-                        Auto-refreshes every Monday — zero manual work.
-                    </p>
-                    <p class="pm-signal">PM SIGNAL — <span>Product teams drown in reviews. The job isn't to read them all — it's to surface what's actually broken.</span></p>
-                    <p class="insight">
-                        Real reviews are messy — Hindi text, emoji-only, 
-                        1-word ratings. Keyword matching alone fails. 
-                        The hardest part wasn't the AI, it was the 
-                        data pipeline.
-                    </p>
-                    <div class="tags">
-                        <span>React</span>
-                        <span>Groq</span>
-                        <span>Gemini</span>
-                        <span>Vercel</span>
-                    </div>
-                </div>
-                <div class="card-tabs">
-                    <button class="card-tab active" 
-                        onclick="switchTab(4,'overview')">Overview</button>
-                    <button class="card-tab" 
-                        onclick="switchTab(4,'process')">My Process</button>
-                </div>
-                <div id="process-4" style="display:none;">
-                    <div class="process-block">
-                        <div class="process-row">
-                            <span class="process-tag">Problem</span>
-                            <span class="process-text">PM teams get hundreds of app reviews weekly with no time to read them — signal drowns in noise, action never happens.</span>
+                    <div class="case-row__right">
+                        <p class="case-row__desc">AI dashboard that turns 1,499 real app reviews into a weekly brief any PM can act on in under 30 seconds.</p>
+                        <div class="tags">
+                            <span>React</span>
+                            <span>Groq</span>
+                            <span>Gemini</span>
+                            <span>Vercel</span>
                         </div>
-                        <div class="process-row">
-                            <span class="process-tag">How I built it</span>
-                            <span class="process-text">Scraped 1,499 real reviews, classified into 5 themes via AI, generated top actions + user quotes, drafted a ready-to-send team email. Cron job refreshes every Monday automatically.</span>
-                        </div>
-                        <div class="process-row">
-                            <span class="process-tag">What I learned</span>
-                            <span class="process-text">Shipping on Vercel with real data taught me more about product thinking than any tutorial — solve the workflow, not just the feature.</span>
+                        <div class="case-row__links">
+                            <a href="https://groww-weekly-pulse.vercel.app/" target="_blank">
+                                <button class="link">Try it live ↗</button>
+                            </a>
                         </div>
                     </div>
-                    <span class="metric-chip">1,499 reviews · 5 themes · 0 manual steps</span>
-                    <div class="no-build"><strong>What I didn't build:</strong> Multi-app support — useful but would have delayed shipping. Validated the single-app workflow first.</div>
                 </div>
-                <div class="card-reveal">
-                    <a href="https://groww-weekly-pulse.vercel.app/" 
-                       target="_blank">
-                        <button class="link">Try it live ↗</button>
-                    </a>
+                <div class="case-row__detail">
+                    <div class="card-tabs">
+                        <button class="card-tab active" onclick="switchTab(2,'overview')">Overview</button>
+                        <button class="card-tab" onclick="switchTab(2,'process')">My Process</button>
+                    </div>
+                    <div id="overview-2">
+                        <p class="card-desc">
+                            AI-powered dashboard that transforms 1,499 real
+                            App Store + Play Store reviews into a one-page
+                            weekly brief any PM can act on in under 30 seconds.
+                            Auto-refreshes every Monday — zero manual work.
+                        </p>
+                        <p class="pm-signal">PM SIGNAL — <span>Product teams drown in reviews. The job isn't to read them all — it's to surface what's actually broken.</span></p>
+                        <p class="insight">
+                            Real reviews are messy — Hindi text, emoji-only,
+                            1-word ratings. Keyword matching alone fails.
+                            The hardest part wasn't the AI, it was the
+                            data pipeline.
+                        </p>
+                    </div>
+                    <div id="process-2" style="display:none;">
+                        <div class="process-block">
+                            <div class="process-row">
+                                <span class="process-tag">Problem</span>
+                                <span class="process-text">PM teams get hundreds of app reviews weekly with no time to read them — signal drowns in noise, action never happens.</span>
+                            </div>
+                            <div class="process-row">
+                                <span class="process-tag">How I built it</span>
+                                <span class="process-text">Scraped 1,499 real reviews, classified into 5 themes via AI, generated top actions + user quotes, drafted a ready-to-send team email. Cron job refreshes every Monday automatically.</span>
+                            </div>
+                            <div class="process-row">
+                                <span class="process-tag">What I learned</span>
+                                <span class="process-text">Shipping on Vercel with real data taught me more about product thinking than any tutorial — solve the workflow, not just the feature.</span>
+                            </div>
+                        </div>
+                        <span class="metric-chip">1,499 reviews · 5 themes · 0 manual steps</span>
+                        <div class="no-build"><strong>What I didn't build:</strong> Multi-app support — useful but would have delayed shipping. Validated the single-app workflow first.</div>
+                    </div>
                 </div>
-            </div>
+            </article>
 
-            <!-- CARD 5: CHATGPT PRD -->
-            <div class="deck-card" data-index="5">
-                <div id="overview-5">
-                    <div class="card-face">
-                        <div class="card-top">
-                            <h4>ChatGPT Voice Adoption (Whisper Mode)</h4>
-                            <span class="badge badge-prd">PRD</span>
+            <article class="case-row" data-index="3">
+                <div class="case-row__summary">
+                    <div class="case-row__left">
+                        <h4 class="case-row__title">ChatGPT Voice Adoption (Whisper Mode)</h4>
+                        <span class="badge badge-prd">PRD</span>
+                    </div>
+                    <div class="case-row__right">
+                        <p class="case-row__desc">Identified why voice mode had low adoption among students — addressing social friction, not discoverability.</p>
+                        <div class="case-row__links">
+                            <a href="/chatGPT_PRD.pdf" target="_blank">
+                                <button class="link">View PRD ↗</button>
+                            </a>
                         </div>
+                    </div>
+                </div>
+                <div class="case-row__detail">
+                    <div class="card-tabs">
+                        <button class="card-tab active" onclick="switchTab(3,'overview')">Overview</button>
+                        <button class="card-tab" onclick="switchTab(3,'process')">My Process</button>
+                    </div>
+                    <div id="overview-3">
                         <p class="card-desc">
                             Identified why voice mode had low adoption among students despite high awareness.
                             Designed a feature strategy addressing social friction, not discoverability.
@@ -371,45 +318,48 @@
                         <p class="insight">Voice fails not because users can't find it — but because using it in public feels socially unsafe.</p>
                         <p class="meta">PDF • Behavioral Product Design</p>
                     </div>
-                </div>
-                <div class="card-tabs">
-                  <button class="card-tab active" onclick="switchTab(5,'overview')">Overview</button>
-                  <button class="card-tab" onclick="switchTab(5,'process')">My Process</button>
-                </div>
-                <div id="process-5" style="display:none;">
-                  <div class="process-block">
-                    <div class="process-row">
-                      <span class="process-tag">Problem</span>
-                      <span class="process-text">Voice mode awareness was high but usage near zero — the barrier was after discovery, not before it.</span>
-                    </div>
-                    <div class="process-row">
-                      <span class="process-tag">How I validated</span>
-                      <span class="process-text">Mapped 12 student use-case scenarios — social context (library, class, public) correlated strongly with drop-off.</span>
-                    </div>
-                    <div class="process-row">
-                      <span class="process-tag">What I'd change</span>
-                      <span class="process-text">I'd run intercept interviews before writing the PRD — I relied on proxy data more than I should have.</span>
-                    </div>
-                  </div>
-                  <span class="metric-chip">↑ 38% simulated task adoption in redesigned flow</span>
-                  <div class="no-build"><strong>What I didn't build:</strong> A "voice confidence score" feature — it added complexity without solving the core social friction.</div>
-                </div>
-                <div class="card-reveal">
-                    <p class="reveal-label">Links</p>
-                    <a href="/chatGPT_PRD.pdf" target="_blank">
-                        <button class="link">View PRD ↗</button>
-                    </a>
-                </div>
-            </div>
-
-            <!-- CARD 6: GOODREADS PRD -->
-            <div class="deck-card" data-index="6">
-                <div id="overview-6">
-                    <div class="card-face">
-                        <div class="card-top">
-                            <h4>Goodreads – From Tracking to Habit</h4>
-                            <span class="badge badge-prd">PRD</span>
+                    <div id="process-3" style="display:none;">
+                        <div class="process-block">
+                            <div class="process-row">
+                                <span class="process-tag">Problem</span>
+                                <span class="process-text">Voice mode awareness was high but usage near zero — the barrier was after discovery, not before it.</span>
+                            </div>
+                            <div class="process-row">
+                                <span class="process-tag">How I validated</span>
+                                <span class="process-text">Mapped 12 student use-case scenarios — social context (library, class, public) correlated strongly with drop-off.</span>
+                            </div>
+                            <div class="process-row">
+                                <span class="process-tag">What I'd change</span>
+                                <span class="process-text">I'd run intercept interviews before writing the PRD — I relied on proxy data more than I should have.</span>
+                            </div>
                         </div>
+                        <span class="metric-chip">↑ 38% simulated task adoption in redesigned flow</span>
+                        <div class="no-build"><strong>What I didn't build:</strong> A "voice confidence score" feature — it added complexity without solving the core social friction.</div>
+                    </div>
+                </div>
+            </article>
+
+            <article class="case-row" data-index="4">
+                <div class="case-row__summary">
+                    <div class="case-row__left">
+                        <h4 class="case-row__title">Goodreads – From Tracking to Habit</h4>
+                        <span class="badge badge-prd">PRD</span>
+                    </div>
+                    <div class="case-row__right">
+                        <p class="case-row__desc">Redesigned the reading log to capture intent at the moment it occurs through contextual nudges.</p>
+                        <div class="case-row__links">
+                            <a href="/Goodreads-PRD.pdf" target="_blank">
+                                <button class="link">View PRD ↗</button>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+                <div class="case-row__detail">
+                    <div class="card-tabs">
+                        <button class="card-tab active" onclick="switchTab(4,'overview')">Overview</button>
+                        <button class="card-tab" onclick="switchTab(4,'process')">My Process</button>
+                    </div>
+                    <div id="overview-4">
                         <p class="card-desc">
                             Redesigned the reading log experience to capture intent at the moment it occurs,
                             reducing drop-off in progress tracking through contextual nudges.
@@ -418,45 +368,48 @@
                         <p class="insight">Users don't forget to log — they lose the moment of intent before they get to the app.</p>
                         <p class="meta">PDF • Habit Formation & Retention</p>
                     </div>
-                </div>
-                <div class="card-tabs">
-                  <button class="card-tab active" onclick="switchTab(6,'overview')">Overview</button>
-                  <button class="card-tab" onclick="switchTab(6,'process')">My Process</button>
-                </div>
-                <div id="process-6" style="display:none;">
-                  <div class="process-block">
-                    <div class="process-row">
-                      <span class="process-tag">Problem</span>
-                      <span class="process-text">Users open Goodreads to log progress after reading — by then the moment of intent has passed and friction wins.</span>
-                    </div>
-                    <div class="process-row">
-                      <span class="process-tag">How I validated</span>
-                      <span class="process-text">Audited the logging flow step by step, counting taps to complete a progress update — 7 steps for a 2-second task.</span>
-                    </div>
-                    <div class="process-row">
-                      <span class="process-tag">What I'd change</span>
-                      <span class="process-text">I'd prototype the contextual nudge and test it with real readers before committing to the full feature spec.</span>
-                    </div>
-                  </div>
-                  <span class="metric-chip">↓ 7 steps → 2 steps to log progress</span>
-                  <div class="no-build"><strong>What I didn't build:</strong> A social reading feed — users asked for it but it would have made logging feel even more performative.</div>
-                </div>
-                <div class="card-reveal">
-                    <p class="reveal-label">Links</p>
-                    <a href="/Goodreads-PRD.pdf" target="_blank">
-                        <button class="link">View PRD ↗</button>
-                    </a>
-                </div>
-            </div>
-
-            <!-- CARD 7: GOODREADS TEARDOWN -->
-            <div class="deck-card" data-index="7">
-                <div id="overview-7">
-                    <div class="card-face">
-                        <div class="card-top">
-                            <h4>Goodreads Product Teardown</h4>
-                            <span class="badge badge-teardown">Teardown</span>
+                    <div id="process-4" style="display:none;">
+                        <div class="process-block">
+                            <div class="process-row">
+                                <span class="process-tag">Problem</span>
+                                <span class="process-text">Users open Goodreads to log progress after reading — by then the moment of intent has passed and friction wins.</span>
+                            </div>
+                            <div class="process-row">
+                                <span class="process-tag">How I validated</span>
+                                <span class="process-text">Audited the logging flow step by step, counting taps to complete a progress update — 7 steps for a 2-second task.</span>
+                            </div>
+                            <div class="process-row">
+                                <span class="process-tag">What I'd change</span>
+                                <span class="process-text">I'd prototype the contextual nudge and test it with real readers before committing to the full feature spec.</span>
+                            </div>
                         </div>
+                        <span class="metric-chip">↓ 7 steps → 2 steps to log progress</span>
+                        <div class="no-build"><strong>What I didn't build:</strong> A social reading feed — users asked for it but it would have made logging feel even more performative.</div>
+                    </div>
+                </div>
+            </article>
+
+            <article class="case-row" data-index="5">
+                <div class="case-row__summary">
+                    <div class="case-row__left">
+                        <h4 class="case-row__title">Goodreads Product Teardown</h4>
+                        <span class="badge badge-teardown">Teardown</span>
+                    </div>
+                    <div class="case-row__right">
+                        <p class="case-row__desc">Audited Goodreads user flows and retention mechanics to map where the core loop breaks.</p>
+                        <div class="case-row__links">
+                            <a href="/Goodreads-ProductTeardown.pdf" target="_blank">
+                                <button class="link">Read Breakdown ↗</button>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+                <div class="case-row__detail">
+                    <div class="card-tabs">
+                        <button class="card-tab active" onclick="switchTab(5,'overview')">Overview</button>
+                        <button class="card-tab" onclick="switchTab(5,'process')">My Process</button>
+                    </div>
+                    <div id="overview-5">
                         <p class="card-desc">
                             Audited Goodreads across user flows, engagement loops, and retention mechanics.
                             Mapped where the product loses users and why the core loop is broken.
@@ -465,35 +418,25 @@
                         <p class="insight">Logging is treated as admin work — it sits outside the reading experience instead of inside it.</p>
                         <p class="meta">PDF • Product Analysis</p>
                     </div>
-                </div>
-                <div class="card-tabs">
-                  <button class="card-tab active" onclick="switchTab(7,'overview')">Overview</button>
-                  <button class="card-tab" onclick="switchTab(7,'process')">My Process</button>
-                </div>
-                <div id="process-7" style="display:none;">
-                  <div class="process-block">
-                    <div class="process-row">
-                      <span class="process-tag">Problem</span>
-                      <span class="process-text">Goodreads has millions of users but retention is weak — I wanted to find exactly where and why the core loop breaks.</span>
+                    <div id="process-5" style="display:none;">
+                        <div class="process-block">
+                            <div class="process-row">
+                                <span class="process-tag">Problem</span>
+                                <span class="process-text">Goodreads has millions of users but retention is weak — I wanted to find exactly where and why the core loop breaks.</span>
+                            </div>
+                            <div class="process-row">
+                                <span class="process-tag">How I validated</span>
+                                <span class="process-text">Walked every major user flow from onboarding to re-engagement, mapping where momentum drops and why.</span>
+                            </div>
+                            <div class="process-row">
+                                <span class="process-tag">What I'd change</span>
+                                <span class="process-text">I'd quantify drop-off rates per flow step if I had access to real data — the teardown is qualitative where it should be mixed.</span>
+                            </div>
+                        </div>
+                        <div class="no-build"><strong>What I didn't build:</strong> A full redesign concept — a teardown should diagnose, not prescribe. That's what the PRD is for.</div>
                     </div>
-                    <div class="process-row">
-                      <span class="process-tag">How I validated</span>
-                      <span class="process-text">Walked every major user flow from onboarding to re-engagement, mapping where momentum drops and why.</span>
-                    </div>
-                    <div class="process-row">
-                      <span class="process-tag">What I'd change</span>
-                      <span class="process-text">I'd quantify drop-off rates per flow step if I had access to real data — the teardown is qualitative where it should be mixed.</span>
-                    </div>
-                  </div>
-                  <div class="no-build"><strong>What I didn't build:</strong> A full redesign concept — a teardown should diagnose, not prescribe. That's what the PRD is for.</div>
                 </div>
-                <div class="card-reveal">
-                    <p class="reveal-label">Links</p>
-                    <a href="/Goodreads-ProductTeardown.pdf" target="_blank">
-                        <button class="link">Read Breakdown ↗</button>
-                    </a>
-                </div>
-            </div>
+            </article>
 
         </div>
     </section>
@@ -536,19 +479,19 @@
     </section>
 
     <script>
-        // ── Deck cards ──
-        const cards = document.querySelectorAll('.deck-card');
-        cards.forEach(card => {
-            card.addEventListener('click', function(e) {
-                if (e.target.closest('a') || e.target.closest('button.link')) return;
+        // ── Case study rows ──
+        const rows = document.querySelectorAll('.case-row');
+        rows.forEach(row => {
+            row.addEventListener('click', function(e) {
+                if (e.target.closest('a') || e.target.closest('button')) return;
                 const isOpen = this.classList.contains('open');
-                cards.forEach(c => c.classList.remove('open'));
+                rows.forEach(r => r.classList.remove('open'));
                 if (!isOpen) this.classList.add('open');
             });
         });
         document.addEventListener('click', function(e) {
-            if (!e.target.closest('.deck-card')) {
-                cards.forEach(c => c.classList.remove('open'));
+            if (!e.target.closest('.case-row')) {
+                rows.forEach(r => r.classList.remove('open'));
             }
         });
 
@@ -615,7 +558,7 @@
         function switchTab(cardIndex, tab) {
             const overviewEl = document.getElementById('overview-' + cardIndex);
             const processEl = document.getElementById('process-' + cardIndex);
-            const tabs = document.querySelectorAll('.deck-card[data-index="' + cardIndex + '"] .card-tab');
+            const tabs = document.querySelectorAll('.case-row[data-index="' + cardIndex + '"] .card-tab');
             if (overviewEl) overviewEl.style.display = tab === 'overview' ? 'block' : 'none';
             if (processEl) processEl.style.display = tab === 'process' ? 'block' : 'none';
             tabs.forEach(t => t.classList.remove('active'));
