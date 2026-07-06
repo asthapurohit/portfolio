@@ -6,7 +6,7 @@
     <title>Thoughts — Astha Purohit</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Mono:wght@300;400&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Mono:wght@300;400&family=Lato:ital,wght@0,300;0,400;1,300&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="/style.css">
 </head>
 <body>
@@ -24,73 +24,76 @@
 <div class="thoughts-page-wrap">
     <div class="container">
 
-    <section class="thoughts-hero">
-        <div class="thoughts-hero-left">
-            <span class="thoughts-eyebrow">Writing</span>
-            <h1 class="thoughts-title">Thoughts</h1>
-            <p class="thoughts-intro">
-                I write about behavior — in culture, in systems, in ourselves. 
-                Right now working through a series on classism and how it shapes 
-                what we buy, who we trust, and what we pretend not to notice.
+        <section class="thoughts-index">
+            <div class="thoughts-index__header">
+                <h1 class="thoughts-index__label">Thoughts</h1>
+                <span class="thoughts-index__count">{{ '%02d'|format(posts|length) }} Essays</span>
+            </div>
+
+            <div class="thoughts-index__list" id="thoughts-list">
+                {% for post in posts %}
+                <a href="{{ post.url }}" target="_blank" rel="noopener"
+                   class="thoughts-row thoughts-row--reveal{% if loop.first %} thoughts-row--featured{% endif %}">
+                    <span class="thoughts-row__index">{{ '%02d'|format(loop.index) }}</span>
+                    <div class="thoughts-row__main">
+                        {% if loop.first %}
+                        <span class="thoughts-row__latest">Latest</span>
+                        {% endif %}
+                        <h2 class="thoughts-row__title">{{ post.title }}</h2>
+                        <p class="thoughts-row__deck">{{ post.summary }}</p>
+                        {% if post.tags %}
+                        <div class="thoughts-row__tags">
+                            {% for tag in post.tags[:2] %}
+                            <span class="thoughts-row__tag">{{ tag }}</span>
+                            {% endfor %}
+                        </div>
+                        {% endif %}
+                    </div>
+                    <div class="thoughts-row__meta">
+                        <span class="thoughts-row__date">{{ post.date }}</span>
+                        <span class="thoughts-row__read">{{ post.reading_time }} min read</span>
+                    </div>
+                    <span class="thoughts-row__arrow" aria-hidden="true">↗</span>
+                </a>
+                {% endfor %}
+            </div>
+
+            <p class="thoughts-index__footer">
+                <a href="https://substack.com/@asthadiaries" target="_blank" rel="noopener" class="thoughts-index__substack">
+                    Astha Diaries on Substack ↗
+                </a>
             </p>
-            <a href="https://substack.com/@asthadiaries" 
-               target="_blank" class="thoughts-substack-link">
-                Astha Diaries on Substack ↗
-            </a>
-        </div>
-        <div class="thoughts-hero-divider"></div>
-        <div class="thoughts-hero-right">
-            <p class="thoughts-coming-quote">
-                "Next up: how brands weaponize class anxiety to sell identity."
-            </p>
-            <span class="thoughts-coming-label">Coming 2026</span>
-        </div>
-    </section>
-
-    <div class="thoughts-grid">
-
-        <div class="tg-post tg-upcoming">
-            <span class="tg-tag tg-tag-upcoming">Coming soon</span>
-            <div class="tg-upcoming-title">How brands weaponize 
-            class anxiety to sell identity</div>
-            <div class="tg-desc">The next piece in the classism 
-            series.</div>
-            <span class="tg-date">2026</span>
-        </div>
-
-        {% for post in posts %}
-        {% if loop.first %}
-        <a href="{{ post.url }}" target="_blank" 
-           class="tg-post tg-featured">
-            {% if post.series == 'classism' %}
-            <span class="tg-tag tg-tag-series-light">
-            Classism Series</span>
-            {% else %}
-            <span class="tg-tag tg-tag-essay tg-tag-essay-light">Essay</span>
-            {% endif %}
-            <div class="tg-title-light">{{ post.title }}</div>
-            <div class="tg-desc-light">{{ post.summary }}</div>
-            <span class="tg-date-light">{{ post.date }}</span>
-        </a>
-        {% else %}
-        <a href="{{ post.url }}" target="_blank" 
-           class="tg-post">
-            {% if post.series == 'classism' %}
-            <span class="tg-tag tg-tag-series">
-            Classism Series</span>
-            {% else %}
-            <span class="tg-tag tg-tag-essay">Essay</span>
-            {% endif %}
-            <div class="tg-title">{{ post.title }}</div>
-            <div class="tg-desc">{{ post.summary }}</div>
-            <span class="tg-date">{{ post.date }}</span>
-        </a>
-        {% endif %}
-        {% endfor %}
-
-    </div>
+        </section>
 
     </div>
 </div>
+
+<script>
+    (function () {
+        const rows = document.querySelectorAll('.thoughts-row--reveal');
+        if (!rows.length) return;
+
+        const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+        if (prefersReducedMotion) {
+            rows.forEach(row => row.classList.add('is-visible'));
+            return;
+        }
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('is-visible');
+                    observer.unobserve(entry.target);
+                }
+            });
+        }, { threshold: 0.12, rootMargin: '0px 0px -40px 0px' });
+
+        rows.forEach((row, i) => {
+            row.style.setProperty('--reveal-delay', (i * 80) + 'ms');
+            observer.observe(row);
+        });
+    })();
+</script>
 </body>
 </html>
