@@ -1,0 +1,76 @@
+CASE_FILES = [
+    {
+        'title': 'Spotify Review Analysis & Taste Bridge',
+        'deck': 'An AI review engine that surfaces why users get stuck in listening ruts — feeding directly into an MVP that helps them break out of one.',
+        'role': 'Product Builder',
+        'stack': 'React, Vite, Groq, Spotify API',
+        'year': '2025',
+        'link': 'https://taste-unstick.vercel.app/',
+        'images': [
+            {
+                'caption': 'REVIEW ANALYSIS DASHBOARD',
+                'color': '#1c2233',
+            },
+            {
+                'caption': 'TASTE BRIDGE PATH',
+                'color': '#232018',
+            },
+            {
+                'caption': 'NOVELTY DIAL FLOW',
+                'color': '#1a2530',
+            },
+        ],
+        'narrative': [
+            'Users weren\'t asking for more recommendations — they were stuck in repeat-listening loops. I scraped App Store, Play Store, and Reddit reviews to find the root causes before designing anything.',
+            'Taste Bridge picks an activity and a novelty dial, then builds a five-track path from familiar to new. The review engine and the MVP share one thesis: bridge from where users already are.',
+            'Shipped both tools on Vercel with real review data and a graduation deck documenting the full product arc from signal to solution.',
+        ],
+        'pullQuote': 'The best discovery features don\'t reset taste — they bridge from where users already are.',
+    },
+    {
+        'title': 'Groww Weekly Review Pulse',
+        'deck': 'AI dashboard that turns 1,499 real app reviews into a weekly brief any PM can act on in under 30 seconds.',
+        'role': 'Solo Builder',
+        'stack': 'React, Groq, Gemini, Vercel',
+        'year': '2025',
+        'link': 'https://groww-weekly-pulse.vercel.app/',
+        'images': [
+            {
+                'caption': 'WEEKLY BRIEF OVERVIEW',
+                'color': '#1a2420',
+            },
+            {
+                'caption': 'THEME CLASSIFICATION',
+                'color': '#201c28',
+            },
+        ],
+        'narrative': [
+            'PM teams drown in reviews. The job isn\'t to read them all — it\'s to surface what\'s actually broken. I scraped 1,499 real Groww reviews and built a pipeline that handles Hindi text, emoji-only posts, and one-word ratings.',
+            'Every Monday, the dashboard auto-refreshes: five themes, top actions, user quotes, and a ready-to-send team email. Zero manual steps after the initial build.',
+        ],
+        'pullQuote': 'Real reviews are messy. Keyword matching alone fails — the hardest part wasn\'t the AI, it was the data pipeline.',
+    },
+    {
+        'title': 'HDFC MF FAQ Chatbot',
+        'deck': 'A RAG-powered chatbot that makes dense mutual-fund documents conversational and accessible.',
+        'role': 'Product Builder',
+        'stack': 'Python, RAG, Streamlit, LLM',
+        'year': '2025',
+        'link': 'https://hdfc-mf-faq.streamlit.app/',
+        'images': [
+            {
+                'caption': 'CHAT INTERFACE',
+                'color': '#1e2228',
+            },
+            {
+                'caption': 'RETRIEVAL PIPELINE',
+                'color': '#221e1a',
+            },
+        ],
+        'narrative': [
+            'HDFC MF documentation is dense and hard to navigate — users can\'t find answers without reading entire PDFs. Financial products fail people not because they\'re complex, but because complexity is never translated.',
+            'I chunked and embedded FAQ documents, built a retrieval pipeline, and wrapped it in Streamlit so users can query in plain English. Next iteration: source citations per answer so trust isn\'t assumed.',
+        ],
+        'pullQuote': 'The best interface for complex information is a conversation, not a document.',
+    },
+]

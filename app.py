@@ -2,6 +2,8 @@ from flask import Flask, render_template
 import feedparser
 import re
 
+from case_files import CASE_FILES
+
 app = Flask(__name__)
 
 SUBSTACK_RSS = "https://asthapurohit.substack.com/feed"
@@ -98,7 +100,7 @@ def fetch_substack_posts():
 
 @app.route("/")
 def home():
-    return render_template("index.html")
+    return render_template("index.html", case_files=CASE_FILES)
 
 
 @app.route("/thoughts")
