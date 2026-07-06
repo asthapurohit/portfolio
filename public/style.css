@@ -328,6 +328,24 @@ body::after {
     border: 0.5px solid #b0d8b0;
 }
 
+.card-badges {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    flex-shrink: 0;
+    margin-top: 4px;
+}
+
+.card-badges .badge {
+    margin-top: 0;
+}
+
+.badge-flagship {
+    background: #f7f2eb;
+    color: #9a7b50;
+    border: 0.5px solid #e8d0b8;
+}
+
 .card-desc {
     font-size: 13px;
     line-height: 1.8;
@@ -559,6 +577,11 @@ body::after {
 /* ─── COLORED LEFT BORDERS FOR DIFFERENT CARD TYPES ─── */
 .deck-card[data-index="0"] {
     border-left-color: #b07830; /* Amber for In Progress */
+}
+
+.deck-card.deck-card--flagship {
+    border-left-width: 6px;
+    border-left-color: #c4a882;
 }
 
 .deck-card[data-index="1"],
