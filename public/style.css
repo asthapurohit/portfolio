@@ -663,6 +663,41 @@ body::after {
     z-index: 1;
 }
 
+.case-embed__fallback-panel {
+    position: absolute;
+    inset: 0;
+    z-index: 2;
+    display: none;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    gap: 12px;
+    background: #141416;
+    padding: 20px;
+    text-align: center;
+}
+
+.case-embed__fallback-title {
+    font-family: 'DM Serif Display', serif;
+    font-size: clamp(1.25rem, 2.8vw, 1.75rem);
+    font-weight: 400;
+    color: var(--color-text-heading);
+    margin: 0;
+}
+
+.case-embed__fallback-link {
+    font-family: 'DM Mono', monospace;
+    font-size: 10px;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--color-accent-primary);
+    text-decoration: none;
+}
+
+.case-embed__fallback-link:hover {
+    color: var(--color-accent-primary-hover);
+}
+
 .case-embed__overlay-link {
     position: absolute;
     inset: 0;
@@ -701,7 +736,8 @@ body::after {
 }
 
 .case-embed.is-live .case-embed__placeholder,
-.case-embed.is-live .case-embed__fallback-image {
+.case-embed.is-live .case-embed__fallback-image,
+.case-embed.is-live .case-embed__fallback-panel {
     display: none;
 }
 
@@ -711,6 +747,10 @@ body::after {
 
 .case-embed.is-fallback .case-embed__fallback-image {
     display: block;
+}
+
+.case-embed.is-fallback[data-has-fallback-image="false"] .case-embed__fallback-panel {
+    display: flex;
 }
 
 .case-embed.is-live .case-embed__stage {
@@ -845,6 +885,10 @@ body::after {
 
     .case-embed__fallback-image {
         display: block !important;
+    }
+
+    .case-embed__fallback-panel {
+        display: none !important;
     }
 }
 

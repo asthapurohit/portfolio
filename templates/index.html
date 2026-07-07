@@ -122,14 +122,22 @@
                                 data-live-url="{{ project.liveUrl }}"
                                 data-embed="{{ 'true' if project.embed else 'false' }}"
                                 data-fallback-image="{{ project.fallbackImage }}"
-                                data-domain="{{ project.liveDomain }}">
+                                data-domain="{{ project.liveDomain }}"
+                                data-has-fallback-image="{{ 'true' if project.fallbackImage else 'false' }}"
+                                data-project-title="{{ project.title }}">
                             <div class="case-figure__frame case-embed__frame">
                                 <div class="case-embed__viewport">
                                     <div class="case-embed__stage"></div>
                                     <div class="case-embed__placeholder">
                                         <span>Loading live preview...</span>
                                     </div>
+                                    {% if project.fallbackImage %}
                                     <img src="{{ project.fallbackImage }}" alt="{{ project.title }} fallback preview" class="case-embed__fallback-image">
+                                    {% endif %}
+                                    <div class="case-embed__fallback-panel">
+                                        <h4 class="case-embed__fallback-title">{{ project.title }}</h4>
+                                        <a href="{{ project.liveUrl }}" target="_blank" rel="noopener" class="case-embed__fallback-link">Preview unavailable — Visit Live ↗</a>
+                                    </div>
                                     <span class="case-embed__pill">Visit Live ↗</span>
                                     <a href="{{ project.liveUrl }}" target="_blank" rel="noopener" class="case-embed__overlay-link" aria-label="Visit {{ project.title }} live site"></a>
                                 </div>
@@ -261,8 +269,6 @@
                 const frame = card.querySelector('.case-embed__frame');
                 const viewport = card.querySelector('.case-embed__viewport');
                 const stage = card.querySelector('.case-embed__stage');
-                const fallbackImage = card.querySelector('.case-embed__fallback-image');
-                const placeholder = card.querySelector('.case-embed__placeholder');
                 const indicator = card.querySelector('.case-figure__live-indicator');
                 const canEmbed = card.dataset.embed !== 'false';
                 let iframe = null;
@@ -270,11 +276,13 @@
                 let mounted = false;
                 let loaded = false;
                 let failed = false;
+                let lastDistance = Number.POSITIVE_INFINITY;
 
                 function applyScale() {
                     const frameWidth = frame.getBoundingClientRect().width;
                     if (!frameWidth) return;
                     const scale = frameWidth / 1440;
+                    if (!Number.isFinite(scale) || scale <= 0) return;
                     viewport.style.setProperty('--embed-scale', scale.toString());
                     viewport.style.height = `${900 * scale}px`;
                 }
@@ -283,8 +291,11 @@
                 resizeObserver.observe(frame);
                 applyScale();
 
+                if (!canEmbed) {
+                    showFallback();
+                }
+
                 function showFallback() {
-                    failed = true;
                     card.classList.add('is-fallback');
                     card.classList.remove('is-live', 'is-loading');
                     indicator.classList.remove('is-live');
@@ -308,28 +319,21 @@
 
                 function mount() {
                     const desktop = window.innerWidth >= 1024;
-                    if (!desktop || !canEmbed || mounted || failed) {
+                    if (mounted) return;
+                    if (!desktop || !canEmbed || failed) {
                         showFallback();
                         return;
                     }
                     mounted = true;
+                    loaded = false;
                     showLoading();
                     iframe = document.createElement('iframe');
-                    iframe.src = card.dataset.liveUrl;
                     iframe.width = '1440';
                     iframe.height = '900';
                     iframe.loading = 'lazy';
                     iframe.sandbox = 'allow-scripts allow-same-origin';
                     iframe.referrerPolicy = 'no-referrer';
                     iframe.className = 'case-embed__iframe';
-
-                    timeoutId = window.setTimeout(() => {
-                        if (!loaded) {
-                            unmount();
-                            showFallback();
-                        }
-                    }, 6000);
-
                     iframe.addEventListener('load', () => {
                         if (timeoutId) {
                             clearTimeout(timeoutId);
@@ -337,6 +341,15 @@
                         }
                         showLive();
                     }, { once: true });
+                    iframe.src = card.dataset.liveUrl;
+
+                    timeoutId = window.setTimeout(() => {
+                        if (!loaded) {
+                            failed = true;
+                            unmount();
+                            showFallback();
+                        }
+                    }, 6000);
                     stage.appendChild(iframe);
                 }
 
@@ -351,9 +364,25 @@
                         iframe.remove();
                         iframe = null;
                     }
+                    if (!failed) {
+                        card.classList.remove('is-live', 'is-loading');
+                        card.classList.add('is-fallback');
+                        indicator.classList.remove('is-live');
+                        indicator.classList.add('is-fallback');
+                    }
                 }
 
-                return { card, mount, unmount, canEmbed, resizeObserver, failed };
+                return {
+                    card,
+                    canEmbed,
+                    mount,
+                    unmount,
+                    resizeObserver,
+                    get failed() { return failed; },
+                    get mounted() { return mounted; },
+                    get lastDistance() { return lastDistance; },
+                    set lastDistance(value) { lastDistance = value; },
+                };
             });
 
             function updateEmbeds() {
@@ -372,6 +401,7 @@
                         const rect = entry.card.getBoundingClientRect();
                         const nearViewport = rect.top < window.innerHeight * 2 && rect.bottom > -window.innerHeight;
                         const distance = Math.abs(rect.top - (window.innerHeight * 0.45));
+                        entry.lastDistance = distance;
                         return { entry, nearViewport, distance };
                     })
                     .filter((item) => item.nearViewport)
@@ -383,7 +413,12 @@
                     if (candidates.includes(entry)) {
                         entry.mount();
                     } else {
-                        entry.unmount();
+                        const rect = entry.card.getBoundingClientRect();
+                        const outAbove = rect.bottom < (-rect.height * 0.5);
+                        const outBelow = rect.top > (window.innerHeight + rect.height * 0.5);
+                        if (outAbove || outBelow) {
+                            entry.unmount();
+                        }
                     }
                 });
             }
