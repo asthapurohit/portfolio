@@ -644,7 +644,7 @@ body::after {
     position: absolute;
     inset: 0;
     background: var(--color-surface-embed);
-    display: flex;
+    display: none;
     align-items: center;
     justify-content: center;
     z-index: 2;
@@ -665,7 +665,13 @@ body::after {
     width: 100%;
     height: 100%;
     object-fit: cover;
+    display: none;
     z-index: 1;
+}
+
+.case-figure--static .case-embed__fallback-image,
+.case-embed.is-fallback .case-embed__fallback-image {
+    display: block;
 }
 
 .case-embed__fallback-panel {
@@ -748,10 +754,6 @@ body::after {
 
 .case-embed.is-fallback .case-embed__placeholder {
     display: none;
-}
-
-.case-embed.is-fallback .case-embed__fallback-image {
-    display: block;
 }
 
 .case-embed.is-fallback[data-has-fallback-image="false"] .case-embed__fallback-panel {
@@ -887,7 +889,8 @@ body::after {
         display: none !important;
     }
 
-    .case-embed__fallback-image {
+    .case-embed__fallback-image,
+    .case-figure--static .case-embed__fallback-image {
         display: block !important;
     }
 

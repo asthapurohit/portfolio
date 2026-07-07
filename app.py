@@ -4,7 +4,7 @@ import re
 
 from case_files import CASE_FILES
 
-app = Flask(__name__)
+app = Flask(__name__, static_folder='public', static_url_path='')
 
 SUBSTACK_RSS = "https://asthapurohit.substack.com/feed"
 

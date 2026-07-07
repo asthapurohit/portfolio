@@ -118,32 +118,41 @@
                     </aside>
 
                     <div class="case-chapter__content">
-                        <figure class="case-figure case-block--reveal case-embed"
+                        {% set caption_label = project.title if 'TODO' in project.liveDomain else project.liveDomain %}
+                        <figure class="case-figure case-block--reveal{% if project.embed %} case-embed is-loading{% else %} case-figure--static{% endif %}"
+                                {% if project.embed %}
                                 data-live-url="{{ project.liveUrl }}"
-                                data-embed="{{ 'true' if project.embed else 'false' }}"
+                                data-embed="true"
                                 data-fallback-image="{{ project.fallbackImage }}"
                                 data-domain="{{ project.liveDomain }}"
                                 data-has-fallback-image="{{ 'true' if project.fallbackImage else 'false' }}"
-                                data-project-title="{{ project.title }}">
-                            <div class="case-figure__frame case-embed__frame">
+                                data-project-title="{{ project.title }}"
+                                {% endif %}>
+                            <div class="case-figure__frame{% if project.embed %} case-embed__frame{% endif %}">
                                 <div class="case-embed__viewport">
+                                    {% if project.embed %}
                                     <div class="case-embed__stage"></div>
                                     <div class="case-embed__placeholder">
                                         <span>Loading live preview...</span>
                                     </div>
-                                    {% if project.fallbackImage %}
-                                    <img src="{{ project.fallbackImage }}" alt="{{ project.title }} fallback preview" class="case-embed__fallback-image">
                                     {% endif %}
+                                    {% if project.fallbackImage %}
+                                    <img src="{{ project.fallbackImage }}" alt="{{ project.title }} preview" class="case-embed__fallback-image">
+                                    {% endif %}
+                                    {% if project.embed and not project.fallbackImage %}
                                     <div class="case-embed__fallback-panel">
                                         <h4 class="case-embed__fallback-title">{{ project.title }}</h4>
                                         <a href="{{ project.liveUrl }}" target="_blank" rel="noopener" class="case-embed__fallback-link">Preview unavailable — Visit Live ↗</a>
                                     </div>
+                                    {% endif %}
+                                    {% if project.embed %}
                                     <span class="case-embed__pill">Visit Live ↗</span>
-                                    <a href="{{ project.liveUrl }}" target="_blank" rel="noopener" class="case-embed__overlay-link" aria-label="Visit {{ project.title }} live site"></a>
+                                    {% endif %}
+                                    <a href="{{ project.link }}" target="_blank" rel="noopener" class="case-embed__overlay-link" aria-label="Visit {{ project.title }} live site"></a>
                                 </div>
                             </div>
                             <figcaption class="case-figure__caption">
-                                <span class="case-figure__fig">FIG. 01</span><span class="case-figure__sep"> — </span><span class="case-figure__label">{{ project.liveDomain }}</span>
+                                <span class="case-figure__fig">FIG. 01</span><span class="case-figure__sep"> — </span><span class="case-figure__label">{{ caption_label }}</span>
                                 <span class="case-figure__live-indicator is-fallback" aria-hidden="true"></span>
                             </figcaption>
                         </figure>
@@ -270,7 +279,6 @@
                 const viewport = card.querySelector('.case-embed__viewport');
                 const stage = card.querySelector('.case-embed__stage');
                 const indicator = card.querySelector('.case-figure__live-indicator');
-                const canEmbed = card.dataset.embed !== 'false';
                 let iframe = null;
                 let timeoutId = null;
                 let mounted = false;
@@ -292,11 +300,6 @@
                 const resizeObserver = new ResizeObserver(applyScale);
                 resizeObserver.observe(frame);
                 applyScale();
-
-                if (!canEmbed) {
-                    blocked = true;
-                    showFallback();
-                }
 
                 function showFallback() {
                     card.classList.add('is-fallback');
@@ -323,7 +326,7 @@
                 function mount() {
                     const desktop = window.innerWidth >= 1024;
                     if (mounted) return;
-                    if (!desktop || !canEmbed || blocked) {
+                    if (!desktop || blocked) {
                         showFallback();
                         return;
                     }
@@ -385,7 +388,6 @@
 
                 return {
                     card,
-                    canEmbed,
                     mount,
                     unmount,
                     resizeObserver,
@@ -406,7 +408,7 @@
                 }
 
                 const candidates = embedCards
-                    .filter((entry) => entry.canEmbed && !entry.blocked)
+                    .filter((entry) => !entry.blocked)
                     .map((entry) => {
                         const rect = entry.card.getBoundingClientRect();
                         const nearViewport = rect.top < window.innerHeight * 2 && rect.bottom > -window.innerHeight;
