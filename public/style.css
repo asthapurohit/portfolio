@@ -39,6 +39,9 @@
     --color-border-hover: #4B5563;
     --color-border-insight: #374151;
     --color-border-insight-hover: #4B5563;
+    --color-divider: var(--color-divider);
+    --color-border-frame: var(--color-border-frame);
+    --color-surface-embed: var(--color-surface-embed);
 
     --color-live-bg: #142819;
     --color-live-text: #4ADE80;
@@ -159,7 +162,7 @@ body::after {
     width: 100%;
     height: 72px;
     background: var(--color-surface-header);
-    border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+    border-bottom: 1px solid var(--color-divider);
 }
 
 .site-header .container {
@@ -385,7 +388,7 @@ body::after {
     top: 0;
     bottom: 0;
     width: 2px;
-    background: rgba(255, 255, 255, 0.1);
+    background: var(--color-border-frame);
     border-radius: 1px;
 }
 
@@ -603,7 +606,7 @@ body::after {
 }
 
 .case-figure__frame {
-    border: 1px solid rgba(255, 255, 255, 0.1);
+    border: 1px solid var(--color-border-frame);
     border-radius: 8px;
     overflow: hidden;
     position: relative;
@@ -632,13 +635,13 @@ body::after {
     height: 900px;
     border: 0;
     pointer-events: none;
-    background: #141416;
+    background: var(--color-surface-embed);
 }
 
 .case-embed__placeholder {
     position: absolute;
     inset: 0;
-    background: #141416;
+    background: var(--color-surface-embed);
     display: flex;
     align-items: center;
     justify-content: center;
@@ -672,7 +675,7 @@ body::after {
     justify-content: center;
     flex-direction: column;
     gap: 12px;
-    background: #141416;
+    background: var(--color-surface-embed);
     padding: 20px;
     text-align: center;
 }
@@ -824,7 +827,7 @@ body::after {
 
 .case-chapter__divider {
     height: 1px;
-    background: rgba(255, 255, 255, 0.08);
+    background: var(--color-divider);
     margin: 120px 0;
 }
 
@@ -927,74 +930,6 @@ body::after {
     100% { opacity: 0.35; }
 }
 
-.badge {
-    font-size: 9px;
-    letter-spacing: 0.1em;
-    text-transform: uppercase;
-    padding: 4px 10px;
-    border-radius: 20px;
-    white-space: nowrap;
-    flex-shrink: 0;
-    margin-top: 4px;
-    font-family: 'DM Mono', monospace;
-}
-
-.badge-progress { background: var(--color-badge-progress-bg); color: var(--color-badge-progress-text); border: 0.5px solid var(--color-badge-progress-border); }
-.badge-prd      { background: var(--color-badge-prd-bg); color: var(--color-badge-prd-text); border: 0.5px solid var(--color-badge-prd-border); }
-.badge-teardown { background: var(--color-badge-teardown-bg); color: var(--color-badge-teardown-text); border: 0.5px solid var(--color-badge-teardown-border); }
-.badge-live {
-    background: var(--color-live-bg);
-    color: var(--color-live-text);
-    border: 0.5px solid var(--color-live-border);
-}
-
-.card-desc {
-    font-size: 13px;
-    line-height: 1.8;
-    color: var(--color-text-body);
-    margin-bottom: 10px;
-    font-weight: 300;
-}
-
-.insight {
-    font-size: 12px;
-    color: var(--color-text-subtle);
-    border-left: 2px solid var(--color-border-insight);
-    padding-left: 14px;
-    margin: 14px 0;
-    font-style: italic;
-    line-height: 1.75;
-    transition: border-color 0.2s;
-}
-
-.meta {
-    font-size: 10px;
-    letter-spacing: 0.06em;
-    color: var(--color-text-faint);
-    text-transform: uppercase;
-    margin-top: 10px;
-    font-family: 'DM Mono', monospace;
-}
-
-.tags {
-    display: flex;
-    gap: 6px;
-    flex-wrap: wrap;
-    margin: 14px 0;
-}
-
-.tags span {
-    font-size: 10px;
-    letter-spacing: 0.06em;
-    text-transform: uppercase;
-    background: var(--color-accent-secondary-light);
-    color: var(--color-accent-secondary-dark);
-    border: 0.5px solid var(--color-accent-secondary-border);
-    padding: 4px 10px;
-    border-radius: 20px;
-    font-family: 'DM Mono', monospace;
-}
-
 .contact p a {
     color: var(--color-accent-secondary);
     text-decoration: none;
@@ -1008,63 +943,6 @@ body::after {
     font-size: 11px;
     color: var(--color-text-faint);
 }
-
-/* ─── THOUGHTS PAGE ─── */
-.thoughts-hero {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 60px;
-    padding: 77px 0 67px;
-    border-bottom: 0.5px solid var(--color-border);
-    align-items: start;
-}
-
-/* Hero eyebrow tag */
-.hero-eyebrow {
-    font-size: 11px;
-    letter-spacing: 0.08em;
-    text-transform: uppercase;
-    color: var(--color-text-subtle);
-    margin-bottom: 16px;
-    font-family: 'DM Mono', monospace;
-    border-left: 2px solid var(--color-accent-primary);
-    padding-left: 12px;
-    display: inline-block;
-}
-
-.thoughts-title {
-    font-family: 'DM Serif Display', serif;
-    font-size: 48px;
-    font-weight: 400;
-    letter-spacing: -0.5px;
-    color: var(--color-text-heading);
-    margin-bottom: 20px;
-    line-height: 1.1;
-}
-
-.thoughts-intro {
-    font-size: 14px;
-    line-height: 1.85;
-    color: var(--color-text-muted);
-    margin-bottom: 12px;
-    max-width: 400px;
-    font-weight: 300;
-}
-
-.dot {
-    width: 5px;
-    height: 5px;
-    border-radius: 50%;
-    background: var(--color-dot);
-    cursor: pointer;
-    transition: background 0.3s, transform 0.3s;
-}
-
-.dot.active {
-    background: var(--color-accent-primary);
-    transform: scale(1.3);
-}
-
 
 /* ─── RESUME NAV LINK ─── */
 .nav-resume {
@@ -1083,22 +961,6 @@ body::after {
     border-color: var(--color-accent-primary);
     color: var(--color-accent-primary-hover) !important;
 }
-
-/* ─── HERO SINGLE COLUMN ─── */
-.hero {
-    padding: 72px 0 60px;
-    border-bottom: 0.5px solid var(--color-border);
-}
-
-/* ─── ABOUT EXTRA ─── */
-.about-extra {
-    font-size: 14px;
-    line-height: 1.9;
-    color: var(--color-text-body);
-    font-weight: 300;
-    margin-top: 14px;
-}
-
 
 /* ─── HERO EYEBROW TAG ─── */
 .hero-eyebrow {
@@ -1132,103 +994,6 @@ body::after {
     height: 1px;
     background-color: var(--color-border);
     margin: 20px 0 24px;
-}
-
-/* ─── HERO STATS ─── */
-.hero-stats {
-    display: flex;
-    gap: 12px;
-    margin-top: 20px;
-    flex-wrap: wrap;
-}
-
-.stat-chip {
-    font-size: 10px;
-    letter-spacing: 0.06em;
-    text-transform: uppercase;
-    background: var(--color-bg-hover);
-    color: var(--color-text-subtle);
-    padding: 6px 12px;
-    border-radius: 20px;
-    font-family: 'DM Mono', monospace;
-    transition: all 0.2s;
-}
-
-.stat-chip:hover {
-    background: var(--color-bg-hover-alt);
-    color: var(--color-text-muted);
-    transform: translateY(-2px);
-}
-
-/* ─── DECORATIVE QUOTATION MARK ─── */
-.quote-mark {
-    position: absolute;
-    top: -20px;
-    left: -10px;
-    font-family: 'DM Serif Display', serif;
-    font-size: 120px;
-    color: var(--color-border-subtle);
-    z-index: 0;
-    pointer-events: none;
-    line-height: 1;
-}
-
-/* ─── PM SIGNAL STYLING ─── */
-.pm-signal {
-    font-size: 11px;
-    color: var(--color-accent-primary);
-    font-family: 'DM Mono', monospace;
-    letter-spacing: 0.06em;
-    text-transform: uppercase;
-    margin: 12px 0;
-    font-weight: 400;
-    line-height: 1.5;
-}
-
-.pm-signal span {
-    color: var(--color-text-muted);
-    text-transform: none;
-    font-style: italic;
-}
-
-.insight {
-    font-size: 12px;
-    color: var(--color-text-subtle);
-    border-left: 2px solid var(--color-border-insight);
-    padding-left: 14px;
-    margin: 14px 0;
-    font-style: italic;
-    line-height: 1.75;
-    transition: border-color 0.2s;
-}
-
-/* CARD TABS STYLING */
-.card-tabs {
-    display: flex;
-    gap: 0;
-    border: 0.5px solid var(--color-border);
-    border-radius: 20px;
-    overflow: hidden;
-    width: fit-content;
-    margin: 16px 0 14px;
-}
-
-.card-tab {
-    font-family: 'DM Mono', monospace;
-    font-size: 10px;
-    letter-spacing: 0.08em;
-    text-transform: uppercase;
-    padding: 6px 14px;
-    cursor: pointer;
-    border: none;
-    background: transparent;
-    color: var(--color-text-subtle);
-    transition: all 0.2s;
-}
-
-.card-tab.active {
-    background: var(--color-text);
-    color: var(--color-bg);
 }
 
 .link {
@@ -1312,173 +1077,6 @@ body::after {
     font-weight: 400;
 }
 
-.substack-label {
-    font-family: 'DM Mono', monospace;
-    font-size: 10px;
-    letter-spacing: 0.08em;
-    text-transform: uppercase;
-    color: var(--color-text-faint);
-    margin: 24px 0 12px;
-    font-weight: 400;
-}
-
-.substack-card {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    border: 0.5px solid var(--color-border);
-    padding: 16px 20px;
-    border-radius: 10px;
-    max-width: 320px;
-    text-decoration: none;
-    transition: all 0.2s;
-}
-
-.substack-card:hover {
-    border-color: var(--color-border-insight-hover);
-    background: var(--color-bg);
-}
-
-.substack-name {
-    font-family: 'DM Serif Display', serif;
-    font-size: 14px;
-    color: var(--color-text);
-    font-weight: 400;
-}
-
-.substack-sub {
-    font-family: 'DM Mono', monospace;
-    font-size: 10px;
-    color: var(--color-text-faint);
-    display: block;
-    margin-top: 2px;
-}
-
-.substack-arrow {
-    font-family: 'DM Mono', monospace;
-    font-size: 14px;
-    color: var(--color-accent-primary);
-    margin-left: 12px;
-}
-
-.thoughts-list {
-    max-width: 680px;
-    margin: 0 auto;
-}
-
-.thought-item {
-    display: block;
-    padding: 24px 0;
-    border-left: 2px solid transparent;
-    padding-left: 16px;
-    color: inherit;
-    text-decoration: none;
-    transition: all 0.2s ease;
-}
-
-.thought-item:hover {
-    border-left: 2px solid var(--color-accent-primary);
-    color: inherit;
-    text-decoration: none;
-}
-
-.thought-upcoming {
-    border: 1px dashed var(--color-dot);
-    border-radius: 10px;
-    padding: 20px;
-    opacity: 0.6;
-    border-left: none;
-    padding-left: 20px;
-}
-
-.thought-upcoming:hover {
-    border-left: none;
-    padding-left: 20px;
-    opacity: 0.8;
-}
-
-.thought-meta {
-    display: flex;
-    gap: 12px;
-    align-items: center;
-    margin-bottom: 8px;
-}
-
-.thought-tag {
-    font-family: 'DM Mono', monospace;
-    font-size: 9px;
-    letter-spacing: 0.1em;
-    text-transform: uppercase;
-    padding: 3px 8px;
-    border-radius: 12px;
-    font-weight: 400;
-}
-
-.tag-upcoming {
-    background: var(--color-bg-hover);
-    color: var(--color-text-subtle);
-    border: 0.5px solid var(--color-border);
-}
-
-.tag-essay {
-    background: var(--color-border);
-    color: var(--color-text-muted);
-}
-
-.thought-date {
-    font-family: 'DM Mono', monospace;
-    font-size: 10px;
-    color: var(--color-text-faint);
-    letter-spacing: 0.06em;
-}
-
-.thought-read-time {
-    font-family: 'DM Mono', monospace;
-    font-size: 10px;
-    color: var(--color-text-faint);
-    letter-spacing: 0.06em;
-}
-
-.thought-title-text {
-    font-family: 'DM Serif Display', serif;
-    font-size: 18px;
-    font-weight: 400;
-    color: var(--color-text-heading);
-    line-height: 1.4;
-    margin-bottom: 8px;
-}
-
-.thought-desc {
-    font-size: 14px;
-    line-height: 1.6;
-    color: var(--color-text-muted);
-    margin-bottom: 8px;
-}
-
-.thought-read {
-    font-family: 'DM Mono', monospace;
-    font-size: 10px;
-    letter-spacing: 0.08em;
-    text-transform: uppercase;
-    color: var(--color-accent-primary);
-}
-
-.series-label {
-    font-family: 'DM Mono', monospace;
-    font-size: 9px;
-    letter-spacing: 0.12em;
-    text-transform: uppercase;
-    color: var(--color-white);
-    background: var(--color-text-muted);
-    padding: 3px 10px;
-    border-radius: 20px;
-    margin-right: 8px;
-}
-
-.series-label.series-classism { background: var(--color-card-border-progress); }
-.series-label.series-essay { background: var(--color-accent-secondary-dark); }
-.series-label.series-upcoming { background: var(--color-text-faint); }
-
 /* ─── INTERESTS SECTION STYLING ─── */
 .interests-section {
     margin-top: 24px;
@@ -1534,7 +1132,7 @@ body::after {
     gap: 16px;
     margin-bottom: 8px;
     padding-bottom: 24px;
-    border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+    border-bottom: 1px solid var(--color-divider);
 }
 
 .thoughts-index__label {
@@ -1576,7 +1174,7 @@ body::after {
     gap: 8px 32px;
     align-items: start;
     padding: 44px 0;
-    border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+    border-bottom: 1px solid var(--color-divider);
     text-decoration: none;
     color: inherit;
     cursor: pointer;
@@ -1991,5 +1589,19 @@ body::after {
     margin-top: 14px;
     margin-left: 0;
     padding-left: 0;
+}
+
+.dot {
+    width: 5px;
+    height: 5px;
+    border-radius: 50%;
+    background: var(--color-dot);
+    cursor: pointer;
+    transition: background 0.3s, transform 0.3s;
+}
+
+.dot.active {
+    background: var(--color-accent-primary);
+    transform: scale(1.3);
 }
 
