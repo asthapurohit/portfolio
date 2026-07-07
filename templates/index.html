@@ -275,8 +275,10 @@
                 let timeoutId = null;
                 let mounted = false;
                 let loaded = false;
-                let failed = false;
-                let lastDistance = Number.POSITIVE_INFINITY;
+                let blocked = false;
+                let mountedAt = 0;
+                let retryCount = 0;
+                const maxRetries = 2;
 
                 function applyScale() {
                     const frameWidth = frame.getBoundingClientRect().width;
@@ -292,6 +294,7 @@
                 applyScale();
 
                 if (!canEmbed) {
+                    blocked = true;
                     showFallback();
                 }
 
@@ -320,12 +323,19 @@
                 function mount() {
                     const desktop = window.innerWidth >= 1024;
                     if (mounted) return;
-                    if (!desktop || !canEmbed || failed) {
+                    if (!desktop || !canEmbed || blocked) {
+                        showFallback();
+                        return;
+                    }
+                    if (retryCount >= maxRetries) {
+                        blocked = true;
                         showFallback();
                         return;
                     }
                     mounted = true;
                     loaded = false;
+                    mountedAt = Date.now();
+                    retryCount += 1;
                     showLoading();
                     iframe = document.createElement('iframe');
                     iframe.width = '1440';
@@ -339,13 +349,14 @@
                             clearTimeout(timeoutId);
                             timeoutId = null;
                         }
+                        retryCount = 0;
+                        blocked = false;
                         showLive();
                     }, { once: true });
                     iframe.src = card.dataset.liveUrl;
 
                     timeoutId = window.setTimeout(() => {
                         if (!loaded) {
-                            failed = true;
                             unmount();
                             showFallback();
                         }
@@ -364,7 +375,7 @@
                         iframe.remove();
                         iframe = null;
                     }
-                    if (!failed) {
+                    if (!blocked) {
                         card.classList.remove('is-live', 'is-loading');
                         card.classList.add('is-fallback');
                         indicator.classList.remove('is-live');
@@ -378,10 +389,9 @@
                     mount,
                     unmount,
                     resizeObserver,
-                    get failed() { return failed; },
+                    get blocked() { return blocked; },
                     get mounted() { return mounted; },
-                    get lastDistance() { return lastDistance; },
-                    set lastDistance(value) { lastDistance = value; },
+                    get mountedAt() { return mountedAt; },
                 };
             });
 
@@ -396,12 +406,11 @@
                 }
 
                 const candidates = embedCards
-                    .filter((entry) => entry.canEmbed && !entry.failed)
+                    .filter((entry) => entry.canEmbed && !entry.blocked)
                     .map((entry) => {
                         const rect = entry.card.getBoundingClientRect();
                         const nearViewport = rect.top < window.innerHeight * 2 && rect.bottom > -window.innerHeight;
                         const distance = Math.abs(rect.top - (window.innerHeight * 0.45));
-                        entry.lastDistance = distance;
                         return { entry, nearViewport, distance };
                     })
                     .filter((item) => item.nearViewport)
@@ -416,7 +425,8 @@
                         const rect = entry.card.getBoundingClientRect();
                         const outAbove = rect.bottom < (-rect.height * 0.5);
                         const outBelow = rect.top > (window.innerHeight + rect.height * 0.5);
-                        if (outAbove || outBelow) {
+                        const mountedLongEnough = (Date.now() - entry.mountedAt) > 3000;
+                        if ((outAbove || outBelow) && mountedLongEnough) {
                             entry.unmount();
                         }
                     }
