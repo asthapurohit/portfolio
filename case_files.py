@@ -51,4 +51,22 @@ CASE_FILES = [
         ],
         'pullQuote': 'The best interface for complex information is a conversation, not a document.',
     },
+    {
+        'title': 'Unstick MVP',
+        'deck': 'A behavior-first listening tool that nudges users out of repeat loops with one small, low-friction action per session.',
+        'role': 'Product Builder',
+        'stack': 'TODO',
+        'year': '2025',
+        'link': 'https://TODO.vercel.app',
+        'liveUrl': 'https://TODO.vercel.app',
+        'liveDomain': 'TODO.vercel.app',
+        'embed': False,
+        'fallbackImage': '/case-fallback-unstick.svg',
+        'narrative': [
+            'Users weren\'t failing to discover music — they were stuck in the same three playlists. The problem wasn\'t taste; it was habit loops that made every session feel identical.',
+            'I designed Unstick around one constraint: one nudge, one action, under thirty seconds. Pick an activity, set a novelty dial, and get a five-track bridge from familiar to new — no full library reset required.',
+            'TODO: Add outcome metrics once the live build is deployed and instrumented.',
+        ],
+        'pullQuote': 'TODO — Small behavior shifts beat big feature launches when the goal is to change how people listen.',
+    },
 ]
