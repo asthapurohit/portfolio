@@ -118,18 +118,29 @@
                     </aside>
 
                     <div class="case-chapter__content">
-                        {% for image in project.images %}
-                        <figure class="case-figure case-block--reveal">
-                            <div class="case-figure__frame">
-                                <div class="case-figure__placeholder" style="background-color: {{ image.color }};"></div>
+                        <figure class="case-figure case-block--reveal case-embed"
+                                data-live-url="{{ project.liveUrl }}"
+                                data-embed="{{ 'true' if project.embed else 'false' }}"
+                                data-fallback-image="{{ project.fallbackImage }}"
+                                data-domain="{{ project.liveDomain }}">
+                            <div class="case-figure__frame case-embed__frame">
+                                <div class="case-embed__viewport">
+                                    <div class="case-embed__stage"></div>
+                                    <div class="case-embed__placeholder">
+                                        <span>Loading live preview...</span>
+                                    </div>
+                                    <img src="{{ project.fallbackImage }}" alt="{{ project.title }} fallback preview" class="case-embed__fallback-image">
+                                    <span class="case-embed__pill">Visit Live ↗</span>
+                                    <a href="{{ project.liveUrl }}" target="_blank" rel="noopener" class="case-embed__overlay-link" aria-label="Visit {{ project.title }} live site"></a>
+                                </div>
                             </div>
                             <figcaption class="case-figure__caption">
-                                <span class="case-figure__fig">FIG. {{ '%02d'|format(loop.index) }}</span><span class="case-figure__sep"> — </span><span class="case-figure__label">{{ image.caption }}</span>
+                                <span class="case-figure__fig">FIG. 01</span><span class="case-figure__sep"> — </span><span class="case-figure__label">{{ project.liveDomain }}</span>
+                                <span class="case-figure__live-indicator is-fallback" aria-hidden="true"></span>
                             </figcaption>
                         </figure>
-                        {% if loop.index0 < project.narrative|length %}
-                        <p class="case-narrative case-block--reveal">{{ project.narrative[loop.index0] }}</p>
-                        {% endif %}
+                        {% for line in project.narrative %}
+                        <p class="case-narrative case-block--reveal">{{ line }}</p>
                         {% endfor %}
                         <blockquote class="case-pullquote case-block--reveal">
                             <p>{{ project.pullQuote }}</p>
@@ -245,6 +256,141 @@
                 document.querySelectorAll('.case-block--reveal, .case-chapter__panel--reveal')
                     .forEach(el => el.classList.add('is-visible'));
             }
+
+            const embedCards = Array.from(document.querySelectorAll('.case-embed')).map((card) => {
+                const frame = card.querySelector('.case-embed__frame');
+                const viewport = card.querySelector('.case-embed__viewport');
+                const stage = card.querySelector('.case-embed__stage');
+                const fallbackImage = card.querySelector('.case-embed__fallback-image');
+                const placeholder = card.querySelector('.case-embed__placeholder');
+                const indicator = card.querySelector('.case-figure__live-indicator');
+                const canEmbed = card.dataset.embed !== 'false';
+                let iframe = null;
+                let timeoutId = null;
+                let mounted = false;
+                let loaded = false;
+                let failed = false;
+
+                function applyScale() {
+                    const frameWidth = frame.getBoundingClientRect().width;
+                    if (!frameWidth) return;
+                    const scale = frameWidth / 1440;
+                    viewport.style.setProperty('--embed-scale', scale.toString());
+                    viewport.style.height = `${900 * scale}px`;
+                }
+
+                const resizeObserver = new ResizeObserver(applyScale);
+                resizeObserver.observe(frame);
+                applyScale();
+
+                function showFallback() {
+                    failed = true;
+                    card.classList.add('is-fallback');
+                    card.classList.remove('is-live', 'is-loading');
+                    indicator.classList.remove('is-live');
+                    indicator.classList.add('is-fallback');
+                }
+
+                function showLoading() {
+                    card.classList.add('is-loading');
+                    card.classList.remove('is-fallback', 'is-live');
+                    indicator.classList.remove('is-live');
+                    indicator.classList.add('is-fallback');
+                }
+
+                function showLive() {
+                    loaded = true;
+                    card.classList.remove('is-loading', 'is-fallback');
+                    card.classList.add('is-live');
+                    indicator.classList.remove('is-fallback');
+                    indicator.classList.add('is-live');
+                }
+
+                function mount() {
+                    const desktop = window.innerWidth >= 1024;
+                    if (!desktop || !canEmbed || mounted || failed) {
+                        showFallback();
+                        return;
+                    }
+                    mounted = true;
+                    showLoading();
+                    iframe = document.createElement('iframe');
+                    iframe.src = card.dataset.liveUrl;
+                    iframe.width = '1440';
+                    iframe.height = '900';
+                    iframe.loading = 'lazy';
+                    iframe.sandbox = 'allow-scripts allow-same-origin';
+                    iframe.referrerPolicy = 'no-referrer';
+                    iframe.className = 'case-embed__iframe';
+
+                    timeoutId = window.setTimeout(() => {
+                        if (!loaded) {
+                            unmount();
+                            showFallback();
+                        }
+                    }, 6000);
+
+                    iframe.addEventListener('load', () => {
+                        if (timeoutId) {
+                            clearTimeout(timeoutId);
+                            timeoutId = null;
+                        }
+                        showLive();
+                    }, { once: true });
+                    stage.appendChild(iframe);
+                }
+
+                function unmount() {
+                    mounted = false;
+                    loaded = false;
+                    if (timeoutId) {
+                        clearTimeout(timeoutId);
+                        timeoutId = null;
+                    }
+                    if (iframe) {
+                        iframe.remove();
+                        iframe = null;
+                    }
+                }
+
+                return { card, mount, unmount, canEmbed, resizeObserver, failed };
+            });
+
+            function updateEmbeds() {
+                const desktop = window.innerWidth >= 1024;
+                if (!desktop) {
+                    embedCards.forEach((entry) => {
+                        entry.unmount();
+                        entry.card.classList.add('is-fallback');
+                    });
+                    return;
+                }
+
+                const candidates = embedCards
+                    .filter((entry) => entry.canEmbed && !entry.failed)
+                    .map((entry) => {
+                        const rect = entry.card.getBoundingClientRect();
+                        const nearViewport = rect.top < window.innerHeight * 2 && rect.bottom > -window.innerHeight;
+                        const distance = Math.abs(rect.top - (window.innerHeight * 0.45));
+                        return { entry, nearViewport, distance };
+                    })
+                    .filter((item) => item.nearViewport)
+                    .sort((a, b) => a.distance - b.distance)
+                    .slice(0, 2)
+                    .map((item) => item.entry);
+
+                embedCards.forEach((entry) => {
+                    if (candidates.includes(entry)) {
+                        entry.mount();
+                    } else {
+                        entry.unmount();
+                    }
+                });
+            }
+
+            updateEmbeds();
+            window.addEventListener('scroll', updateEmbeds, { passive: true });
+            window.addEventListener('resize', updateEmbeds);
         })();
 
         // ── Smooth scroll ──

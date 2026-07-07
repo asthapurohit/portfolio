@@ -6,20 +6,10 @@ CASE_FILES = [
         'stack': 'React, Vite, Groq, Spotify API',
         'year': '2025',
         'link': 'https://taste-unstick.vercel.app/',
-        'images': [
-            {
-                'caption': 'REVIEW ANALYSIS DASHBOARD',
-                'color': '#1c2233',
-            },
-            {
-                'caption': 'TASTE BRIDGE PATH',
-                'color': '#232018',
-            },
-            {
-                'caption': 'NOVELTY DIAL FLOW',
-                'color': '#1a2530',
-            },
-        ],
+        'liveUrl': 'https://spotify-gamma-lovat.vercel.app',
+        'liveDomain': 'spotify-gamma-lovat.vercel.app',
+        'embed': True,
+        'fallbackImage': '/case-fallback-spotify.svg',
         'narrative': [
             'Users weren\'t asking for more recommendations — they were stuck in repeat-listening loops. I scraped App Store, Play Store, and Reddit reviews to find the root causes before designing anything.',
             'Taste Bridge picks an activity and a novelty dial, then builds a five-track path from familiar to new. The review engine and the MVP share one thesis: bridge from where users already are.',
@@ -34,16 +24,10 @@ CASE_FILES = [
         'stack': 'React, Groq, Gemini, Vercel',
         'year': '2025',
         'link': 'https://groww-weekly-pulse.vercel.app/',
-        'images': [
-            {
-                'caption': 'WEEKLY BRIEF OVERVIEW',
-                'color': '#1a2420',
-            },
-            {
-                'caption': 'THEME CLASSIFICATION',
-                'color': '#201c28',
-            },
-        ],
+        'liveUrl': 'https://groww-weekly-pulse.vercel.app/',
+        'liveDomain': 'groww-weekly-pulse.vercel.app',
+        'embed': True,
+        'fallbackImage': '/case-fallback-groww.svg',
         'narrative': [
             'PM teams drown in reviews. The job isn\'t to read them all — it\'s to surface what\'s actually broken. I scraped 1,499 real Groww reviews and built a pipeline that handles Hindi text, emoji-only posts, and one-word ratings.',
             'Every Monday, the dashboard auto-refreshes: five themes, top actions, user quotes, and a ready-to-send team email. Zero manual steps after the initial build.',
@@ -57,16 +41,10 @@ CASE_FILES = [
         'stack': 'Python, RAG, Streamlit, LLM',
         'year': '2025',
         'link': 'https://hdfc-mf-faq.streamlit.app/',
-        'images': [
-            {
-                'caption': 'CHAT INTERFACE',
-                'color': '#1e2228',
-            },
-            {
-                'caption': 'RETRIEVAL PIPELINE',
-                'color': '#221e1a',
-            },
-        ],
+        'liveUrl': 'https://hdfc-mf-faq.streamlit.app/',
+        'liveDomain': 'hdfc-mf-faq.streamlit.app',
+        'embed': False,
+        'fallbackImage': '/case-fallback-hdfc.svg',
         'narrative': [
             'HDFC MF documentation is dense and hard to navigate — users can\'t find answers without reading entire PDFs. Financial products fail people not because they\'re complex, but because complexity is never translated.',
             'I chunked and embedded FAQ documents, built a retrieval pipeline, and wrapped it in Streamlit so users can query in plain English. Next iteration: source citations per answer so trust isn\'t assumed.',
