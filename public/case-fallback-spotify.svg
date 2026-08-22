@@ -1,6 +1,0 @@
-<svg xmlns="http://www.w3.org/2000/svg" width="1440" height="900" viewBox="0 0 1440 900">
-  <rect width="1440" height="900" fill="#141416"/>
-  <rect x="80" y="100" width="1280" height="700" rx="16" fill="#1b2230" stroke="#2d3748" stroke-width="2"/>
-  <text x="120" y="180" fill="#ea580c" font-family="monospace" font-size="24" letter-spacing="2">SPOTIFY CASE PREVIEW</text>
-  <text x="120" y="230" fill="#cfd4dd" font-family="monospace" font-size="16">Fallback image shown when live embed is unavailable.</text>
-</svg>

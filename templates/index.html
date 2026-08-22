@@ -111,7 +111,8 @@
                                             width="1440"
                                             height="900"
                                             loading="lazy"
-                                            decoding="async">
+                                            decoding="async"
+                                            onerror="this.remove()">
                                         <span class="case-figure__visit">Visit Live ↗</span>
                                     </div>
                                 </a>
@@ -247,9 +248,36 @@
                 });
             });
 
+            function updatePanelSticky() {
+                const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+                const narrow = window.matchMedia('(max-width: 1024px)').matches;
+                const offset = headerOffset();
+                document.documentElement.style.setProperty('--panel-sticky-top', offset + 'px');
+
+                document.querySelectorAll('.case-chapter__panel').forEach((panel) => {
+                    panel.classList.remove('is-static');
+                    if (reduceMotion || narrow) {
+                        panel.classList.add('is-static');
+                        return;
+                    }
+                    if (panel.offsetHeight + offset >= window.innerHeight) {
+                        panel.classList.add('is-static');
+                    }
+                });
+            }
+
             window.addEventListener('scroll', updateRail, { passive: true });
-            window.addEventListener('resize', updateRail);
+            window.addEventListener('resize', () => {
+                updateRail();
+                updatePanelSticky();
+            });
+            window.matchMedia('(prefers-reduced-motion: reduce)').addEventListener('change', updatePanelSticky);
+            window.matchMedia('(max-width: 1024px)').addEventListener('change', updatePanelSticky);
+            if (document.fonts && document.fonts.ready) {
+                document.fonts.ready.then(updatePanelSticky);
+            }
             updateRail();
+            updatePanelSticky();
 
             if (!prefersReducedMotion) {
                 const revealObserver = new IntersectionObserver((entries) => {

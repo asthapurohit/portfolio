@@ -154,13 +154,13 @@ Shared classes (Work preview + Thoughts list):
   'link': str,
   'liveUrl': str,
   'liveDomain': str,
-  'preview_image': str,   # e.g. '/case-fallback-spotify.svg'
+  'preview_image': str,   # e.g. '/previews/spotify-taste-bridge.png'
   'narrative': list[str],
   'pullQuote': str
 }
 ```
 
-There is no live iframe embed. `preview_image` currently points at the `case-fallback-*.svg` placeholders until real screenshots are swapped in.
+There is no live iframe embed. `preview_image` points at `public/previews/<slug>.png` (1440×900). Missing files hide the `<img>` and leave a silent 16:10 grey block — no fallback copy.
 
 ### Thoughts post (`app.py`)
 
@@ -217,7 +217,7 @@ RSS: `https://asthapurohit.substack.com/feed`. Cache TTL 15 minutes. On failure:
    - `--color-divider: var(--color-divider)` — used by `.case-chapter__divider`
    - `--color-border-frame: var(--color-border-frame)` — used by `.case-files__rail-track`
 2. **Unused token groups still in `:root`** (no matching template selectors): `--color-badge-*`, `--color-thoughts-*`, `--color-live-*`, `--color-metric-*`, `--shadow-card*`, `--gradient-brand`, `--shadow-logo-hover`. Left in place rather than guessed-deleted.
-3. **Unlinked public assets:** `case-fallback-unstick.svg`; PRD/deck PDFs other than `AsthaPurohit_Resume.pdf` are not referenced from templates.
+3. **Unlinked public assets:** PRD/deck PDFs other than `AsthaPurohit_Resume.pdf` are not referenced from templates.
 4. **Page body vs chrome:** editorial surfaces still use the old dark `--color-bg` tokens; only chrome uses the macOS surface layer.
 
 ## 10) Condensed File Tree
@@ -233,10 +233,10 @@ portfolio/
 │  └─ thoughts.html
 └─ public/
    ├─ style.css
-   ├─ case-fallback-spotify.svg
-   ├─ case-fallback-groww.svg
-   ├─ case-fallback-hdfc.svg
-   ├─ case-fallback-unstick.svg   # unused
+   ├─ previews/
+   │  ├─ spotify-taste-bridge.png
+   │  ├─ groww-weekly-pulse.png
+   │  └─ hdfc-mf-faq.png
    ├─ AsthaPurohit_Resume.pdf
    ├─ spotify-taste-bridge-deck.pdf
    ├─ chatGPT_PRD.pdf

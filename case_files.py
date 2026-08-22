@@ -8,7 +8,7 @@ CASE_FILES = [
         'link': 'https://taste-unstick.vercel.app/',
         'liveUrl': 'https://taste-unstick.vercel.app/',
         'liveDomain': 'taste-unstick.vercel.app',
-        'preview_image': '/case-fallback-spotify.svg',
+        'preview_image': '/previews/spotify-taste-bridge.png',
         'narrative': [
             'Users weren\'t asking for more recommendations — they were stuck in repeat-listening loops. I scraped App Store, Play Store, and Reddit reviews to find the root causes before designing anything.',
             'The problem wasn\'t taste; it was habit. Discovery shouldn\'t reset what people already love — it should bridge from where they already are.',
@@ -26,7 +26,7 @@ CASE_FILES = [
         'link': 'https://groww-weekly-pulse.vercel.app/',
         'liveUrl': 'https://groww-weekly-pulse.vercel.app/',
         'liveDomain': 'groww-weekly-pulse.vercel.app',
-        'preview_image': '/case-fallback-groww.svg',
+        'preview_image': '/previews/groww-weekly-pulse.png',
         'narrative': [
             'PM teams drown in reviews. The job isn\'t to read them all — it\'s to surface what\'s actually broken. I scraped 1,499 real Groww reviews and built a pipeline that handles Hindi text, emoji-only posts, and one-word ratings.',
             'Every Monday, the dashboard auto-refreshes: five themes, top actions, user quotes, and a ready-to-send team email. Zero manual steps after the initial build.',
@@ -42,7 +42,7 @@ CASE_FILES = [
         'link': 'https://hdfc-mf-faq.streamlit.app/',
         'liveUrl': 'https://hdfc-mf-faq.streamlit.app/',
         'liveDomain': 'hdfc-mf-faq.streamlit.app',
-        'preview_image': '/case-fallback-hdfc.svg',
+        'preview_image': '/previews/hdfc-mf-faq.png',
         'narrative': [
             'HDFC MF documentation is dense and hard to navigate — users can\'t find answers without reading entire PDFs. Financial products fail people not because they\'re complex, but because complexity is never translated.',
             'I chunked and embedded FAQ documents, built a retrieval pipeline, and wrapped it in Streamlit so users can query in plain English. Next iteration: source citations per answer so trust isn\'t assumed.',

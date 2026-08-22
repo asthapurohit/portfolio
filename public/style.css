@@ -10,9 +10,9 @@
     --surface-page: #0F1117;
     --surface-window: #1C1C1E;
     --surface-titlebar: #242428;
-    --surface-menubar: rgba(12, 12, 14, 0.55);
+    --surface-menubar: color-mix(in srgb, #000 70%, var(--surface-titlebar) 30%);
     --surface-dock: rgba(12, 12, 14, 0.55);
-    --surface-menubar-solid: #0F1117;
+    --surface-menubar-solid: color-mix(in srgb, #000 70%, var(--surface-titlebar) 30%);
     --surface-dock-solid: #0F1117;
     --chrome-text: rgba(255, 255, 255, 0.92);
     --radius-window: 12px;
@@ -128,9 +128,9 @@
         --surface-page: #0F1117;
         --surface-window: #1C1C1E;
         --surface-titlebar: #242428;
-        --surface-menubar: rgba(12, 12, 14, 0.55);
+        --surface-menubar: color-mix(in srgb, #000 70%, var(--surface-titlebar) 30%);
         --surface-dock: rgba(12, 12, 14, 0.55);
-        --surface-menubar-solid: #0F1117;
+        --surface-menubar-solid: color-mix(in srgb, #000 70%, var(--surface-titlebar) 30%);
         --surface-dock-solid: #0F1117;
         --chrome-text: rgba(255, 255, 255, 0.92);
         --radius-window: 12px;
@@ -151,9 +151,9 @@
         --surface-page: #0F1117;
         --surface-window: #1C1C1E;
         --surface-titlebar: #242428;
-        --surface-menubar: rgba(12, 12, 14, 0.55);
+        --surface-menubar: color-mix(in srgb, #000 70%, var(--surface-titlebar) 30%);
         --surface-dock: rgba(12, 12, 14, 0.55);
-        --surface-menubar-solid: #0F1117;
+        --surface-menubar-solid: color-mix(in srgb, #000 70%, var(--surface-titlebar) 30%);
         --surface-dock-solid: #0F1117;
         --chrome-text: rgba(255, 255, 255, 0.92);
         --radius-window: 12px;
@@ -179,7 +179,7 @@
 
 body {
     margin: 0;
-    overflow-x: hidden;
+    overflow-x: clip;
     background-color: var(--color-bg);
     background-image:
         radial-gradient(circle at 20% 50%, var(--color-texture-primary) 0%, transparent 50%),
@@ -233,9 +233,10 @@ body::after {
     width: 100%;
     height: 38px;
     color: var(--chrome-text);
-    background: var(--surface-menubar);
-    backdrop-filter: var(--blur);
-    -webkit-backdrop-filter: var(--blur);
+    background: color-mix(in srgb, var(--surface-menubar) 88%, transparent);
+    /* Blur only — --blur's saturate(180%) frosts hero type into a light slab. */
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
     border-bottom: var(--hairline-chrome);
 }
 
@@ -398,6 +399,11 @@ body::after {
     transform: translateY(0);
 }
 
+.case-files.fade-up,
+.case-files.fade-up.visible {
+    transform: none;
+}
+
 .fade-up-delay-2 { transition-delay: 0.12s; }
 .fade-up-delay-3 { transition-delay: 0.2s; }
 
@@ -406,7 +412,7 @@ body::after {
     position: relative;
     padding: 67px 0 86px;
     border-bottom: 0.5px solid var(--color-border-subtle);
-    overflow: hidden;
+    overflow: visible;
 }
 
 .case-files__rail {
@@ -530,10 +536,14 @@ body::after {
 
 .case-chapter__panel {
     position: sticky;
-    top: 96px;
+    top: var(--panel-sticky-top, 62px);
     align-self: start;
     opacity: 0;
     transition: opacity 0.45s ease;
+}
+
+.case-chapter__panel.is-static {
+    position: static;
 }
 
 .case-chapter__panel.is-visible {
@@ -717,12 +727,16 @@ body::after {
     border-radius: 0;
     overflow: hidden;
     position: relative;
+    aspect-ratio: 16 / 10;
+    background: #1A1B20;
 }
 
 .case-figure__image {
     display: block;
     width: 100%;
-    height: auto;
+    height: 100%;
+    object-fit: cover;
+    object-position: top center;
 }
 
 .case-figure__visit {
@@ -853,6 +867,10 @@ body::after {
     .case-block--reveal.is-visible,
     .case-chapter__panel.is-visible {
         opacity: 1;
+    }
+
+    .case-chapter__panel {
+        position: static;
     }
 
     .case-files__rail-fill {
