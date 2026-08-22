@@ -1,12 +1,22 @@
 from flask import Flask, render_template
+from time import strftime
 import feedparser
 import re
+import socket
+import time
 
 from case_files import CASE_FILES
 
 app = Flask(__name__, static_folder='public', static_url_path='')
 
 SUBSTACK_RSS = "https://asthapurohit.substack.com/feed"
+RSS_TIMEOUT_SECONDS = 5
+RSS_CACHE_TTL_SECONDS = 15 * 60
+
+_rss_cache = {
+    'posts': None,
+    'fetched_at': 0.0,
+}
 
 PLACEHOLDER_POSTS = [
     {
@@ -60,42 +70,60 @@ def normalize_tags(entry, series):
     return tags[:2]
 
 
+def _entries_to_posts(feed):
+    posts = []
+    for entry in feed.entries:
+        raw_summary = entry.get('summary', '') or entry.get('description', '')
+        summary = re.sub('<[^<]+?>', '', raw_summary)
+        summary = ' '.join(summary.split())
+        if len(summary) > 180:
+            summary = summary[:177] + '...'
+
+        published = entry.get('published_parsed')
+        date = strftime('%b %Y', published) if published else ''
+
+        title = entry.get('title', '')
+        series = None
+        if any('classism' in t.term.lower() for t in entry.get('tags', [])) or 'classist' in title.lower() or 'classism' in title.lower():
+            series = 'classism'
+
+        posts.append({
+            'title': title,
+            'url': entry.get('link', '#'),
+            'summary': summary,
+            'date': date,
+            'reading_time': estimate_reading_time(raw_summary),
+            'tags': normalize_tags(entry, series),
+            'series': series,
+        })
+    return posts
+
+
 def fetch_substack_posts():
+    cached_posts = _rss_cache['posts']
+    now = time.monotonic()
+    if cached_posts and (now - _rss_cache['fetched_at']) < RSS_CACHE_TTL_SECONDS:
+        return cached_posts
+
     try:
-        feed = feedparser.parse(SUBSTACK_RSS)
-        posts = []
-        for entry in feed.entries:
-            raw_summary = entry.get('summary', '') or entry.get('description', '')
-            summary = re.sub('<[^<]+?>', '', raw_summary)
-            summary = ' '.join(summary.split())
-            if len(summary) > 180:
-                summary = summary[:177] + '...'
+        previous_timeout = socket.getdefaulttimeout()
+        socket.setdefaulttimeout(RSS_TIMEOUT_SECONDS)
+        try:
+            feed = feedparser.parse(SUBSTACK_RSS)
+            posts = _entries_to_posts(feed)
+        finally:
+            socket.setdefaulttimeout(previous_timeout)
 
-            published = entry.get('published_parsed')
-            if published:
-                from time import strftime
-                date = strftime('%b %Y', published)
-            else:
-                date = ''
-
-            title = entry.get('title', '')
-            series = None
-            if any('classism' in t.term.lower() for t in entry.get('tags', [])) or 'classist' in title.lower() or 'classism' in title.lower():
-                series = 'classism'
-
-            posts.append({
-                'title': title,
-                'url': entry.get('link', '#'),
-                'summary': summary,
-                'date': date,
-                'reading_time': estimate_reading_time(raw_summary),
-                'tags': normalize_tags(entry, series),
-                'series': series,
-            })
-        return posts
+        if posts:
+            _rss_cache['posts'] = posts
+            _rss_cache['fetched_at'] = now
+            return posts
     except Exception as e:
         print(f"RSS fetch error: {e}")
-        return []
+
+    if cached_posts:
+        return cached_posts
+    return PLACEHOLDER_POSTS
 
 
 @app.route("/")
@@ -105,10 +133,7 @@ def home():
 
 @app.route("/thoughts")
 def thoughts():
-    posts = fetch_substack_posts()
-    if not posts:
-        posts = PLACEHOLDER_POSTS
-    return render_template("thoughts.html", posts=posts)
+    return render_template("thoughts.html", posts=fetch_substack_posts())
 
 
 if __name__ == "__main__":

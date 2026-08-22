@@ -25,37 +25,48 @@
     <div class="container">
 
         <section class="thoughts-index">
-            <div class="thoughts-index__header">
-                <h1 class="thoughts-index__label">Thoughts</h1>
-                <span class="thoughts-index__count">{{ '%02d'|format(posts|length) }} Essays</span>
-            </div>
+            <div class="case-window thoughts-window">
+                <div class="case-window__titlebar">
+                    <span class="case-window__index" aria-hidden="true">{{ '%02d'|format(posts|length) }}</span>
+                    <span class="case-window__lights" aria-hidden="true">
+                        <span class="case-window__dot case-window__dot--close"></span>
+                        <span class="case-window__dot case-window__dot--min"></span>
+                        <span class="case-window__dot case-window__dot--max"></span>
+                    </span>
+                    <h1 class="case-window__name">Thoughts</h1>
+                </div>
 
-            <div class="thoughts-index__list" id="thoughts-list">
-                {% for post in posts %}
-                <a href="{{ post.url }}" target="_blank" rel="noopener"
-                   class="thoughts-row thoughts-row--reveal{% if loop.first %} thoughts-row--featured{% endif %}">
-                    <span class="thoughts-row__index">{{ '%02d'|format(loop.index) }}</span>
-                    <div class="thoughts-row__main">
-                        {% if loop.first %}
-                        <span class="thoughts-row__latest">Latest</span>
-                        {% endif %}
-                        <h2 class="thoughts-row__title">{{ post.title }}</h2>
-                        <p class="thoughts-row__deck">{{ post.summary }}</p>
-                        {% if post.tags %}
-                        <div class="thoughts-row__tags">
-                            {% for tag in post.tags[:2] %}
-                            <span class="thoughts-row__tag">{{ tag }}</span>
-                            {% endfor %}
-                        </div>
-                        {% endif %}
+                <div class="thoughts-finder">
+                    <div class="thoughts-finder__cols">
+                        <span class="thoughts-finder__col thoughts-finder__col--title">Title</span>
+                        <span class="thoughts-finder__col thoughts-finder__col--date">Date</span>
+                        <span class="thoughts-finder__col thoughts-finder__col--read">Reading time</span>
                     </div>
-                    <div class="thoughts-row__meta">
-                        <span class="thoughts-row__date">{{ post.date }}</span>
-                        <span class="thoughts-row__read">{{ post.reading_time }} min read</span>
+
+                    <div class="thoughts-index__list" id="thoughts-list">
+                        {% for post in posts %}
+                        <a href="{{ post.url }}" target="_blank" rel="noopener"
+                           class="thoughts-row thoughts-row--reveal{% if loop.first %} thoughts-row--featured{% endif %}">
+                            <div class="thoughts-row__main">
+                                {% if loop.first %}
+                                <span class="thoughts-row__latest">Latest</span>
+                                {% endif %}
+                                <h2 class="thoughts-row__title">{{ post.title }}</h2>
+                                <p class="thoughts-row__deck">{{ post.summary }}</p>
+                                {% if post.tags %}
+                                <div class="thoughts-row__tags">
+                                    {% for tag in post.tags[:2] %}
+                                    <span class="thoughts-row__tag">{{ tag }}</span>
+                                    {% endfor %}
+                                </div>
+                                {% endif %}
+                            </div>
+                            <span class="thoughts-row__date">{{ post.date }}</span>
+                            <span class="thoughts-row__read">{{ post.reading_time }} min</span>
+                        </a>
+                        {% endfor %}
                     </div>
-                    <span class="thoughts-row__arrow" aria-hidden="true">↗</span>
-                </a>
-                {% endfor %}
+                </div>
             </div>
 
             <p class="thoughts-index__footer">
