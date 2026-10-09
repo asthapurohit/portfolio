@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Astha Purohit — Product Manager</title>
+    <title>Astha Purohit — APM Candidate</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Mono:wght@300;400&family=Lato:ital,wght@0,300;0,400;1,300&display=swap" rel="stylesheet">
@@ -18,7 +18,7 @@
                 <a href="#work">Work</a>
                 <a href="#about">About</a>
                 <a href="/thoughts">Thoughts</a>
-                <a href="/AsthaPurohit_Resume.pdf" target="_blank" class="nav-resume">Resume ↗</a>
+                <a href="/AsthaPurohit_Resume.pdf" target="_blank" rel="noopener" class="nav-resume">Resume ↗</a>
             </nav>
         </div>
     </header>
@@ -27,15 +27,31 @@
     <section class="hero fade-up">
         <div class="container">
         <div class="hero-content">
-            <div class="hero-eyebrow">CS Student · Product Manager · Behavior-first</div>
+            <div class="hero-eyebrow">
+                <span class="hero-eyebrow__creds">BTech CSE '25 · NextLeap PM Fellow</span>
+                <span class="hero-badge">
+                    <span class="hero-badge__dot" aria-hidden="true"></span>
+                    Open to APM roles
+                </span>
+            </div>
             <h1>Astha <em>Purohit</em></h1>
             <h2>Product thinker. Behavior-first.</h2>
             <div class="hero-hr"></div>
             <p>
                 I find the gap between what users do and what products assume, then close it.
-                CS student focused on behavioral research, product strategy, and building things people actually use.
+                I'm a BTech CSE graduate from Parul University (Apr 2025), focused on behavioral research, product strategy, and building things people actually use.
             </p>
-            
+            <div class="hero-actions">
+                <a href="#work" class="case-chapter__cta">See my work</a>
+                <a href="/AsthaPurohit_Resume.pdf" class="case-chapter__cta" target="_blank" rel="noopener">Resume ↗</a>
+            </div>
+            <nav class="hero-proof" aria-label="Proof">
+                <ul>
+                    {% for item in hero_proof %}
+                    <li><a href="{{ item.href }}">{{ item.label }}</a></li>
+                    {% endfor %}
+                </ul>
+            </nav>
             <blockquote class="hero-quote">
                 <p class="quote-text">“The best products don't add features. They remove friction.”</p>
             </blockquote>
@@ -70,6 +86,9 @@
                 <div class="case-chapter__grid">
                     <aside class="case-chapter__panel case-chapter__panel--reveal">
                         <span class="case-chapter__serial" aria-hidden="true">{{ '%02d'|format(loop.index) }}</span>
+                        {% if project.tag %}
+                        <span class="case-chapter__tag">{{ project.tag }}</span>
+                        {% endif %}
                         <h3 class="case-chapter__title">{{ project.title }}</h3>
                         <p class="case-chapter__deck">{{ project.deck }}</p>
                         <div class="case-chapter__meta">
@@ -77,20 +96,36 @@
                                 <span class="case-chapter__meta-label">Role</span>
                                 <span class="case-chapter__meta-value">{{ project.role }}</span>
                             </div>
+                            {% if project.stack %}
                             <div class="case-chapter__meta-row">
                                 <span class="case-chapter__meta-label">Stack</span>
                                 <span class="case-chapter__meta-value">{{ project.stack }}</span>
                             </div>
+                            {% endif %}
                             <div class="case-chapter__meta-row">
                                 <span class="case-chapter__meta-label">Year</span>
                                 <span class="case-chapter__meta-value">{{ project.year }}</span>
                             </div>
                         </div>
-                        <a href="{{ project.link }}" target="_blank" rel="noopener" class="case-chapter__cta">View Case ↗</a>
+                        <div class="case-chapter__actions">
+                            {% if project.link %}
+                            <a href="{{ project.link }}" target="_blank" rel="noopener" class="case-chapter__cta">Live demo ↗</a>
+                            {% else %}
+                            <p class="case-chapter__note">TODO: add the PRD link</p>
+                            {% endif %}
+                            <a href="/work/{{ project.slug }}" class="case-chapter__cta">Read case study →</a>
+                        </div>
+                        {% if project.link_note %}
+                        <p class="case-chapter__note">{{ project.link_note }}</p>
+                        {% endif %}
                     </aside>
 
                     <div class="case-chapter__content">
+                        {% if project.liveUrl %}
                         {% set caption_label = project.liveUrl | replace('https://', '') | replace('http://', '') | trim('/') %}
+                        {% else %}
+                        {% set caption_label = project.figure_label %}
+                        {% endif %}
                         <figure class="case-figure case-block--reveal">
                             <div class="case-window">
                                 <div class="case-window__titlebar" aria-hidden="true">
@@ -102,20 +137,31 @@
                                     </span>
                                     <span class="case-window__name">{{ project.title }}</span>
                                 </div>
-                                <a href="{{ project.link }}" target="_blank" rel="noopener" class="case-figure__link">
+                                {% if project.preview_image %}
+                                <a href="{{ project.link }}" target="_blank" rel="noopener" class="case-figure__link" aria-label="Live demo: {{ project.title }}">
                                     <div class="case-figure__frame">
                                         <img
                                             class="case-figure__image"
                                             src="{{ project.preview_image }}"
-                                            alt="{{ project.title }} preview"
+                                            alt="Preview of {{ project.title }}"
                                             width="1440"
                                             height="900"
                                             loading="lazy"
                                             decoding="async"
-                                            onerror="this.remove()">
-                                        <span class="case-figure__visit">Visit Live ↗</span>
+                                            onerror="this.parentElement.classList.add('has-fallback'); this.remove();">
+                                        <div class="case-cover case-cover--fallback">
+                                            <p class="case-cover__title">{{ project.title }}</p>
+                                            <p class="case-cover__label">{{ project.liveDomain }}</p>
+                                        </div>
                                     </div>
                                 </a>
+                                {% elif project.cover_metric %}
+                                <div class="case-figure__frame case-cover">
+                                    <p class="case-cover__title">{{ project.title }}</p>
+                                    <p class="case-cover__metric">{{ project.cover_metric }}</p>
+                                    <p class="case-cover__label">{{ project.cover_label }}</p>
+                                </div>
+                                {% endif %}
                             </div>
                             <figcaption class="case-figure__caption">
                                 <span class="case-figure__fig">FIG. 01</span><span class="case-figure__sep"> — </span><span class="case-figure__label">{{ caption_label }}</span>
@@ -134,6 +180,32 @@
             <div class="case-chapter__divider" aria-hidden="true"></div>
             {% endif %}
             {% endfor %}
+
+            <div class="case-chapter__divider" aria-hidden="true"></div>
+            <article class="now-building">
+                <p class="case-files__label">Now building</p>
+                <div class="now-building__heading">
+                    <h3 class="now-building__title">{{ now_building.title }}</h3>
+                    <span class="case-chapter__tag">{{ now_building.tag }}</span>
+                </div>
+                <div class="case-chapter__meta">
+                    <div class="case-chapter__meta-row">
+                        <span class="case-chapter__meta-label">Role</span>
+                        <span class="case-chapter__meta-value">{{ now_building.role }}</span>
+                    </div>
+                    <div class="case-chapter__meta-row">
+                        <span class="case-chapter__meta-label">Stack</span>
+                        <span class="case-chapter__meta-value">{{ now_building.stack }}</span>
+                    </div>
+                    <div class="case-chapter__meta-row">
+                        <span class="case-chapter__meta-label">Year</span>
+                        <span class="case-chapter__meta-value">{{ now_building.year }}</span>
+                    </div>
+                </div>
+                {% for line in now_building.narrative %}
+                <p class="case-narrative">{{ line }}</p>
+                {% endfor %}
+            </article>
         </div>
     </section>
     <!-- ABOUT & CONTACT -->
@@ -142,7 +214,7 @@
         <div class="about">
             <h3>About</h3>
             <p>
-                I'm a CS student who thinks in systems. I'm drawn to the gap between 
+                I'm a BTech CSE graduate from Parul University (Apr 2025) who thinks in systems. I'm drawn to the gap between 
                 what users intend to do and what they actually do — and I work backwards 
                 from behavior to find out why products fail them.
             </p>
@@ -205,7 +277,7 @@
                 </a>
             </div>
         </nav>
-        <p class="site-footer-note">Built by Astha Purohit · 2025</p>
+        <p class="site-footer-note">Built by Astha Purohit · {{ year }}</p>
         </div>
     </section>
 

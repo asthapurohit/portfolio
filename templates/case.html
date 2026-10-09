@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{ project.title }} — Astha Purohit</title>
+    <meta name="description" content="{{ project.deck }}">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Mono:wght@300;400&family=Lato:ital,wght@0,300;0,400;1,300&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="/style.css">
+</head>
+<body>
+
+<header class="site-header">
+    <div class="container">
+        <div class="logo">AP</div>
+        <nav class="nav-links">
+            <a href="/#work">Work</a>
+            <a href="/#about">About</a>
+            <a href="/thoughts">Thoughts</a>
+            <a href="/AsthaPurohit_Resume.pdf" target="_blank" rel="noopener" class="nav-resume">Resume ↗</a>
+        </nav>
+    </div>
+</header>
+
+<main class="case-study">
+    <div class="container">
+        <p class="case-study__back">
+            <a href="/#work" class="case-chapter__cta">← Back to work</a>
+        </p>
+
+        <header class="case-study__header">
+            {% if project.tag %}
+            <span class="case-chapter__tag">{{ project.tag }}</span>
+            {% endif %}
+            <h1 class="case-chapter__title">{{ project.title }}</h1>
+            <p class="case-chapter__deck">{{ project.deck }}</p>
+            <div class="case-chapter__meta">
+                <div class="case-chapter__meta-row">
+                    <span class="case-chapter__meta-label">Role</span>
+                    <span class="case-chapter__meta-value">{{ project.role }}</span>
+                </div>
+                {% if project.stack %}
+                <div class="case-chapter__meta-row">
+                    <span class="case-chapter__meta-label">Stack</span>
+                    <span class="case-chapter__meta-value">{{ project.stack }}</span>
+                </div>
+                {% endif %}
+                <div class="case-chapter__meta-row">
+                    <span class="case-chapter__meta-label">Year</span>
+                    <span class="case-chapter__meta-value">{{ project.year }}</span>
+                </div>
+            </div>
+        </header>
+
+        <section class="case-study__section" aria-labelledby="tldr-heading">
+            <h2 id="tldr-heading" class="case-files__label">TL;DR</h2>
+            <dl class="case-study__facts">
+                {% for item in study.tldr %}
+                <div>
+                    <dt>{{ item.label }}</dt>
+                    <dd>
+                        {% if item.text %}<p class="case-narrative">{{ item.text }}</p>{% endif %}
+                        {% if item.todo %}<p class="case-chapter__note">TODO: {{ item.todo }}</p>{% endif %}
+                    </dd>
+                </div>
+                {% endfor %}
+            </dl>
+        </section>
+
+        <section class="case-study__section" aria-labelledby="context-heading">
+            <h2 id="context-heading" class="case-files__label">Context &amp; problem</h2>
+            <div class="case-study__body">
+                {% for paragraph in study.context %}
+                <p class="case-narrative">{{ paragraph }}</p>
+                {% endfor %}
+            </div>
+        </section>
+
+        <section class="case-study__section" aria-labelledby="research-heading">
+            <h2 id="research-heading" class="case-files__label">Research</h2>
+            <dl class="case-study__facts">
+                {% for item in study.research %}
+                <div>
+                    <dt>{{ item.label }}</dt>
+                    <dd>
+                        {% if item.text %}<p class="case-narrative">{{ item.text }}</p>{% endif %}
+                        {% if item.todo %}<p class="case-chapter__note">TODO: {{ item.todo }}</p>{% endif %}
+                    </dd>
+                </div>
+                {% endfor %}
+            </dl>
+        </section>
+
+        <section class="case-study__section" aria-labelledby="insight-heading">
+            <h2 id="insight-heading" class="case-files__label">Key insight</h2>
+            <blockquote class="case-pullquote">
+                <p>{{ study.insight }}</p>
+            </blockquote>
+        </section>
+
+        <section class="case-study__section" aria-labelledby="solution-heading">
+            <h2 id="solution-heading" class="case-files__label">Solution &amp; key decisions</h2>
+            <div class="case-study__body">
+                {% for paragraph in study.solution %}
+                <p class="case-narrative">{{ paragraph }}</p>
+                {% endfor %}
+                <h3 class="case-study__subhead">What I chose not to build</h3>
+                {% for paragraph in study.not_built %}
+                <p class="case-narrative">{{ paragraph }}</p>
+                {% endfor %}
+                {% if study.not_built_todo %}
+                <p class="case-chapter__note">TODO: {{ study.not_built_todo }}</p>
+                {% endif %}
+            </div>
+        </section>
+
+        <section class="case-study__section" aria-labelledby="metrics-heading">
+            <h2 id="metrics-heading" class="case-files__label">Metrics</h2>
+            <div class="case-study__body">
+                {% for paragraph in study.metrics %}
+                <p class="case-narrative">{{ paragraph }}</p>
+                {% endfor %}
+                {% if study.metrics_figure %}
+                <p class="case-narrative">{{ study.metrics_figure.metric }} — {{ study.metrics_figure.label }}</p>
+                {% endif %}
+                {% if study.metrics_todo %}
+                <p class="case-chapter__note">TODO: {{ study.metrics_todo }}</p>
+                {% endif %}
+            </div>
+        </section>
+
+        <section class="case-study__section" aria-labelledby="tradeoffs-heading">
+            <h2 id="tradeoffs-heading" class="case-files__label">Trade-offs &amp; what's next</h2>
+            <div class="case-study__body">
+                {% for paragraph in study.tradeoffs %}
+                <p class="case-narrative">{{ paragraph }}</p>
+                {% endfor %}
+                {% if study.tradeoffs_todo %}
+                <p class="case-chapter__note">TODO: {{ study.tradeoffs_todo }}</p>
+                {% endif %}
+            </div>
+        </section>
+
+        <section class="case-study__section" aria-labelledby="links-heading">
+            <h2 id="links-heading" class="case-files__label">Links</h2>
+            <dl class="case-study__facts">
+                {% for link in study.links %}
+                <div>
+                    <dt>{{ link.label }}</dt>
+                    <dd>
+                        {% if link.href %}
+                        <a href="{{ link.href }}" class="case-chapter__cta" target="_blank" rel="noopener">{{ link.label }} ↗</a>
+                        {% if link.note %}
+                        <p class="case-chapter__note">{{ link.note }}</p>
+                        {% endif %}
+                        {% else %}
+                        <p class="case-chapter__note">TODO: {{ link.todo }}</p>
+                        {% endif %}
+                    </dd>
+                </div>
+                {% endfor %}
+            </dl>
+        </section>
+
+        <nav class="case-study__pager" aria-label="Other case studies">
+            {% if previous_case %}
+            <a href="/work/{{ previous_case.slug }}" class="case-chapter__cta">← {{ previous_case.title }}</a>
+            {% endif %}
+            {% if next_case %}
+            <a href="/work/{{ next_case.slug }}" class="case-chapter__cta case-study__next">{{ next_case.title }} →</a>
+            {% endif %}
+        </nav>
+    </div>
+</main>
+
+</body>
+</html>

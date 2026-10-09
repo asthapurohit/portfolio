@@ -321,7 +321,7 @@ body::after {
 
 /* HERO */
 .hero {
-    padding: 72px 0 60px;
+    padding: 48px 0 36px;
     border-bottom: 0.5px solid var(--color-border);
 }
 
@@ -550,6 +550,19 @@ body::after {
     opacity: 1;
 }
 
+.case-chapter__tag {
+    display: inline-block;
+    margin: 0 0 14px;
+    font-family: 'DM Mono', monospace;
+    font-size: 10px;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    background: var(--color-bg-hover);
+    color: var(--color-text-subtle);
+    padding: 4px 10px;
+    border-radius: 20px;
+}
+
 .case-chapter__serial {
     display: block;
     font-family: 'DM Serif Display', serif;
@@ -629,6 +642,14 @@ body::after {
     background: var(--color-accent-primary-light);
     border-color: var(--color-accent-primary);
     color: var(--color-accent-primary-hover);
+}
+
+.case-chapter__note {
+    margin: 12px 0 0;
+    font-family: 'DM Mono', monospace;
+    font-size: 11px;
+    line-height: 1.5;
+    color: var(--color-text-muted);
 }
 
 .case-chapter__content {
@@ -731,33 +752,93 @@ body::after {
     background: #1A1B20;
 }
 
+.case-cover {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    padding: 28px 32px;
+    gap: 10px;
+}
+
+.case-cover__title {
+    margin: 0;
+    font-family: var(--font-display);
+    font-size: clamp(1.5rem, 3vw, 2.15rem);
+    font-weight: 400;
+    line-height: 1.15;
+    letter-spacing: -0.02em;
+    color: var(--color-text-heading);
+}
+
+.case-cover__metric {
+    margin: 0;
+    font-family: var(--font-display);
+    font-size: clamp(2.5rem, 5vw, 3.75rem);
+    font-weight: 400;
+    line-height: 1;
+    letter-spacing: -0.03em;
+    color: var(--color-accent-primary);
+}
+
+.case-cover__label {
+    margin: 0;
+    font-family: var(--font-mono);
+    font-size: 11px;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: rgba(255, 255, 255, 0.45);
+}
+
+.case-cover--fallback {
+    display: none;
+    position: absolute;
+    inset: 0;
+}
+
+.case-figure__frame.has-fallback .case-cover--fallback {
+    display: flex;
+}
+
+.now-building {
+    max-width: 640px;
+}
+
+.now-building .case-files__label {
+    display: block;
+    margin-bottom: 16px;
+}
+
+.now-building__heading {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 20px;
+}
+
+.now-building__heading .case-chapter__tag {
+    margin: 0;
+}
+
+.now-building__title {
+    margin: 0;
+    font-family: var(--font-display);
+    font-size: clamp(1.5rem, 3vw, 2rem);
+    font-weight: 400;
+    line-height: 1.15;
+    letter-spacing: -0.02em;
+    color: var(--color-text-heading);
+}
+
+.now-building .case-narrative + .case-narrative {
+    margin-top: 16px;
+}
+
 .case-figure__image {
     display: block;
     width: 100%;
     height: 100%;
     object-fit: cover;
     object-position: top center;
-}
-
-.case-figure__visit {
-    position: absolute;
-    top: 12px;
-    right: 12px;
-    font-family: 'DM Mono', monospace;
-    font-size: 9px;
-    letter-spacing: 0.08em;
-    text-transform: uppercase;
-    color: var(--color-accent-primary);
-    border: 0.5px solid var(--color-accent-primary);
-    background: rgba(13, 13, 15, 0.82);
-    border-radius: 14px;
-    padding: 4px 8px;
-    opacity: 0;
-    transition: opacity 0.2s ease;
-}
-
-.case-figure:hover .case-figure__visit {
-    opacity: 1;
 }
 
 .case-figure__caption {
@@ -1008,12 +1089,83 @@ body::after {
 
 /* ─── HERO EYEBROW TAG ─── */
 .hero-eyebrow {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 8px 12px;
     font-size: 10px;
     letter-spacing: 0.08em;
     text-transform: uppercase;
     color: var(--color-text-faint);
-    margin-bottom: 16px;
+    margin-bottom: 12px;
     font-family: 'DM Mono', monospace;
+}
+
+.hero-eyebrow__creds {
+    max-width: 100%;
+}
+
+.hero-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    padding: 3px 8px 3px 7px;
+    border-radius: 20px;
+    background: var(--color-bg-hover);
+    color: var(--color-text-heading);
+    white-space: nowrap;
+}
+
+.hero-badge__dot {
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    background: #28C840;
+    flex: none;
+}
+
+.hero-actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    margin-top: 14px;
+}
+
+.hero-proof {
+    margin-top: 10px;
+}
+
+.hero-proof ul {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: baseline;
+    gap: 4px 0;
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    max-width: 640px;
+}
+
+.hero-proof li {
+    font-family: 'DM Mono', monospace;
+    font-size: 11px;
+    letter-spacing: 0.04em;
+    color: rgba(255, 255, 255, 0.45);
+}
+
+.hero-proof li:not(:last-child)::after {
+    content: "·";
+    margin: 0 8px;
+}
+
+.hero-proof a {
+    color: inherit;
+    text-decoration: none;
+}
+
+.hero-proof a:hover,
+.hero-proof a:focus-visible {
+    color: var(--color-accent-primary);
 }
 
 /* ─── HERO H1 WITH LARGER SIZE AND SPLIT NAME ─── */
@@ -1037,7 +1189,7 @@ body::after {
     width: 60px;
     height: 1px;
     background-color: var(--color-border);
-    margin: 20px 0 24px;
+    margin: 14px 0 16px;
 }
 
 /* ─── INTERESTS SECTION STYLING ─── */
@@ -1376,7 +1528,12 @@ body::after {
 
     .hero {
         display: block;
-        padding: 40px 0 40px;
+        padding: 32px 0 28px;
+    }
+
+    .hero-actions,
+    .hero-proof ul {
+        max-width: 100%;
     }
 
     .hero h1 { font-size: 42px; }
@@ -1415,7 +1572,7 @@ body::after {
 }
 
 .hero-quote {
-    margin: 32px 0 0;
+    margin: 18px 0 0;
     padding: 0 0 0 24px;
     border: none;
     border-left: 2px solid var(--color-accent-primary);
@@ -1428,5 +1585,140 @@ body::after {
     color: var(--color-text-body);
     font-style: italic;
     margin: 0;
+}
+
+.case-chapter__actions {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 10px;
+}
+
+.case-chapter__actions .case-chapter__note {
+    margin: 0;
+}
+
+.case-study {
+    padding: 48px 0 80px;
+}
+
+.case-study__back {
+    margin: 0 0 28px;
+}
+
+.case-study__header .case-chapter__title {
+    margin-top: 14px;
+}
+
+.case-study__section {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    margin-top: 40px;
+}
+
+.case-study__body {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+}
+
+.case-study .case-chapter__note {
+    margin: 0;
+}
+
+.case-study__facts {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    margin: 0;
+}
+
+.case-study__facts div {
+    display: grid;
+    grid-template-columns: 148px minmax(0, 1fr);
+    gap: 12px;
+    align-items: baseline;
+}
+
+.case-study__facts dt {
+    font-family: 'DM Mono', monospace;
+    font-size: 9px;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: rgba(255, 255, 255, 0.45);
+}
+
+.case-study__facts dd {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 8px;
+    margin: 0;
+    min-width: 0;
+}
+
+.case-study__subhead {
+    margin: 8px 0 0;
+    font-family: 'DM Mono', monospace;
+    font-size: 11px;
+    font-weight: 400;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: rgba(255, 255, 255, 0.45);
+}
+
+.case-study__pager {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 12px;
+    margin-top: 48px;
+    padding-top: 28px;
+    border-top: 1px solid var(--color-divider);
+}
+
+.case-study__next {
+    margin-left: auto;
+}
+
+.thoughts-group {
+    margin: 0;
+    padding: 10px 14px 6px;
+    font-family: var(--font-ui);
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: -0.01em;
+    color: color-mix(in srgb, currentColor 72%, transparent);
+    background: var(--surface-titlebar);
+    border-top: var(--hairline);
+    border-bottom: var(--hairline);
+}
+
+.thoughts-finder__cols + .thoughts-group {
+    border-top: 0;
+}
+
+.thoughts-feed-error {
+    margin: 0;
+    padding: 16px 14px;
+    font-family: var(--font-ui);
+    font-size: 13px;
+    line-height: 1.5;
+    color: color-mix(in srgb, currentColor 80%, transparent);
+}
+
+@media (max-width: 640px) {
+    .case-study {
+        padding: 32px 0 60px;
+    }
+
+    .case-study__facts div {
+        grid-template-columns: 1fr;
+        gap: 4px;
+    }
+
+    .case-study__next {
+        margin-left: 0;
+    }
 }
 

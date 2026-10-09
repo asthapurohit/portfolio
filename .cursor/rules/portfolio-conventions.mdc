@@ -1,0 +1,48 @@
+---
+description: Match existing portfolio style, never invent content, stay scoped, stay accessible, and report what changed
+alwaysApply: true
+---
+
+# Portfolio conventions
+
+Flask + Jinja. Routes in `app.py`: `/` → `templates/index.html`, `/thoughts` → `templates/thoughts.html`. Work data is `case_files.py`. All CSS is `public/style.css`. Static files are served from `public/`.
+
+## Match the existing visual style
+
+Reuse classes and tokens in `public/style.css`. Do not add a component library, Tailwind, or new chrome.
+
+- Fonts: body `Lato`; `--font-display` (DM Serif Display) for the name, case titles, pull quotes; `--font-ui` for menu bar, windows, Finder, Dock; `--font-mono` for indexes and FIG captions.
+- Page: `--color-bg` `#0F1117`, text `--color-text-body`, editorial accent `--color-accent-primary` `#EA580C`.
+- Chrome: `--surface-window`, `--surface-titlebar`, `--hairline`, `--radius-window` 12px, `--shadow-window`, `--accent` `#0A84FF`, `--blur`.
+- Layout: `.container` (max 1200px, padding 24px). Windows: `.case-window`. Contact: `.dock`.
+- Keep `:focus-visible` outlines. Honor `prefers-reduced-motion`.
+
+```html
+<!-- ✅ reuse the window -->
+<div class="case-window">...</div>
+<!-- ❌ a new card system -->
+<div class="project-card">...</div>
+```
+
+## Never invent content
+
+Metrics, quotes, results, dates, and links must already exist in the templates, `case_files.py`, or the Substack feed. If a value is missing, show a visible `TODO:` placeholder and tell the user what to supply.
+
+```html
+<!-- ❌ -->
+<p>Raised retention 40%.</p>
+<!-- ✅ -->
+<p>TODO: add the outcome for this case.</p>
+```
+
+## Keep changes scoped
+
+Edit only files the task needs. Do not refactor unrelated CSS, templates, or data.
+
+## Semantic HTML and keyboard access
+
+Use real headings, landmarks, and buttons. Images need meaningful `alt`. Decorative chrome (traffic lights, dock dots) stays `aria-hidden="true"`. Controls must work from the keyboard and keep the existing focus ring.
+
+## After each task
+
+List every file changed, and anything the user still needs to provide (copy, images, links, PDFs).
