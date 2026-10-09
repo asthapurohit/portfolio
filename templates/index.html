@@ -139,6 +139,25 @@
                 <h3 class="work-group__title" id="work-built">Products I've built</h3>
                 {% for project in built %}
                 <article class="work-row" id="{{ project.slug }}">
+                    <div class="work-row__body">
+                        <h4 class="work-row__title">{{ project.title }}</h4>
+                        <p class="work-row__deck">{{ project.deck }}</p>
+                        <p class="work-row__meta">{{ project.role }} · {{ project.year }}{% if project.stack %} · {{ project.stack }}{% endif %}</p>
+                        <div class="case-chapter__actions">
+                            {% if project.link %}
+                            <a href="{{ project.link }}" target="_blank" rel="noopener" class="case-chapter__cta">Live demo ↗</a>
+                            {% endif %}
+                            {% for extra in project.more_links or [] %}
+                            <a href="{{ extra.href }}" target="_blank" rel="noopener" class="case-chapter__cta">{{ extra.label }} ↗</a>
+                            {% endfor %}
+                            {% if project.case_page is not false %}
+                            <a href="/work/{{ project.slug }}" class="case-chapter__cta">Read case study</a>
+                            {% endif %}
+                        </div>
+                        {% if project.link_note %}
+                        <p class="case-chapter__note">{{ project.link_note }}</p>
+                        {% endif %}
+                    </div>
                     <div class="work-row__media">
                         {% if project.preview_image %}
                         <div class="case-window">
@@ -162,25 +181,6 @@
                         </div>
                         {% endif %}
                     </div>
-                    <div class="work-row__body">
-                        <h4 class="work-row__title">{{ project.title }}</h4>
-                        <p class="work-row__deck">{{ project.deck }}</p>
-                        <p class="work-row__meta">{{ project.role }} · {{ project.year }}{% if project.stack %} · {{ project.stack }}{% endif %}</p>
-                        <div class="case-chapter__actions">
-                            {% if project.link %}
-                            <a href="{{ project.link }}" target="_blank" rel="noopener" class="case-chapter__cta">Live demo ↗</a>
-                            {% endif %}
-                            {% for extra in project.more_links or [] %}
-                            <a href="{{ extra.href }}" target="_blank" rel="noopener" class="case-chapter__cta">{{ extra.label }} ↗</a>
-                            {% endfor %}
-                            {% if project.case_page is not false %}
-                            <a href="/work/{{ project.slug }}" class="case-chapter__cta">Read case study</a>
-                            {% endif %}
-                        </div>
-                        {% if project.link_note %}
-                        <p class="case-chapter__note">{{ project.link_note }}</p>
-                        {% endif %}
-                    </div>
                 </article>
                 {% endfor %}
             </section>
@@ -191,12 +191,6 @@
                 <h3 class="work-group__title" id="work-written">PRDs, teardowns and concepts</h3>
                 {% for project in written %}
                 <article class="work-row work-row--text" id="{{ project.slug }}">
-                    <div class="work-row__media">
-                        {% if project.cover_metric %}
-                        <p class="work-row__metric">{{ project.cover_metric }}</p>
-                        <p class="work-row__metric-label">{{ project.cover_label }}</p>
-                        {% endif %}
-                    </div>
                     <div class="work-row__body">
                         <h4 class="work-row__title">{{ project.title }}</h4>
                         <p class="work-row__deck">{{ project.deck }}</p>
@@ -215,6 +209,12 @@
                             {% endif %}
                         </div>
                     </div>
+                    <div class="work-row__media">
+                        {% if project.cover_metric %}
+                        <p class="work-row__metric">{{ project.cover_metric }}</p>
+                        <p class="work-row__metric-label">{{ project.cover_label }}</p>
+                        {% endif %}
+                    </div>
                 </article>
                 {% endfor %}
             </section>
@@ -224,15 +224,15 @@
             <section class="work-group" aria-labelledby="work-now">
                 <h3 class="work-group__title" id="work-now">Now building</h3>
                 <article class="work-row work-row--text">
-                    <div class="work-row__media">
-                        <p class="work-row__metric">{{ now_building.tag }}</p>
-                    </div>
                     <div class="work-row__body">
                         <h4 class="work-row__title">{{ now_building.title }}</h4>
                         {% for line in now_building.narrative %}
                         <p class="work-row__deck">{{ line }}</p>
                         {% endfor %}
                         <p class="work-row__meta">{{ now_building.role }} · {{ now_building.year }} · {{ now_building.stack }}</p>
+                    </div>
+                    <div class="work-row__media">
+                        <p class="work-row__metric">{{ now_building.tag }}</p>
                     </div>
                 </article>
             </section>
