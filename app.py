@@ -224,59 +224,6 @@ def fetch_substack_posts():
     return []
 
 
-def _plural(count, singular, plural):
-    word = singular if count == 1 else plural
-    return f"{count} {word}"
-
-
-def hero_proof(case_files, essay_count):
-    built_chapters = []
-    prd_chapters = []
-    reviews = None
-    for index, project in enumerate(case_files, start=1):
-        tag = project.get('tag')
-        if tag == 'Built':
-            built_chapters.append(index)
-        elif tag == 'PRD':
-            prd_chapters.append(index)
-        if reviews is None:
-            blob = ' '.join([project.get('deck') or '', *(project.get('narrative') or [])])
-            match = re.search(r'([\d,]+)\s+real\s+\w+\s+reviews', blob, re.I)
-            if match:
-                reviews = {
-                    'label': f"{match.group(1)} reviews analyzed",
-                    'href': f"#chapter-{index}",
-                }
-
-    items = []
-    if built_chapters:
-        items.append({
-            'label': _plural(len(built_chapters), 'live product', 'live products'),
-            'href': '#work',
-        })
-    else:
-        items.append({'label': 'TODO: live product count', 'href': '#work'})
-
-    if prd_chapters:
-        items.append({
-            'label': _plural(len(prd_chapters), 'PRD', 'PRDs'),
-            'href': f"#chapter-{prd_chapters[0]}",
-        })
-    else:
-        items.append({'label': 'TODO: PRD count', 'href': '#work'})
-
-    if reviews:
-        items.append(reviews)
-    else:
-        items.append({'label': 'TODO: reviews analyzed', 'href': '#work'})
-
-    items.append({
-        'label': _plural(essay_count, 'essay', 'essays'),
-        'href': '/thoughts',
-    })
-    return items
-
-
 @app.route("/")
 def home():
     return render_template(
@@ -284,7 +231,6 @@ def home():
         case_files=CASE_FILES,
         now_building=NOW_BUILDING,
         year=datetime.now().year,
-        hero_proof=hero_proof(CASE_FILES, len(fetch_substack_posts())),
     )
 
 
@@ -304,12 +250,14 @@ def thoughts():
 
 @app.route("/work/<slug>")
 def work_case(slug):
-    index = next((i for i, project in enumerate(CASE_FILES) if project.get('slug') == slug), None)
+    # Items whose PDF is the write-up (case_page False) have no page here.
+    pages = [project for project in CASE_FILES if project.get('case_page', True)]
+    index = next((i for i, project in enumerate(pages) if project.get('slug') == slug), None)
     if index is None:
         abort(404)
-    project = CASE_FILES[index]
-    previous_case = CASE_FILES[index - 1] if index else None
-    next_case = CASE_FILES[index + 1] if index + 1 < len(CASE_FILES) else None
+    project = pages[index]
+    previous_case = pages[index - 1] if index else None
+    next_case = pages[index + 1] if index + 1 < len(pages) else None
     return render_template(
         "case.html",
         project=project,

@@ -3,164 +3,101 @@
 ## 1) Tech Stack
 
 - **App framework:** Flask (Python) server-rendered templates (`app.py` + Jinja in `templates/`).
-- **Frontend architecture:** Plain HTML templates + one global stylesheet (`public/style.css`) + inline vanilla JS per template.
+- **Frontend architecture:** Plain HTML templates + one global stylesheet (`public/style.css`). The only JavaScript is the small inline script for the hero chart animation in `templates/index.html`.
 - **Styling system:** Custom CSS (no Tailwind, no CSS modules, no styled-components, no UI component library).
-- **Visual metaphor:** macOS desktop — menu bar header, window chrome around Work previews and the Thoughts list, Finder-style rows, Dock for contact.
-- **Animation system:**
-  - Vanilla CSS transitions.
-  - `IntersectionObserver` in `templates/index.html` and `templates/thoughts.html` for reveal effects.
-  - JS-driven scroll progress rail in the Work section.
-- **Fonts and loading:**
-  - Loaded from Google Fonts via `<link>`: `DM Serif Display`, `DM Mono`, `Lato`.
-  - UI chrome uses the system stack via `--font-ui` (does not require a webfont).
-- **UI libraries:** None.
+- **Visual direction:** Minimal, editorial, dark. Two typefaces, one accent, no decorative chrome.
+- **Fonts and loading:** Google Fonts via one `<link>` per template: `DM Serif Display` (regular + italic) and `Lato` (400). Nothing else.
 - **Deployment target:** Vercel (Python function) via `vercel.json` with `app.py` max duration 30s.
 
 ## 2) Design Tokens
 
-Two layers live in `public/style.css`.
+All tokens live in `:root` in `public/style.css`. The site is dark-only.
 
-### macOS token layer (new)
-
-Defined in `:root` as dark defaults, then restated in both `prefers-color-scheme: light` and `prefers-color-scheme: dark`. Dark is the fallback if a scheme query does not match.
-
-**Type**
-
-- `--font-ui: -apple-system, BlinkMacSystemFont, "SF Pro Text", "Inter", system-ui, sans-serif` — menu bar, window titles, Finder rows, Dock labels.
-- `--font-display: "DM Serif Display", serif` — hero name, case titles in the narrative column, pull quotes.
-- `--font-mono: "DM Mono", monospace` — chapter numbers, FIG captions, metadata.
-
-**Surfaces (layered greys, not flat white)**
-
-| Token | Light | Dark |
+| Token | Value | Use |
 |---|---|---|
-| `--surface-page` | `#E5E5EA` | `#1C1C1E` |
-| `--surface-window` | `#F5F5F7` | `#2C2C2E` |
-| `--surface-titlebar` | `#EBEBED` | `#3A3A3C` |
+| `--color-bg` | `#0F1117` | Page background (flat; no gradients or textures) |
+| `--color-surface` | `#161922` | Screenshot frames |
+| `--color-text-heading` | `#ECECEA` | Headings, link text, meta values |
+| `--color-text-body` | `#A9ADB5` | Body copy, tagline |
+| `--color-text-muted` | `#7C818B` | Labels, dates, notes, TODOs |
+| `--color-line` | `rgba(255,255,255,0.10)` | Hairlines and frame borders |
+| `--color-line-strong` | `rgba(255,255,255,0.28)` | Link underlines |
+| `--color-accent` | `#EA580C` | "Open to APM roles", "Latest", focus ring |
+| `--color-accent-hover` | `#F97316` | Link and Thoughts-row hover |
 
-**Chrome**
+- `--font-display` (DM Serif Display): name, page and section titles, project titles, post titles, pull quotes, PRD key metrics.
+- `--font-body` (Lato 400): everything else.
+- `--radius: 8px`: the only corner radius (screenshot frames).
+- `.container`: max 1200px, 24px side padding (20px under 640px). Case-study pages narrow it to 880px.
 
-- `--radius-window: 12px`
-- `--radius-control: 6px`
-- `--hairline: 0.5px solid` at 12% alpha (black in light, white in dark)
-- `--shadow-window`: large soft ambient + tight contact shadow, low opacity
-- `--accent`: system blue `#007AFF` (light) / `#0A84FF` (dark)
-- `--blur: saturate(180%) blur(20px)` — menu bar and Dock `backdrop-filter`
+### Rules
 
-**Focus:** `:focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; }`. Do not suppress outlines.
-
-`@supports not (backdrop-filter: blur(1px))` falls back to solid `--surface-titlebar` on the menu bar and Dock.
-
-### Legacy color tokens (still used by page body / editorial)
-
-The rest of the page (hero, narrative columns, textures) still uses the original dark tokens in `:root`: `--color-bg`, `--color-text-*`, `--color-accent-primary` (orange), etc. Chrome and page body are not fully unified yet — window/menu/dock/finder use the macOS layer; editorial copy still sits on `--color-bg`.
-
-### Typography roles
-
-- **Display serif (`--font-display` / DM Serif Display):** hero name, case-file `<h3>` titles, pull quotes.
-- **System UI (`--font-ui`):** header, window titlebars, Finder, Dock.
-- **Mono (`--font-mono`):** Work chapter index in the titlebar, FIG captions, some meta.
-- **Body (Lato):** hero paragraph, About, case narrative.
+- Sentence case everywhere. No uppercase or letter-spaced labels, no monospace.
+- The accent marks availability, hover and focus only — never headings, body text or decoration.
+- No numbering (01/02…), captions, window chrome, badges or pills, icons, shadows, gradients or textures.
+- One animated moment: the hero chart (see below). No other scroll-triggered or load animations; otherwise only hover color/opacity transitions (≤ 0.2s). Smooth anchor scrolling only under `prefers-reduced-motion: no-preference`.
+- Links are underlined text (`.case-chapter__cta`). `↗` marks links that open a new tab; `←`/`→` only for back, previous and next.
+- `:focus-visible { outline: 2px solid var(--color-accent); outline-offset: 3px; }`. Do not suppress outlines.
 
 ## 3) Layout Architecture
 
-### Shared container
+### Home (`templates/index.html`)
 
-```css
-.container {
-  width: 100%;
-  max-width: var(--container-max); /* 1200px */
-  margin: 0 auto;
-  padding: 0 var(--container-padding); /* 24px */
-}
-```
+1. **Header (`.site-header`)** — static (not sticky). `AP` links home; nav: Work, About, Thoughts, Resume ↗.
+2. **Hero (`.hero .hero-grid`)** — two columns (`7fr / 5fr`, stacked under 900px).
+   - Left: one intro line (credentials + accent "Open to APM roles", which drops to its own line under 640px), name as `h1`, serif tagline in body color, lede (max 56ch), two text links.
+   - Right: `figure.hero-gap`, an SVG chart of the lede's idea — a dashed muted line ("What products assume") and a solid accent line ("What users do"). The script draws both lines, shades "The gap" between them, then raises the accent line to meet the dashed one and shows an end dot. About 3 seconds, starts when the chart is half visible, plays once per browser session (`sessionStorage` key `heroGapPlayed`). Without JavaScript, with reduced motion, or on a repeat view it shows the final frame (lines joined).
+3. **Work (`#work .case-files`)** — a compact index, not full write-ups. `h2` "Work", then three `section.work-group`s, each with a small muted `h3` and hairline-separated `article.work-row`s (`4fr / 7fr`: evidence left, text right; stacked under 760px):
+   - **Products I've built** (`tag == 'Built'`): left is the screenshot in `.case-window` (16:10, `object-position: top`, links to the live demo); right is the title (`h4`), deck, one meta line (role · year · stack), "Live demo ↗", any `more_links`, "Read case study", optional note.
+   - **PRDs, teardowns and concepts** (every other tag): left is the key metric (`cover_metric`, serif) with its label, or empty; right is the title, deck, meta line (`figure_label` · role · year), the `doc_link` (labelled `doc_label`, or a TODO if missing), any `more_links`, and "Read case study" unless `case_page` is False.
+   - **Now building**: one row; left is the tag (e.g. 0→1), right is the title, its narrative and a meta line.
+   - Narrative paragraphs and pull quotes are not shown on the homepage; they live on the case study pages.
+4. **About + Contact (`.about-contact`)** — hairline on top; `h2` About, paragraphs, one interests line; `h2` Contact with a row of text links; footer note.
 
-### Page structure (home)
+### Thoughts (`templates/thoughts.html`)
 
-1. **Header (`.site-header`)** — sticky macOS menu bar, `height: 38px`, `z-index: 50`. Translucent titlebar + `--blur` + hairline. **AP** is the left mark; nav items get `--accent` hover pills.
-2. **Hero (`.hero`)** — name in DM Serif Display, static pull quote (no slider).
-3. **Work (`#work .case-files`)** — scrollytelling chapters, desktop rail, two-column grid (`40%/60%`, reversed on even chapters).
-4. **About + Contact (`.about-contact`)** — stacked: About column, then a centered Dock, then the footer note.
+- Same header with `Thoughts` marked `aria-current="page"`.
+- `h1` page title. Groups (Featured / Classism Series / Posts) are small muted `h2`s.
+- Each post is a full-row link: serif title, summary, date and reading time on the right (stacked under the title below 640px). Hairlines between rows. "Latest" sits above the newest post's title in the accent.
 
-### Thoughts page structure
+### Case study (`templates/case.html`)
 
-- Shared menu bar header.
-- One macOS window (`.case-window.thoughts-window`) containing a Finder list (column headers + rows).
-- Substack link below the window.
+- Same header. Back link, tag, `h1` title, deck, meta rows.
+- Sections with serif `h2`s; facts as `dl` rows (label column 140px, stacked below 640px); TODOs as muted notes; previous / next links above a hairline.
 
-## 4) Window metaphor
-
-Window chrome is presentational. Semantic structure stays `<article>` / `<h1>` / `<h2>` — do not replace real headings with decorative titlebar text as the only name.
-
-Shared classes (Work preview + Thoughts list):
-
-- `.case-window` — `--surface-window`, `--hairline`, `--radius-window`, `--shadow-window`.
-- `.case-window__titlebar` — `--surface-titlebar`, hairline bottom.
-- Left cluster: `--font-mono` index + traffic-light dots (`#FF5F57` / `#FEBC2E` / `#28C840`). Dots are `aria-hidden="true"`.
-- Centered name in `--font-ui` at 13px (Work titlebar name is also `aria-hidden`; the real `<h3>` lives in the narrative panel. Thoughts uses a real `<h1>` as `.case-window__name`).
-
-### Work chapter window
-
-- Preview `img` (`preview_image` from `case_files.py`) sits edge-to-edge under the titlebar.
-- Image: `width="1440"` `height="900"` `loading="lazy"` `decoding="async"`.
-- **Visit Live ↗** hover pill on the screenshot; FIG caption stays outside the window.
-- Pull quote stays editorial (DM Serif Display, no chrome).
-
-### Thoughts Finder window
-
-- Column header: Title / Date / Reading time (`--font-ui`, hairline).
-- Rows: zebra tint, hairline separators, `--accent` selection tint on hover.
-- Summary expands on hover; no sibling-dimming.
-- Tags are small rounded pills.
-
-### Contact Dock
-
-- `.dock__bar`: centered, translucent, `--blur`, `--radius-window`, hairline.
-- Items: LinkedIn, GitHub, Email, Substack, Resume — each with a visible text label and a decorative dot.
-- Icon magnification is `transform: scale()` only; disabled under `prefers-reduced-motion: reduce`.
-
-## 5) Component Inventory
-
-- **`templates/index.html`** — home: menu bar, hero, Work windows, About, Dock.
-- **`templates/thoughts.html`** — Finder list in a window; staggered row reveal.
-- **`case_files.py`** — Work chapter data (`preview_image`, `liveUrl`, narrative, etc.).
-- **`app.py`** — Flask routes. `/thoughts` fetches Substack RSS with a 15-minute module cache, 5s socket timeout, stale-cache-then-placeholder fallback.
-- **`public/style.css`** — tokens + all layout/interaction styles.
-
-### Work chapter
-
-- Markup: `<article class="case-chapter">` with sticky `<aside>` and `.case-chapter__content`.
-- Alternation: `case-chapter--reverse` on even chapters.
-- Chapter numbers (`01`, `02`, `03`) come from `loop.index`, not hardcoded values.
-- FIG caption hostname is derived from `project.liveUrl` (strip protocol and trailing slash).
-
-### Scroll progress rail
-
-- Shown only at `min-width: 1025px`.
-- Fill height from Work section scroll percentage.
-- Dot buttons smooth-scroll to chapter IDs.
-
-## 6) Data Shapes
+## 4) Data Shapes
 
 ### Work project object (`case_files.py`)
 
 ```python
 {
   'title': str,
+  'slug': str,
+  'tag': 'Built' | 'PRD',
   'deck': str,
   'role': str,
-  'stack': str,
+  'stack': str,            # optional
   'year': str,
-  'link': str,
-  'liveUrl': str,
-  'liveDomain': str,
-  'preview_image': str,   # e.g. '/previews/spotify-taste-bridge.png'
+  'link': str,             # optional; live demo
+  'liveUrl': str,          # optional
+  'liveDomain': str,       # optional; shown in the fallback cover
+  'link_note': str,        # optional
+  'preview_image': str,    # e.g. '/previews/spotify-taste-bridge.png' (1440×900)
+  'cover_metric': str,     # PRDs without a screenshot
+  'cover_label': str,
+  'figure_label': str,     # type shown in the row's meta line, e.g. 'PRD & teardown'
+  'doc_link': str,         # optional; the PRD/teardown/deck PDF in public/
+  'doc_label': str,        # optional; link text for doc_link (default 'Read the PRD')
+  'more_links': list[dict],  # optional; [{'label': 'Deck', 'href': '/x.pdf'}]
+  'case_page': bool,       # optional; False = the PDF is the write-up, no /work/<slug> page
   'narrative': list[str],
   'pullQuote': str
 }
 ```
 
-There is no live iframe embed. `preview_image` points at `public/previews/<slug>.png` (1440×900). Missing files hide the `<img>` and leave a silent 16:10 grey block — no fallback copy.
+Every item with a case page needs a branch in `case_sections()`; `/work/<slug>` returns 404 for `case_page: False` items, and the previous/next links skip them. To capture a new screenshot: `python scripts/capture_previews.py <slug>`.
+
+If a `preview_image` fails to load, the `<img>` removes itself and `.case-cover--fallback` (title + live domain) fills the frame.
 
 ### Thoughts post (`app.py`)
 
@@ -170,57 +107,26 @@ There is no live iframe embed. `preview_image` points at `public/previews/<slug>
   'url': str,
   'summary': str,
   'date': str,          # e.g. "Mar 2026"
-  'reading_time': int,
-  'tags': list[str],    # max 2
+  'reading_time': int | None,
+  'tags': list[str],    # not shown in the UI
   'series': str | None
 }
 ```
 
-RSS: `https://asthapurohit.substack.com/feed`. Cache TTL 15 minutes. On failure: stale cache if present, else `PLACEHOLDER_POSTS`.
+RSS: `https://asthapurohit.substack.com/feed`. Cache TTL 15 minutes. On failure: stale cache if present, else the feed-error message with a Substack link. Only `/thoughts` fetches the feed.
 
-## 7) Interaction & Motion Map
+## 5) Responsive Behavior
 
-- **Global section reveals:** `.fade-up` + IntersectionObserver on home.
-- **Hero quote:** static; no rotation.
-- **Menu bar nav:** `--accent` rounded hover / focus-visible fill.
-- **Work rail dots:** active state + click scroll.
-- **Case blocks:** reveal stagger (`90ms` step, `0.45s` motion).
-- **Case window:** hover “Visit Live ↗” pill on the preview.
-- **Thoughts rows:** deck expansion on hover; `--accent` row tint; stagger reveal (`80ms`).
-- **Dock:** icon scale `1.32` on hover/focus-visible; off under reduced motion.
-- **Focus:** global `--accent` focus ring on `:focus-visible`.
-- **Reduced motion:** transform-heavy reveals / dock scale disabled or simplified.
+- `<=900px`: the hero chart stacks under the intro.
+- `<=760px`: work rows stack (screenshot or metric above the text).
+- `<=640px`: 20px container padding; tighter header, hero and section spacing; Thoughts rows stack date and reading time under the title; case-study facts stack.
 
-## 8) Responsive Behavior
+## 6) Known issues
 
-### `<=1024px` (Work)
+1. **Research engine link:** the Blinkit row links the complete research site, `web-three-ashy-40.vercel.app`. The rebuild at `discovery-engine-psi.vercel.app` still shows placeholder data; switch the link once it's populated.
+2. **First SIP is a concept:** its deck's research and testing figures are illustrative. Don't quote them on the site as results.
 
-- Sticky panel becomes static; chapter grid is one column.
-- Reverse order cancelled.
-- Rail hidden (rail only at `>=1025px`).
-
-### `<=768px`
-
-- Menu bar stays 38px; nav slightly tighter.
-- Hero type scales down.
-- About / Dock stack with tighter gap.
-- Work vertical padding tightened.
-
-### `<=640px` (Thoughts)
-
-- Finder extra columns hide; date + reading time sit under the title.
-- Deck is always visible (no hover-gated summary).
-
-## 9) Known issues
-
-1. **Broken self-referential tokens** (used by live UI, values do not resolve):
-   - `--color-divider: var(--color-divider)` — used by `.case-chapter__divider`
-   - `--color-border-frame: var(--color-border-frame)` — used by `.case-files__rail-track`
-2. **Unused token groups still in `:root`** (no matching template selectors): `--color-badge-*`, `--color-thoughts-*`, `--color-live-*`, `--color-metric-*`, `--shadow-card*`, `--gradient-brand`, `--shadow-logo-hover`. Left in place rather than guessed-deleted.
-3. **Unlinked public assets:** PRD/deck PDFs other than `AsthaPurohit_Resume.pdf` are not referenced from templates.
-4. **Page body vs chrome:** editorial surfaces still use the old dark `--color-bg` tokens; only chrome uses the macOS surface layer.
-
-## 10) Condensed File Tree
+## 7) Condensed File Tree
 
 ```text
 portfolio/
@@ -228,12 +134,16 @@ portfolio/
 ├─ case_files.py
 ├─ requirements.txt
 ├─ vercel.json
+├─ scripts/
+│  └─ capture_previews.py
 ├─ templates/
 │  ├─ index.html
-│  └─ thoughts.html
+│  ├─ thoughts.html
+│  └─ case.html
 └─ public/
    ├─ style.css
    ├─ previews/
+   │  ├─ pehli-baar.png
    │  ├─ spotify-taste-bridge.png
    │  ├─ groww-weekly-pulse.png
    │  └─ hdfc-mf-faq.png
@@ -241,5 +151,8 @@ portfolio/
    ├─ spotify-taste-bridge-deck.pdf
    ├─ chatGPT_PRD.pdf
    ├─ Goodreads-PRD.pdf
-   └─ Goodreads-ProductTeardown.pdf
+   ├─ Goodreads-ProductTeardown.pdf
+   ├─ Mastercard-Checkout-Teardown.pdf
+   ├─ Passkeys-Card-Checkout-PRD.pdf
+   └─ First-SIP-UX-Case-Study.pdf
 ```

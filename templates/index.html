@@ -6,15 +6,15 @@
     <title>Astha Purohit — APM Candidate</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Mono:wght@300;400&family=Lato:ital,wght@0,300;0,400;1,300&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=Lato:wght@400&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="/style.css">
 </head>
 <body>
 
     <header class="site-header">
         <div class="container">
-            <div class="logo">AP</div>
-            <nav class="nav-links">
+            <a class="logo" href="/" aria-label="Astha Purohit, home">AP</a>
+            <nav class="nav-links" aria-label="Main">
                 <a href="#work">Work</a>
                 <a href="#about">About</a>
                 <a href="/thoughts">Thoughts</a>
@@ -24,20 +24,13 @@
     </header>
 
     <!-- HERO -->
-    <section class="hero fade-up">
-        <div class="container">
+    <section class="hero">
+        <div class="container hero-grid">
         <div class="hero-content">
-            <div class="hero-eyebrow">
-                <span class="hero-eyebrow__creds">BTech CSE '25 · NextLeap PM Fellow</span>
-                <span class="hero-badge">
-                    <span class="hero-badge__dot" aria-hidden="true"></span>
-                    Open to APM roles
-                </span>
-            </div>
-            <h1>Astha <em>Purohit</em></h1>
-            <h2>Product thinker. Behavior-first.</h2>
-            <div class="hero-hr"></div>
-            <p>
+            <p class="hero-intro">BTech CSE ’25 · NextLeap Top Fellow<span class="hero-intro__sep" aria-hidden="true"> · </span> <span class="hero-status">Open to APM roles</span></p>
+            <h1>Astha Purohit</h1>
+            <p class="hero-tagline">Product thinker. Behavior-first.</p>
+            <p class="hero-lede">
                 I find the gap between what users do and what products assume, then close it.
                 I'm a BTech CSE graduate from Parul University (Apr 2025), focused on behavioral research, product strategy, and building things people actually use.
             </p>
@@ -45,174 +38,212 @@
                 <a href="#work" class="case-chapter__cta">See my work</a>
                 <a href="/AsthaPurohit_Resume.pdf" class="case-chapter__cta" target="_blank" rel="noopener">Resume ↗</a>
             </div>
-            <nav class="hero-proof" aria-label="Proof">
-                <ul>
-                    {% for item in hero_proof %}
-                    <li><a href="{{ item.href }}">{{ item.label }}</a></li>
-                    {% endfor %}
-                </ul>
-            </nav>
-            <blockquote class="hero-quote">
-                <p class="quote-text">“The best products don't add features. They remove friction.”</p>
-            </blockquote>
         </div>
+
+        <!-- The gap: what users do vs. what products assume. Without JS or with
+             reduced motion it shows the final frame (the gap closed). -->
+        <figure class="hero-gap" role="img" aria-label="Chart: what users do falls below what products assume, then rises to meet it.">
+            <svg class="hero-gap__chart" viewBox="0 0 300 180" aria-hidden="true">
+                <defs>
+                    <clipPath id="gap-wipe-assumed"><rect x="0" y="0" width="300" height="180"></rect></clipPath>
+                    <clipPath id="gap-wipe-actual"><rect x="0" y="0" width="300" height="180"></rect></clipPath>
+                </defs>
+                <line class="hero-gap__axis" x1="10" y1="170" x2="290" y2="170"></line>
+                <path class="hero-gap__area" d=""></path>
+                <path class="hero-gap__assumed" d="M10 160 C100 140 180 80 290 30" clip-path="url(#gap-wipe-assumed)"></path>
+                <path class="hero-gap__actual" d="M10 160 C100 140 180 80 290 30" clip-path="url(#gap-wipe-actual)"></path>
+                <circle class="hero-gap__dot" cx="290" cy="30" r="4"></circle>
+                <text class="hero-gap__label" x="220" y="112">The gap</text>
+            </svg>
+            <figcaption class="hero-gap__legend" aria-hidden="true">
+                <span class="hero-gap__key hero-gap__key--assumed">What products assume</span>
+                <span class="hero-gap__key hero-gap__key--actual">What users do</span>
+            </figcaption>
+        </figure>
+        <script>
+        (function () {
+            var fig = document.querySelector('.hero-gap');
+            if (!fig || !window.requestAnimationFrame) return;
+            var reduce = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+            var played = false;
+            try { played = sessionStorage.getItem('heroGapPlayed') === '1'; } catch (e) {}
+            if (reduce || played) return;
+
+            var A = [[10, 160], [100, 140], [180, 80], [290, 30]];   // what products assume
+            var D = [[10, 160], [100, 150], [180, 148], [290, 140]];  // what users do, before the fix
+            var q = function (s) { return fig.querySelector(s); };
+            var wipeAssumed = q('#gap-wipe-assumed rect');
+            var wipeActual = q('#gap-wipe-actual rect');
+            var actual = q('.hero-gap__actual');
+            var area = q('.hero-gap__area');
+            var label = q('.hero-gap__label');
+            var dot = q('.hero-gap__dot');
+
+            function curve(P) { return 'M' + P[0] + ' C' + P[1] + ' ' + P[2] + ' ' + P[3]; }
+            function back(P) { return 'L' + P[3] + ' C' + P[2] + ' ' + P[1] + ' ' + P[0] + ' Z'; }
+            function mix(t) { return D.map(function (p, i) { return [p[0] + (A[i][0] - p[0]) * t, p[1] + (A[i][1] - p[1]) * t]; }); }
+            function ease(t) { return t < 0.5 ? 2 * t * t : 1 - Math.pow(-2 * t + 2, 2) / 2; }
+            function span(now, start, dur) { return Math.min(Math.max((now - start) / dur, 0), 1); }
+
+            function draw(now) {
+                wipeAssumed.setAttribute('width', 300 * ease(span(now, 0, 700)));
+                wipeActual.setAttribute('width', 300 * ease(span(now, 400, 800)));
+                var show = span(now, 1100, 400);
+                var close = ease(span(now, 1900, 800));
+                var cur = mix(close);
+                actual.setAttribute('d', curve(cur));
+                area.setAttribute('d', curve(cur) + ' ' + back(A));
+                area.style.fillOpacity = (0.18 * show * (1 - close)).toFixed(3);
+                // The label leaves before the rising line reaches it.
+                label.style.opacity = (show * (1 - span(now, 1900, 250))).toFixed(3);
+                dot.style.opacity = span(now, 2600, 300).toFixed(3);
+            }
+
+            function play() {
+                try { sessionStorage.setItem('heroGapPlayed', '1'); } catch (e) {}
+                var start = null;
+                function tick(t) {
+                    if (start === null) start = t;
+                    var now = t - start;
+                    draw(Math.min(now, 3000));
+                    if (now < 3000) requestAnimationFrame(tick);
+                }
+                requestAnimationFrame(tick);
+            }
+
+            draw(0);
+            if ('IntersectionObserver' in window) {
+                var io = new IntersectionObserver(function (entries) {
+                    if (entries[0].isIntersecting) { io.disconnect(); play(); }
+                }, { threshold: 0.5 });
+                io.observe(fig);
+            } else {
+                play();
+            }
+        })();
+        </script>
         </div>
     </section>
 
-    <!-- PROJECTS -->
-    <section class="case-files fade-up fade-up-delay-2" id="work">
-        <div class="case-files__rail" aria-hidden="true">
-            <div class="case-files__rail-track">
-                <div class="case-files__rail-fill" id="case-rail-fill"></div>
-            </div>
-            <div class="case-files__rail-dots" id="case-rail-dots">
-                {% for project in case_files %}
-                <button type="button" class="case-files__rail-dot{% if loop.first %} is-active{% endif %}"
-                        data-chapter="chapter-{{ loop.index }}"
-                        aria-label="Go to {{ project.title }}"></button>
-                {% endfor %}
-            </div>
-        </div>
-
+    <!-- WORK: a compact index. Full write-ups live on the /work/<slug> case study pages. -->
+    {% set built = case_files | selectattr('tag', 'equalto', 'Built') | list %}
+    {% set written = case_files | rejectattr('tag', 'equalto', 'Built') | list %}
+    <section class="case-files" id="work">
         <div class="container">
             <div class="case-files__header">
                 <h2 class="case-files__label">Work</h2>
-                <span class="case-files__count">{{ '%02d'|format(case_files|length) }} Case Files</span>
             </div>
 
-            {% for project in case_files %}
-            <article class="case-chapter{% if loop.index is even %} case-chapter--reverse{% endif %}"
-                     id="chapter-{{ loop.index }}">
-                <div class="case-chapter__grid">
-                    <aside class="case-chapter__panel case-chapter__panel--reveal">
-                        <span class="case-chapter__serial" aria-hidden="true">{{ '%02d'|format(loop.index) }}</span>
-                        {% if project.tag %}
-                        <span class="case-chapter__tag">{{ project.tag }}</span>
-                        {% endif %}
-                        <h3 class="case-chapter__title">{{ project.title }}</h3>
-                        <p class="case-chapter__deck">{{ project.deck }}</p>
-                        <div class="case-chapter__meta">
-                            <div class="case-chapter__meta-row">
-                                <span class="case-chapter__meta-label">Role</span>
-                                <span class="case-chapter__meta-value">{{ project.role }}</span>
-                            </div>
-                            {% if project.stack %}
-                            <div class="case-chapter__meta-row">
-                                <span class="case-chapter__meta-label">Stack</span>
-                                <span class="case-chapter__meta-value">{{ project.stack }}</span>
-                            </div>
-                            {% endif %}
-                            <div class="case-chapter__meta-row">
-                                <span class="case-chapter__meta-label">Year</span>
-                                <span class="case-chapter__meta-value">{{ project.year }}</span>
-                            </div>
+            {% if built %}
+            <section class="work-group" aria-labelledby="work-built">
+                <h3 class="work-group__title" id="work-built">Products I've built</h3>
+                {% for project in built %}
+                <article class="work-row" id="{{ project.slug }}">
+                    <div class="work-row__media">
+                        {% if project.preview_image %}
+                        <div class="case-window">
+                            <a href="{{ project.link or '/work/' ~ project.slug }}"{% if project.link %} target="_blank" rel="noopener"{% endif %} class="case-figure__link" aria-label="{% if project.link %}Live demo{% else %}Case study{% endif %}: {{ project.title }}">
+                                <div class="case-figure__frame">
+                                    <img
+                                        class="case-figure__image"
+                                        src="{{ project.preview_image }}"
+                                        alt="Preview of {{ project.title }}"
+                                        width="1440"
+                                        height="900"
+                                        loading="lazy"
+                                        decoding="async"
+                                        onerror="this.parentElement.classList.add('has-fallback'); this.remove();">
+                                    <div class="case-cover case-cover--fallback">
+                                        <p class="case-cover__title">{{ project.title }}</p>
+                                        <p class="case-cover__label">{{ project.liveDomain }}</p>
+                                    </div>
+                                </div>
+                            </a>
                         </div>
+                        {% endif %}
+                    </div>
+                    <div class="work-row__body">
+                        <h4 class="work-row__title">{{ project.title }}</h4>
+                        <p class="work-row__deck">{{ project.deck }}</p>
+                        <p class="work-row__meta">{{ project.role }} · {{ project.year }}{% if project.stack %} · {{ project.stack }}{% endif %}</p>
                         <div class="case-chapter__actions">
                             {% if project.link %}
                             <a href="{{ project.link }}" target="_blank" rel="noopener" class="case-chapter__cta">Live demo ↗</a>
-                            {% else %}
-                            <p class="case-chapter__note">TODO: add the PRD link</p>
                             {% endif %}
-                            <a href="/work/{{ project.slug }}" class="case-chapter__cta">Read case study →</a>
+                            {% for extra in project.more_links or [] %}
+                            <a href="{{ extra.href }}" target="_blank" rel="noopener" class="case-chapter__cta">{{ extra.label }} ↗</a>
+                            {% endfor %}
+                            {% if project.case_page is not false %}
+                            <a href="/work/{{ project.slug }}" class="case-chapter__cta">Read case study</a>
+                            {% endif %}
                         </div>
                         {% if project.link_note %}
                         <p class="case-chapter__note">{{ project.link_note }}</p>
                         {% endif %}
-                    </aside>
-
-                    <div class="case-chapter__content">
-                        {% if project.liveUrl %}
-                        {% set caption_label = project.liveUrl | replace('https://', '') | replace('http://', '') | trim('/') %}
-                        {% else %}
-                        {% set caption_label = project.figure_label %}
-                        {% endif %}
-                        <figure class="case-figure case-block--reveal">
-                            <div class="case-window">
-                                <div class="case-window__titlebar" aria-hidden="true">
-                                    <span class="case-window__index">{{ '%02d'|format(loop.index) }}</span>
-                                    <span class="case-window__lights" aria-hidden="true">
-                                        <span class="case-window__dot case-window__dot--close"></span>
-                                        <span class="case-window__dot case-window__dot--min"></span>
-                                        <span class="case-window__dot case-window__dot--max"></span>
-                                    </span>
-                                    <span class="case-window__name">{{ project.title }}</span>
-                                </div>
-                                {% if project.preview_image %}
-                                <a href="{{ project.link }}" target="_blank" rel="noopener" class="case-figure__link" aria-label="Live demo: {{ project.title }}">
-                                    <div class="case-figure__frame">
-                                        <img
-                                            class="case-figure__image"
-                                            src="{{ project.preview_image }}"
-                                            alt="Preview of {{ project.title }}"
-                                            width="1440"
-                                            height="900"
-                                            loading="lazy"
-                                            decoding="async"
-                                            onerror="this.parentElement.classList.add('has-fallback'); this.remove();">
-                                        <div class="case-cover case-cover--fallback">
-                                            <p class="case-cover__title">{{ project.title }}</p>
-                                            <p class="case-cover__label">{{ project.liveDomain }}</p>
-                                        </div>
-                                    </div>
-                                </a>
-                                {% elif project.cover_metric %}
-                                <div class="case-figure__frame case-cover">
-                                    <p class="case-cover__title">{{ project.title }}</p>
-                                    <p class="case-cover__metric">{{ project.cover_metric }}</p>
-                                    <p class="case-cover__label">{{ project.cover_label }}</p>
-                                </div>
-                                {% endif %}
-                            </div>
-                            <figcaption class="case-figure__caption">
-                                <span class="case-figure__fig">FIG. 01</span><span class="case-figure__sep"> — </span><span class="case-figure__label">{{ caption_label }}</span>
-                            </figcaption>
-                        </figure>
-                        {% for line in project.narrative %}
-                        <p class="case-narrative case-block--reveal">{{ line }}</p>
-                        {% endfor %}
-                        <blockquote class="case-pullquote case-block--reveal">
-                            <p>{{ project.pullQuote }}</p>
-                        </blockquote>
                     </div>
-                </div>
-            </article>
-            {% if not loop.last %}
-            <div class="case-chapter__divider" aria-hidden="true"></div>
-            {% endif %}
-            {% endfor %}
-
-            <div class="case-chapter__divider" aria-hidden="true"></div>
-            <article class="now-building">
-                <p class="case-files__label">Now building</p>
-                <div class="now-building__heading">
-                    <h3 class="now-building__title">{{ now_building.title }}</h3>
-                    <span class="case-chapter__tag">{{ now_building.tag }}</span>
-                </div>
-                <div class="case-chapter__meta">
-                    <div class="case-chapter__meta-row">
-                        <span class="case-chapter__meta-label">Role</span>
-                        <span class="case-chapter__meta-value">{{ now_building.role }}</span>
-                    </div>
-                    <div class="case-chapter__meta-row">
-                        <span class="case-chapter__meta-label">Stack</span>
-                        <span class="case-chapter__meta-value">{{ now_building.stack }}</span>
-                    </div>
-                    <div class="case-chapter__meta-row">
-                        <span class="case-chapter__meta-label">Year</span>
-                        <span class="case-chapter__meta-value">{{ now_building.year }}</span>
-                    </div>
-                </div>
-                {% for line in now_building.narrative %}
-                <p class="case-narrative">{{ line }}</p>
+                </article>
                 {% endfor %}
-            </article>
+            </section>
+            {% endif %}
+
+            {% if written %}
+            <section class="work-group" aria-labelledby="work-written">
+                <h3 class="work-group__title" id="work-written">PRDs, teardowns and concepts</h3>
+                {% for project in written %}
+                <article class="work-row work-row--text" id="{{ project.slug }}">
+                    <div class="work-row__media">
+                        {% if project.cover_metric %}
+                        <p class="work-row__metric">{{ project.cover_metric }}</p>
+                        <p class="work-row__metric-label">{{ project.cover_label }}</p>
+                        {% endif %}
+                    </div>
+                    <div class="work-row__body">
+                        <h4 class="work-row__title">{{ project.title }}</h4>
+                        <p class="work-row__deck">{{ project.deck }}</p>
+                        <p class="work-row__meta">{{ project.figure_label or project.tag }} · {{ project.role }} · {{ project.year }}</p>
+                        <div class="case-chapter__actions">
+                            {% if project.doc_link %}
+                            <a href="{{ project.doc_link }}" target="_blank" rel="noopener" class="case-chapter__cta">{{ project.doc_label or 'Read the PRD' }} ↗</a>
+                            {% else %}
+                            <p class="case-chapter__note">TODO: add the PRD link</p>
+                            {% endif %}
+                            {% for extra in project.more_links or [] %}
+                            <a href="{{ extra.href }}" target="_blank" rel="noopener" class="case-chapter__cta">{{ extra.label }} ↗</a>
+                            {% endfor %}
+                            {% if project.case_page is not false %}
+                            <a href="/work/{{ project.slug }}" class="case-chapter__cta">Read case study</a>
+                            {% endif %}
+                        </div>
+                    </div>
+                </article>
+                {% endfor %}
+            </section>
+            {% endif %}
+
+            {% if now_building %}
+            <section class="work-group" aria-labelledby="work-now">
+                <h3 class="work-group__title" id="work-now">Now building</h3>
+                <article class="work-row work-row--text">
+                    <div class="work-row__media">
+                        <p class="work-row__metric">{{ now_building.tag }}</p>
+                    </div>
+                    <div class="work-row__body">
+                        <h4 class="work-row__title">{{ now_building.title }}</h4>
+                        {% for line in now_building.narrative %}
+                        <p class="work-row__deck">{{ line }}</p>
+                        {% endfor %}
+                        <p class="work-row__meta">{{ now_building.role }} · {{ now_building.year }} · {{ now_building.stack }}</p>
+                    </div>
+                </article>
+            </section>
+            {% endif %}
         </div>
     </section>
     <!-- ABOUT & CONTACT -->
-    <section class="about-contact fade-up fade-up-delay-3" id="about">
+    <section class="about-contact" id="about">
         <div class="container">
         <div class="about">
-            <h3>About</h3>
+            <h2 class="case-files__label">About</h2>
             <p>
                 I'm a BTech CSE graduate from Parul University (Apr 2025) who thinks in systems. I'm drawn to the gap between 
                 what users intend to do and what they actually do — and I work backwards 
@@ -227,184 +258,22 @@
                 The PM I'm becoming: one who treats user behavior as the spec, not 
                 the variable.
             </p>
-            <div class="interests-section">
-                <h4>Interests</h4>
-                <div class="interests-tags">
-                    <span>Behavioral Economics</span>
-                    <span>Habit Formation</span>
-                    <span>0→1 Products</span>
-                </div>
-            </div>
+            <p class="interests"><span class="interests__label">Interests:</span> Behavioral economics, habit formation, 0→1 products</p>
         </div>
 
-        <nav class="dock" aria-labelledby="contact-heading">
-            <h3 id="contact-heading" class="dock__heading">Contact</h3>
-            <div class="dock__bar">
-                <a class="dock__item dock__item--linkedin" href="https://www.linkedin.com/in/astha-purohit/" target="_blank" rel="noopener" aria-label="LinkedIn">
-                    <span class="dock__label">LinkedIn</span>
-                    <span class="dock__icon" aria-hidden="true">
-                        <svg viewBox="0 0 24 24" fill="currentColor"><path d="M4.98 3.5C4.98 4.88 3.88 6 2.5 6S0 4.88 0 3.5 1.12 1 2.5 1s2.48 1.12 2.48 2.5zM.24 8.48h4.52V24H.24V8.48zM8.24 8.48h4.33v2.12h.06c.6-1.14 2.08-2.34 4.28-2.34 4.58 0 5.42 3.01 5.42 6.93V24h-4.52v-7.63c0-1.82-.03-4.16-2.54-4.16-2.54 0-2.93 1.98-2.93 4.03V24H8.24V8.48z"/></svg>
-                    </span>
-                    <span class="dock__dot" aria-hidden="true"></span>
-                </a>
-                <a class="dock__item dock__item--github" href="https://github.com/asthapurohit" target="_blank" rel="noopener" aria-label="GitHub">
-                    <span class="dock__label">GitHub</span>
-                    <span class="dock__icon" aria-hidden="true">
-                        <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C6.48 2 2 6.58 2 12.26c0 4.52 2.87 8.36 6.84 9.72.5.1.68-.22.68-.49 0-.24-.01-.87-.01-1.71-2.78.62-3.37-1.37-3.37-1.37-.45-1.18-1.11-1.5-1.11-1.5-.91-.64.07-.63.07-.63 1 .07 1.53 1.06 1.53 1.06.89 1.57 2.34 1.12 2.91.85.09-.67.35-1.12.63-1.37-2.22-.26-4.56-1.14-4.56-5.07 0-1.12.39-2.03 1.03-2.75-.1-.26-.45-1.3.1-2.7 0 0 .84-.27 2.75 1.05A9.2 9.2 0 0 1 12 7.29c.85 0 1.71.12 2.51.34 1.91-1.32 2.75-1.05 2.75-1.05.55 1.4.2 2.44.1 2.7.64.72 1.03 1.63 1.03 2.75 0 3.94-2.34 4.8-4.57 5.06.36.32.68.94.68 1.9 0 1.37-.01 2.47-.01 2.81 0 .27.18.59.69.49A10.03 10.03 0 0 0 22 12.26C22 6.58 17.52 2 12 2z"/></svg>
-                    </span>
-                    <span class="dock__dot" aria-hidden="true"></span>
-                </a>
-                <a class="dock__item dock__item--email" href="mailto:asthapurohit510@gmail.com" aria-label="Email">
-                    <span class="dock__label">Email</span>
-                    <span class="dock__icon" aria-hidden="true">
-                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="M4 7l8 7 8-7"/></svg>
-                    </span>
-                    <span class="dock__dot" aria-hidden="true"></span>
-                </a>
-                <a class="dock__item dock__item--substack" href="https://substack.com/@asthadiaries" target="_blank" rel="noopener" aria-label="Substack">
-                    <span class="dock__label">Substack</span>
-                    <span class="dock__icon" aria-hidden="true">
-                        <svg viewBox="0 0 24 24" fill="currentColor"><path d="M3.5 3.75h17v2.2h-17v-2.2zm0 4.55h17v2.2h-17V8.3zm0 4.55V20.2L12 16.4l8.5 3.8v-7.35h-17z"/></svg>
-                    </span>
-                    <span class="dock__dot" aria-hidden="true"></span>
-                </a>
-                <a class="dock__item dock__item--resume" href="/AsthaPurohit_Resume.pdf" target="_blank" rel="noopener" aria-label="Resume">
-                    <span class="dock__label">Resume</span>
-                    <span class="dock__icon" aria-hidden="true">
-                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"><path d="M7 3.5h7.2L19 8.3V20.5H7z"/><path d="M14.2 3.5V8.3H19"/><path d="M9.5 12.5h5M9.5 16h5"/></svg>
-                    </span>
-                    <span class="dock__dot" aria-hidden="true"></span>
-                </a>
-            </div>
+        <nav class="contact" aria-labelledby="contact-heading">
+            <h2 id="contact-heading" class="case-files__label">Contact</h2>
+            <ul class="contact__links">
+                <li><a href="https://www.linkedin.com/in/astha-purohit/" target="_blank" rel="noopener">LinkedIn</a></li>
+                <li><a href="https://github.com/asthapurohit" target="_blank" rel="noopener">GitHub</a></li>
+                <li><a href="mailto:asthapurohit510@gmail.com">Email</a></li>
+                <li><a href="https://substack.com/@asthadiaries" target="_blank" rel="noopener">Substack</a></li>
+                <li><a href="/AsthaPurohit_Resume.pdf" target="_blank" rel="noopener">Resume</a></li>
+            </ul>
         </nav>
         <p class="site-footer-note">Built by Astha Purohit · {{ year }}</p>
         </div>
     </section>
-
-    <script>
-        // ── Case files: scroll rail + chapter reveals ──
-        (function () {
-            const workSection = document.getElementById('work');
-            const railFill = document.getElementById('case-rail-fill');
-            const railDots = document.querySelectorAll('.case-files__rail-dot');
-            const chapters = document.querySelectorAll('.case-chapter');
-            const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-            const headerEl = document.querySelector('.site-header');
-
-            function headerOffset() {
-                return headerEl ? headerEl.offsetHeight + 24 : 96;
-            }
-
-            function updateRail() {
-                if (!workSection || !railFill) return;
-                const rect = workSection.getBoundingClientRect();
-                const total = workSection.offsetHeight - window.innerHeight;
-                if (total <= 0) return;
-                const scrolled = Math.min(Math.max(-rect.top, 0), total);
-                railFill.style.height = ((scrolled / total) * 100) + '%';
-
-                let active = 0;
-                chapters.forEach((chapter, i) => {
-                    const cRect = chapter.getBoundingClientRect();
-                    if (cRect.top <= headerOffset() + 40) active = i;
-                });
-                railDots.forEach((dot, i) => dot.classList.toggle('is-active', i === active));
-            }
-
-            railDots.forEach(dot => {
-                dot.addEventListener('click', () => {
-                    const target = document.getElementById(dot.dataset.chapter);
-                    if (!target) return;
-                    const top = target.getBoundingClientRect().top + window.scrollY - headerOffset();
-                    window.scrollTo({ top, behavior: prefersReducedMotion ? 'auto' : 'smooth' });
-                });
-            });
-
-            function updatePanelSticky() {
-                const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-                const narrow = window.matchMedia('(max-width: 1024px)').matches;
-                const offset = headerOffset();
-                document.documentElement.style.setProperty('--panel-sticky-top', offset + 'px');
-
-                document.querySelectorAll('.case-chapter__panel').forEach((panel) => {
-                    panel.classList.remove('is-static');
-                    if (reduceMotion || narrow) {
-                        panel.classList.add('is-static');
-                        return;
-                    }
-                    if (panel.offsetHeight + offset >= window.innerHeight) {
-                        panel.classList.add('is-static');
-                    }
-                });
-            }
-
-            window.addEventListener('scroll', updateRail, { passive: true });
-            window.addEventListener('resize', () => {
-                updateRail();
-                updatePanelSticky();
-            });
-            window.matchMedia('(prefers-reduced-motion: reduce)').addEventListener('change', updatePanelSticky);
-            window.matchMedia('(max-width: 1024px)').addEventListener('change', updatePanelSticky);
-            if (document.fonts && document.fonts.ready) {
-                document.fonts.ready.then(updatePanelSticky);
-            }
-            updateRail();
-            updatePanelSticky();
-
-            if (!prefersReducedMotion) {
-                const revealObserver = new IntersectionObserver((entries) => {
-                    entries.forEach(entry => {
-                        if (!entry.isIntersecting) return;
-                        const blocks = entry.target.querySelectorAll('.case-block--reveal');
-                        blocks.forEach((block, i) => {
-                            block.style.setProperty('--reveal-delay', (i * 90) + 'ms');
-                            block.classList.add('is-visible');
-                        });
-                        const panel = entry.target.querySelector('.case-chapter__panel--reveal');
-                        if (panel) panel.classList.add('is-visible');
-                        revealObserver.unobserve(entry.target);
-                    });
-                }, { threshold: 0.15, rootMargin: '0px 0px -10% 0px' });
-
-                chapters.forEach(chapter => revealObserver.observe(chapter));
-            } else {
-                document.querySelectorAll('.case-block--reveal, .case-chapter__panel--reveal')
-                    .forEach(el => el.classList.add('is-visible'));
-            }
-        })();
-
-        // ── Smooth scroll ──
-        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-            anchor.addEventListener('click', function(e) {
-                const target = document.querySelector(this.getAttribute('href'));
-                if (!target) return;
-                e.preventDefault();
-                const navHeight = document.querySelector('.site-header').offsetHeight;
-                const top = target.getBoundingClientRect().top + window.scrollY - navHeight - 24;
-                window.scrollTo({ top, behavior: 'smooth' });
-            });
-        });
-
-        // ── Intersection Observer for fade-up animations ──
-        const observerOptions = {
-            threshold: 0.1,
-            rootMargin: '0px 0px -50px 0px'
-        };
-
-        const observer = new IntersectionObserver((entries) => {
-            entries.forEach(entry => {
-                if (entry.isIntersecting) {
-                    entry.target.classList.add('visible');
-                }
-            });
-        }, observerOptions);
-
-        // Observe all fade-up elements
-        document.querySelectorAll('.fade-up').forEach(el => {
-            observer.observe(el);
-        });
-
-    </script>
 
 </body>
 </html>
